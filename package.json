@@ -4,6 +4,9 @@
   "description": "A Phaser 3 Project Template",
   "main": "src/index.js",
   "scripts": {
+    "build:re": "bsb -make-world",
+    "start:re": "bsb -make-world -w",
+    "clean:re": "bsb -clean-world",
     "build": "webpack --config webpack/prod.js ",
     "start": "webpack-dev-server --config webpack/base.js --open"
   },
@@ -33,6 +36,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "bs-platform": "^5.0.6",
     "phaser": "^3.16.2"
   }
 }
