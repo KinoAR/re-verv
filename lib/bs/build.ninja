@@ -16,17 +16,21 @@ g_lib_incls = -I . -I src
 rule build_ast_and_module_sets_from_re
   command = $bsc -pp "$refmt $refmt_flags" $reason_react_jsx  $ppx_flags $warnings $bsc_flags -c -o $out -bs-syntax-only -bs-binary-ast -impl $in
   description = [34mBuilding[39m [2m${out}[22m
-build src/PhaserAPI.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/PhaserAPI.re
+build src/Utils.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Utils.re
 rule build_deps
   command = $bsdep $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
-build src/PhaserAPI.d : build_deps src/PhaserAPI.mlast
+build src/Utils.d : build_deps src/Utils.mlast
 rule re_cmj_cmi
   command = $bsc $g_pkg_flg  -bs-re-out -bs-super-errors $g_pkg_incls $g_lib_incls $bsc_extra_includes $warnings $bsc_flags $gentypeconfig -o $out -c  $in $postbuild
   dyndep = $in_e.d
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
+build src/Utils-ReactHooksTemplate.cmj |  $src_root_dir/src/Utils.bs.js src/Utils-ReactHooksTemplate.cmi : re_cmj_cmi src/Utils.mlast ||  src/Utils.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/PhaserAPI.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/PhaserAPI.re
+build src/PhaserAPI.d : build_deps src/PhaserAPI.mlast
 build src/PhaserAPI-ReactHooksTemplate.cmj |  $src_root_dir/src/PhaserAPI.bs.js src/PhaserAPI-ReactHooksTemplate.cmi : re_cmj_cmi src/PhaserAPI.mlast ||  src/PhaserAPI.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 rule build_package

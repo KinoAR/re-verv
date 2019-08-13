@@ -21,6 +21,10 @@ function webgl(phaser) {
 
 var Game = /* module */[];
 
+var Scene = /* module */[];
+
+var BlendModes = /* module */[];
+
 var test = Phaser;
 
 var game = new Phaser.Game({
@@ -35,6 +39,8 @@ exports.canvas = canvas;
 exports.headless = headless;
 exports.webgl = webgl;
 exports.Game = Game;
+exports.Scene = Scene;
+exports.BlendModes = BlendModes;
 exports.test = test;
 exports.game = game;
 /* test Not a pure module */
