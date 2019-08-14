@@ -11,6 +11,7 @@
     "module": "commonjs",
     "in-source": true
   }],
+  "bs-dependencies": ["tablecloth-bucklscript"],
   "suffix": ".bs.js",
   "namespace": true,
   "refmt": 3

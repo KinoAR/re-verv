@@ -2,17 +2,36 @@
 
 type phaser;
 type game;
+
+type time = float;
+type delta = float;
+
+[@bs.obj] external anyData: (
+  ~name:string,
+  ~data: Js.t({..}),
+  unit
+) =>  _ = "";
+
+/* init, create need to have a data "object" */
+[@bs.deriving abstract]
 type scene = {
-  init: unit => unit,
-  preload: unit => unit,
-  create: unit => unit,
+  [@bs.optional] init: unit => unit,
+  [@bs.optional] preload: unit => unit,
+  [@bs.optional] create: unit => unit,
+  [@bs.optional] update: (time, delta) => unit,
+  [@bs.optional] extend: Utils.any
 };
 type map;
 type mapAdd;
 
 
+
 type rendererType = int;
+type audioContext;
+type centerType;
 type blendModes;
+type scaleModes;
+
 
 [@bs.get] external rendererAuto: phaser => rendererType = "AUTO";
 [@bs.get] external rendererCanvas: phaser => rendererType = "CANVAS";
@@ -28,26 +47,226 @@ let canvas = phaser => phaser -> rendererCanvas;
 let headless = phaser => phaser -> rendererHeadless;
 let webgl = phaser => phaser -> rendererWebGL;
 
+
 [@bs.deriving abstract]
-type gameConfig = {
-  [@bs.as "type"] type_: rendererType,
-  parent: string,
-  width:int,
-  height: int,
-  [@bs.optional] scene: scene,
+type fpsConfig = {
+  [@bs.optional] min: int,
+  [@bs.optional] target: int,
+  [@bs.optional] forceSetTimeOut: bool,
+  [@bs.optional] deltaHistory: int,
+  [@bs.optional] panicMax: int,
 };
 
+type inputConfig;
+
+[@bs.deriving abstract]
+type imagesConfig = {
+  [@bs.optional] default: string,
+  [@bs.optional] missing: string
+};
+
+[@bs.deriving abstract]
+type gamePadInputConfig = {
+  [@bs.optional] target: Utils.any,
+};
+
+[@bs.deriving abstract]
+type mouseInputConfig = {
+  [@bs.optional] target: Utils.any,
+  [@bs.optional] capture: bool
+};
+
+[@bs.deriving abstract] 
+type keyboardInputConfig = {
+  [@bs.optional] target: Utils.any,
+  [@bs.optional] capture: bool
+};
+[@bs.deriving abstract]
+type audioConfig = {
+  [@bs.optional] disableWebAudio: bool,
+  [@bs.optional] context: audioContext,
+  [@bs.optional] noAudio: bool,
+};
+
+[@bs.deriving abstract]
+type bannerConfig = {
+  [@bs.optional] hidePhaser: bool,
+  [@bs.optional] text: string,
+  [@bs.optional] background: array(string)
+};
+
+[@bs.deriving abstract]
+type domContainerConfig = {
+  [@bs.optional] createContainer: bool,
+  [@bs.optional] behindCanvas: bool
+};
+
+[@bs.deriving abstract]
+type renderConfig = {
+  [@bs.optional] antialias: bool,
+  [@bs.optional] desynchronized: bool,
+  [@bs.optional] pixelArt: bool,
+  [@bs.optional] roundPixels: bool,
+  [@bs.optional] transparent: bool,
+  [@bs.optional] clearBeforeRender: bool,
+  [@bs.optional] premultipliedAlpha: bool,
+  [@bs.optional] failIfMajorPerformanceCaveat: bool,
+  [@bs.optional] powerPreference: string,
+  [@bs.optional] batchSize: int,
+  [@bs.optional] maxLights: int,
+};
+
+[@bs.deriving abstract]
+type scaleConfig = {
+  [@bs.optional] width: int,
+  [@bs.as "width"][@bs.optional] widthAsString: string,
+  [@bs.optional] height: int, 
+  [@bs.as "height"][@bs.optional] heightAsString: string,
+  [@bs.optional] zoom : int,
+  [@bs.optional] resolution: int,
+  [@bs.optional] parent: string,
+  [@bs.optional] expandParent: bool,
+  [@bs.optional] mode: scaleModes,
+  [@bs.optional] min: int,
+  [@bs.optional] max: int,
+  [@bs.optional] autoRound: bool,
+  [@bs.optional] autoCenter: centerType,
+  [@bs.optional] resizeInterval: int,
+  [@bs.optional] fullscreenTarget: int,
+};
 
 
 
 [@bs.deriving abstract]
 type packFileConfig;
 
-[@bs.deriving abstract]
-type physicsConfig;
 
 [@bs.deriving abstract]
-type loaderConfig;
+type vector2Like = {
+  x: int,
+  y:int
+};
+
+[@bs.deriving abstract]
+type arcadeWorldConfig = {
+  [@bs.optional] fps: int,
+  [@bs.optional] timeScale: int,
+  [@bs.optional] gravity: vector2Like,
+  [@bs.optional] x: int,
+  [@bs.optional] y: int,
+  [@bs.optional] width: int,
+  [@bs.optional] height: int,
+  [@bs.optional] overlapBias: int,
+  [@bs.optional] tileBias: int,
+  [@bs.optional] forceX: bool,
+  [@bs.optional] isPaused: bool,
+  [@bs.optional] debug: bool,
+  [@bs.optional] debugShowBody: bool,
+  [@bs.optional] debugShowStaticBody: bool,
+  [@bs.optional] debugShowVelocity: bool,
+  [@bs.optional] debugBodyColor: int,
+  [@bs.optional] debugStaticBodyColor: int,
+  [@bs.optional] debugVelocityColor: int,
+  [@bs.optional] maxEntries: int,
+  [@bs.optional] useTree: bool
+};
+
+[@bs.deriving abstract]
+type boundsConfig = {
+  [@bs.optional] x: int,
+  [@bs.optional] y: int,
+  [@bs.optional] width: int,
+  [@bs.optional] height: int,
+  [@bs.optional] thickness: int,
+  [@bs.optional] left: bool,
+  [@bs.optional] right: bool,
+  [@bs.optional] top: bool,
+  [@bs.optional] bottom: bool,
+};
+
+[@bs.deriving abstract]
+type impactWorldConfig = {
+  [@bs.optional] gravity: int,
+  [@bs.optional] cellSize: int,
+  [@bs.optional] timeScale: int,
+  [@bs.optional] maxStep: float,
+  [@bs.optional] debug: bool,
+  [@bs.optional] maxVelocity: int,
+  [@bs.optional] debugShowBody: bool,
+  [@bs.optional] debugShowVelocity: bool,
+  [@bs.optional] debugVelocityColor: int,
+  [@bs.optional] debugBodyColor: int,
+  [@bs.optional] maxVelocityX: int,
+  [@bs.optional] maxVelocityY: int,
+  [@bs.optional] minBounceVelocity: int,
+  [@bs.optional] gravityFactor: int,
+  [@bs.optional] bouncies: int,
+  [@bs.optional] setBounds: boundsConfig
+}; 
+[@bs.deriving abstract]
+type matterBodyTileOptions = {
+  [@bs.optional] isStatic: bool,
+  [@bs.optional] addToWorld: bool
+};
+
+type matterBody;
+[@bs.deriving abstract]
+type matterTileOptions = {
+  [@bs.optional] body: matterBody,
+  [@bs.optional] isStatic: bool,
+  [@bs.optional] addToWorld: bool
+};
+
+[@bs.deriving abstract]
+type matterWorldConfig = {
+  [@bs.optional] gravity: vector2Like,
+  [@bs.optional] setBounds: boundsConfig,
+  [@bs.optional] positionIterations: int,
+  [@bs.optional] velocityIterations: int,
+  [@bs.optional] constraintIterations: int,
+  [@bs.optional] enableSleeping: bool,
+  [@bs.as "timing.timestamp"][@bs.optional] timingTimeStamp: int,
+  [@bs.as "timing.timescale"][@bs.optional] timingTimeScale: int,
+  [@bs.optional] enabled: bool,
+  [@bs.optional] correction: int,
+  [@bs.optional] getDelta: unit => unit,
+  [@bs.optional] autoUpdate: bool,
+  [@bs.optional] debug: bool,
+  [@bs.optional] debugShowBody: bool,
+  [@bs.optional] debugShowStaticBody: bool,
+  [@bs.optional] debugShowVelocity: bool,
+  [@bs.optional] debugBodyColor: int,
+  [@bs.optional] debugBodyFillColor: int,
+  [@bs.optional] debugStaticBodyColor: int,
+  [@bs.optional] debugVelocityColor: int,
+  [@bs.optional] debugShowJoint: bool,
+  [@bs.optional] debugJointColor: int,
+  [@bs.optional] debugWireframes: bool,
+  [@bs.optional] debugShowInternalEdges: bool,
+  [@bs.optional] debugShowConvexHulls: bool,
+  [@bs.optional] debugShowSleeping: bool
+};
+
+[@bs.deriving abstract]
+type physicsConfig = {
+  [@bs.optional] default:string,
+  [@bs.optional] arcade: arcadeWorldConfig,
+  [@bs.optional] impact: impactWorldConfig,
+  [@bs.optional] matter: matterWorldConfig
+};
+
+[@bs.deriving abstract]
+type loaderConfig = {
+  [@bs.optional] baseURL: string,
+  [@bs.optional] path: string,
+  [@bs.optional] maxParallelDownloads: int,
+  [@bs.optional] crossOriigin: string,
+  [@bs.optional] responseType: string,
+  [@bs.optional] async: bool,
+  [@bs.optional] user: string,
+  [@bs.optional] password: string,
+  [@bs.optional] timeout: int
+};
 
 
 
@@ -93,6 +312,34 @@ type sceneSettings = {
   plugins: bool
 };
 
+
+
+[@bs.deriving abstract]
+type gameConfig = {
+  [@bs.as "type"] type_: rendererType,
+  parent: string,
+  width:int,
+  height: int,
+  [@bs.optional] zoom: int,
+  [@bs.optional] resolution: int,
+  [@bs.optional] scene: scene,
+  [@bs.optional] canvasStyle: string,
+  [@bs.optional] seed: array(string),
+  [@bs.optional] url:string,
+  [@bs.optional] version:string,
+  [@bs.optional] autoFocus: bool,
+  [@bs.optional] input: inputConfig,
+  [@bs.optional] disableContextMenu: bool,
+  [@bs.optional] transparent: bool,
+  [@bs.optional] fps: fpsConfig,
+  [@bs.optional] render: renderConfig,
+  [@bs.optional] backgroundColor: string,
+  [@bs.optional] loader: loaderConfig,
+  [@bs.optional] images: imagesConfig,
+  [@bs.optional] physics: physicsConfig,
+  [@bs.optional] scale: scaleConfig,
+  [@bs.optional] audio: audioConfig,
+};
 
 
 [@bs.module] external phaser: phaser = "phaser"; 

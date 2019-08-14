@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "bs-platform": "^5.0.6",
-    "phaser": "^3.16.2"
+    "phaser": "^3.16.2",
+    "tablecloth-bucklescript": "0.0.6"
   }
 }
