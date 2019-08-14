@@ -6,6 +6,8 @@ S /Users/kinor/Documents/development/nier-pixel/re-verv/node_modules/bs-platform
 B /Users/kinor/Documents/development/nier-pixel/re-verv/node_modules/bs-platform/lib/ocaml
 FLG -nostdlib -color always
 FLG -w -30-40+6+7+27+32..39+44+45+101
+S /Users/kinor/Documents/development/nier-pixel/re-verv/node_modules/tablecloth-bucklescript/lib/ocaml
+B /Users/kinor/Documents/development/nier-pixel/re-verv/node_modules/tablecloth-bucklescript/lib/ocaml
 S src
 B lib/bs/src
 ####BSB GENERATED: NO EDIT}

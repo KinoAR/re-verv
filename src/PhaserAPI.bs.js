@@ -25,6 +25,10 @@ var Scene = /* module */[];
 
 var BlendModes = /* module */[];
 
+var Tween = /* module */[];
+
+var DOM = /* module */[];
+
 var test = Phaser;
 
 var game = new Phaser.Game({
@@ -41,6 +45,8 @@ exports.webgl = webgl;
 exports.Game = Game;
 exports.Scene = Scene;
 exports.BlendModes = BlendModes;
+exports.Tween = Tween;
+exports.DOM = DOM;
 exports.test = test;
 exports.game = game;
 /* test Not a pure module */

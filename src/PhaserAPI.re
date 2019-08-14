@@ -425,6 +425,112 @@ module BlendModes {
   [@bs.get] external xor: blendModes => int = "XOR";
 };
 
+
+module Tween = {
+  type t = tweenManager;
+  type tween;
+  type target;
+
+  [@bs.deriving abstract] 
+  type numberTweenBuilderConfig = {
+    [@bs.optional] from: int,
+    [@bs.as "to"] [@bs.optional] to_: int,
+    [@bs.optional] delay: int,
+    [@bs.optional] duration: int,
+    [@bs.optional] ease: string,
+    [@bs.as "ease"] [@bs.optional] easeWithFunction: Utils.any => unit,
+    [@bs.optional] easeParams: array(Utils.any),
+    [@bs.optional] hold: int,
+    [@bs.optional] repeat: int,
+    [@bs.optional] repeatDelay: int,
+    [@bs.optional] yoyo: bool,
+    [@bs.optional] flipX: bool,
+    [@bs.optional] flipY: bool,
+    [@bs.optional] offset: int,
+    [@bs.optional] completeDelay: int,
+    [@bs.optional] loop: int,
+    [@bs.optional] loopDelay: int,
+    [@bs.optional] paused: bool,
+    [@bs.optional] props: Utils.any,
+    [@bs.optional] useFrames: bool,
+    [@bs.optional] callbackScope: Utils.any,
+    [@bs.optional] onComplete: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onCompleteParams: (array(Utils.any)),
+    [@bs.optional] onCompleteScope: Utils.any,
+    [@bs.optional] onLoopParams: array(Utils.any),
+    [@bs.optional] onRepeat: (tween, Utils.any, Utils.any) => unit,
+    [@bs.optional] onRepeatParams: array(Utils.any),
+    [@bs.optional] onRepeatScope: Utils.any,
+    [@bs.optional] onStart: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onStartParams: array(Utils.any),
+    [@bs.optional] onStartScope: Utils.any,
+    [@bs.optional] onUpdate: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onUpdateParams: array(Utils.any),
+    [@bs.optional] onUpdateScope: Utils.any,
+    [@bs.optional] onYoyo: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onYoyoParams: array(Utils.any),
+    [@bs.optional] onYoYoScope: Utils.any,
+    [@bs.optional] onActive: (tween, Utils.any, Utils.any) => unit,
+    [@bs.optional] onActiveParams: array(Utils.any),
+    [@bs.optional] onActiveScope: Utils.any
+  };
+
+  [@bs.deriving abstract]
+  type tweenBuilderConfig = {
+    targets: Utils.any,
+    [@bs.optional] delay: int,
+    [@bs.optional] duration: int,
+    [@bs.optional] ease: string,
+    [@bs.as "ease"] [@bs.optional] easeWithFunction: Utils.any => unit,
+    [@bs.optional] easeParams: array(Utils.any),
+    [@bs.optional] hold: int,
+    [@bs.optional] repeat: int,
+    [@bs.optional] repeatDelay: int,
+    [@bs.optional] yoyo: bool,
+    [@bs.optional] offset: int,
+    [@bs.optional] completeDelay: int,
+    [@bs.optional] loop: int,
+    [@bs.optional] loopDelay: int,
+    [@bs.optional] paused: bool,
+    [@bs.optional] useFrames: bool,
+    [@bs.optional] callbackScope: Utils.any,
+    [@bs.optional] onComplete: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onCompleteParams: (array(Utils.any)),
+    [@bs.optional] onCompleteScope: Utils.any,
+    [@bs.optional] onLoopParams: array(Utils.any),
+    [@bs.optional] onRepeat: (tween, Utils.any, Utils.any) => unit,
+    [@bs.optional] onRepeatParams: array(Utils.any),
+    [@bs.optional] onRepeatScope: Utils.any,
+    [@bs.optional] onStart: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onStartParams: array(Utils.any),
+    [@bs.optional] onStartScope: Utils.any,
+    [@bs.optional] onUpdate: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onUpdateParams: array(Utils.any),
+    [@bs.optional] onUpdateScope: Utils.any,
+    [@bs.optional] onYoyo: (tween, array(Utils.any), Utils.any) => unit,
+    [@bs.optional] onYoyoParams: array(Utils.any),
+    [@bs.optional] onYoYoScope: Utils.any,
+  };
+
+  [@bs.send] external add: (t, tweenBuilderConfig) => tween = "add";
+  [@bs.send] external addCounter: (t, numberTweenBuilderConfig) => tween = "addCounter";
+  [@bs.send] external create: (t, tweenBuilderConfig) => tween = "create";
+  [@bs.send] external destroy: t => unit = "destroy";
+  [@bs.send] external existing: (t, tween) => t = "existing";
+  [@bs.send] external getAllTweens: t => array(tween) = "getAllTweens";
+  [@bs.send] external getGlobalTimeScale: t => int = "getGlobalTimeScale";
+  [@bs.send] external getTweensOf: (t, target) => array(tween) = "getTweensOf";
+  [@bs.send] external isTweening: (t, target) => bool = "isTweening";
+  [@bs.send] external killAll: t => t = "killAll";
+  [@bs.send] external killTweensOf: (t, target) => t = "killTweensOf";
+  [@bs.send] external makeActive: (t, tween) => t = "makeActive";
+  [@bs.send] external pauseAll: t => t = "pauseAll";
+  [@bs.send] external remove: (t, tween) => t = "remove";
+  [@bs.send] external resumeAll: t => t = "resumeAll";
+  [@bs.send] external setGlobalTimeScale: (t, float) => t = "setGlobalTimeScale";
+
+};
+
 module DOM = {
   type t = phaserDom;
   [@bs.send] external addToDom:  (t,Dom.htmlElement, string) => Dom.htmlElement = "AddToDOM";
@@ -433,7 +539,7 @@ module DOM = {
   [@bs.send] external getScreenOrientation: (t, int, int) => string = "GetScreenOrientation";
   [@bs.send] external getTarget: (t, Dom.htmlElement) => Dom.htmlElement = "GetTarget";
   [@bs.send] external parseXML: (t, string) => Dom.xmlDocument = "ParseXML";
-  [@Bs.send] external removeFromDom: (t, Dom.htmlElement) => Dom.htmlElement = "RemoveFromDOM";
+  [@b.send] external removeFromDom: (t, Dom.htmlElement) => Dom.htmlElement = "RemoveFromDOM";
 };
 
 
