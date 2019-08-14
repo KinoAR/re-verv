@@ -512,6 +512,16 @@ module Tween = {
     [@bs.optional] onYoYoScope: Utils.any,
   };
 
+  [@bs.deriving abstract] 
+  type staggerConfig = {
+    [@bs.optional] start: int,
+    [@bs.optional] ease: string,
+    [@bs.as "from"] [@bs.optional] easeWithFn : unit => unit,
+    [@bs.as "from"] [@bs.optional] fromStr: string,
+    [@bs.as "from"] [@bs.optional] fromInt: int,
+    [@bs.optional] grid: array(int)
+  };
+
   [@bs.send] external add: (t, tweenBuilderConfig) => tween = "add";
   [@bs.send] external addCounter: (t, numberTweenBuilderConfig) => tween = "addCounter";
   [@bs.send] external create: (t, tweenBuilderConfig) => tween = "create";
