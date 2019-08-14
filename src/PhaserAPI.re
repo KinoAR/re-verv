@@ -2,10 +2,28 @@
 
 type phaser;
 type game;
-
+type systems;
+type clock;
 type time = float;
 type delta = float;
 type phaserDom;
+
+
+
+
+type scaleManager;
+type dataManager;
+type textureManager;
+type tweenManager;
+type baseSoundManager;
+type pluginManager;
+
+
+type inputPlugin;
+type loaderPlugin;
+type gameObjectCreator;
+
+
 
 [@bs.obj] external anyData: (
   ~name:string,
@@ -172,6 +190,8 @@ type arcadeWorldConfig = {
   [@bs.optional] useTree: bool
 };
 
+type arcadePhysics;
+
 [@bs.deriving abstract]
 type boundsConfig = {
   [@bs.optional] x: int,
@@ -204,6 +224,10 @@ type impactWorldConfig = {
   [@bs.optional] bouncies: int,
   [@bs.optional] setBounds: boundsConfig
 }; 
+
+type impactPhysics;
+
+
 [@bs.deriving abstract]
 type matterBodyTileOptions = {
   [@bs.optional] isStatic: bool,
@@ -247,6 +271,9 @@ type matterWorldConfig = {
   [@bs.optional] debugShowConvexHulls: bool,
   [@bs.optional] debugShowSleeping: bool
 };
+
+type matterPhysics;
+
 
 [@bs.deriving abstract]
 type physicsConfig = {
@@ -353,6 +380,15 @@ module Game {
 module Scene {
   type t = scene;
   [@bs.module "phaser"][@bs.new] external make: (sceneConfig) => t = "Scene";
+  [@bs.get] external game: t => game = "game";
+  [@bs.get] external impact: t => impactPhysics = "impact";
+  [@bs.get] external matter: t => matterPhysics = "matter";
+  [@bs.get] external physics: t => arcadePhysics = "physics";
+  [@bs.get] external sys: t => systems = "sys";
+  [@bs.get] external textures: t => textureManager = "textures";
+  [@bs.get] external time: t => clock = "time";
+  [@bs.get] external tweens: t => tweenManager = "tweens";
+  [@bs.set] external update: (t, (time, delta)) => unit = "update";
 }
 
 module BlendModes {
