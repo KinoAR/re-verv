@@ -5,6 +5,7 @@ type game;
 
 type time = float;
 type delta = float;
+type phaserDom;
 
 [@bs.obj] external anyData: (
   ~name:string,
@@ -386,6 +387,17 @@ module BlendModes {
   [@bs.get] external sourceIn: blendModes => int = "SOURCE_IN";
   [@bs.get] external sourceAtop: blendModes => int = "SOURCE_ATOP";
   [@bs.get] external xor: blendModes => int = "XOR";
+};
+
+module DOM = {
+  type t = phaserDom;
+  [@bs.send] external addToDom:  (t,Dom.htmlElement, string) => Dom.htmlElement = "AddToDOM";
+  [@bs.send] external domContentLoaded: (t, unit => unit) => unit = "DOMContentLoaded";
+  [@bs.send] external getInnerHeight: (t, bool) => int = "GetInnerHeight";
+  [@bs.send] external getScreenOrientation: (t, int, int) => string = "GetScreenOrientation";
+  [@bs.send] external getTarget: (t, Dom.htmlElement) => Dom.htmlElement = "GetTarget";
+  [@bs.send] external parseXML: (t, string) => Dom.xmlDocument = "ParseXML";
+  [@Bs.send] external removeFromDom: (t, Dom.htmlElement) => Dom.htmlElement = "RemoveFromDOM";
 };
 
 
