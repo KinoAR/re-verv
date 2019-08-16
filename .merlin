@@ -1,6 +1,6 @@
 ####{BSB GENERATED: NO EDIT
 B lib/bs
-FLG -open ReactHooksTemplate
+FLG -open ReVerv
 FLG -ppx '/Users/kinor/Documents/development/nier-pixel/re-verv/node_modules/bs-platform/lib/bsppx.exe -bs-jsx 3'
 S /Users/kinor/Documents/development/nier-pixel/re-verv/node_modules/bs-platform/lib/ocaml
 B /Users/kinor/Documents/development/nier-pixel/re-verv/node_modules/bs-platform/lib/ocaml

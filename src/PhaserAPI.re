@@ -7,10 +7,11 @@ type clock;
 type time = float;
 type delta = float;
 type phaserDom;
-
-
-
-
+type eventEmitter;
+type lightsManager;
+type gameObjectFactory;
+type gameObject;
+type point;
 type scaleManager;
 type dataManager;
 type textureManager;
@@ -18,6 +19,8 @@ type tweenManager;
 type baseSoundManager;
 type pluginManager;
 
+
+type tweenBuilderConfig;
 
 type inputPlugin;
 type loaderPlugin;
@@ -57,14 +60,6 @@ type scaleModes;
 [@bs.get] external rendererHeadless: phaser => rendererType = "HEADLESS";
 [@bs.get] external rendererWebGL: phaser => rendererType = "WEBGL";
 [@bs.get] external blendModes: phaser => blendModes = "BLENDMODES";
-
-
-
-
-let auto = phaser => phaser -> rendererAuto;
-let canvas = phaser => phaser -> rendererCanvas;
-let headless = phaser => phaser -> rendererHeadless;
-let webgl = phaser => phaser -> rendererWebGL;
 
 
 [@bs.deriving abstract]
@@ -377,19 +372,94 @@ module Game {
   [@bs.module "phaser"][@bs.new] external make: (gameConfig) => t = "Game";
 };
 
+
+module Tilemaps = {
+
+};
+
+module GameObjects = {
+  type t = gameObject;
+  type text;
+  type bitmapText;
+  type dynamicBitmapText;
+  type blitter;
+  type arc;
+  type displayList;
+  type updateList;
+  type container;
+  type curve;
+  type ellipse;
+  type extern;
+  type graphics;
+  type pathFollower;
+  type grid;
+  type group;
+  type image;
+  type isoBox;
+  type isoTriangle;
+  type line;
+  type particleEmitterManager;
+  type path;
+  type polygon;
+  type quad;
+  type rectangle;
+  type shader;
+  type sprite;
+  type sprite3d;
+  type star;
+  type tileSprite;
+  type triangle;
+  type zone;
+  module Text = {
+    [@bs.send] external setColor: (text, string) => text = "setColor";
+  };
+
+  module Polygon = {
+
+  };
+
+  module Image = {
+
+  };
+
+  module Zone = {
+
+  };
+};
+
+
+
 module Scene {
   type t = scene;
-  [@bs.module "phaser"][@bs.new] external make: (sceneConfig) => t = "Scene";
+  type scenePlugin;
+  [@bs.module "phaser"] [@bs.new] external make: (sceneConfig) => t = "Scene";
   [@bs.get] external game: t => game = "game";
+  [@bs.get] external add: t => gameObjectFactory = "add";
   [@bs.get] external impact: t => impactPhysics = "impact";
   [@bs.get] external matter: t => matterPhysics = "matter";
   [@bs.get] external physics: t => arcadePhysics = "physics";
+  [@bs.get] external data: t => dataManager = "data";
+  [@bs.get] external events: t => eventEmitter = "events";
   [@bs.get] external sys: t => systems = "sys";
+  [@bs.get] external scene: t => scenePlugin = "scene";
+  [@bs.get] external input: t => inputPlugin = "input";
+  [@bs.get] external makeGameObject: t => gameObjectCreator = "make";
+  [@bs.get] external registry: t => dataManager = "registry";
+  [@bs.get] external scale: t => scaleManager =  "scale";
+  [@bs.get] external lights: t => lightsManager = "lights";
   [@bs.get] external textures: t => textureManager = "textures";
   [@bs.get] external time: t => clock = "time";
   [@bs.get] external tweens: t => tweenManager = "tweens";
-  [@bs.set] external update: (t, (time, delta)) => unit = "update";
+  [@bs.set] external setUpdate: (t, (time, delta) => unit) => unit = "update";
+  [@bs.set] external setInit: (t, [@bs.this](t, Utils.any) => unit) => unit = "init";
+  [@bs.set] external setCreate: (t, [@bs.this] (t, Utils.any) => unit) => unit = "create"; 
+  [@bs.set] external setPreload: (t, t => unit) => unit = "preload";  
+  [@bs.send] external update: (t, (time, delta) => unit) => unit = "update";
+  external makeCreate: ([@bs.this] (t => unit) => unit) => unit => unit = "";
 }
+
+
+
 
 module BlendModes {
   type t = blendModes;
@@ -426,10 +496,103 @@ module BlendModes {
 };
 
 
-module Tween = {
+module TweenManager = {
   type t = tweenManager;
   type tween;
   type target;
+  type easeEquations = 
+  | Power0
+  | Power1
+  | Power2
+  | Power3
+  | Power4
+  | Linear
+  | Quad
+  | Cubic
+  | Quart
+  | Quint
+  | Sine
+  | Expo
+  | Circ
+  | Elastic
+  | Back
+  | Bounce
+  | Stepped
+  | QuadEaseIn
+  | CubicEaseIn
+  | QuintEaseIn
+  | QuartEaseIn
+  | SineEaseIn
+  | ExpoEaseIn
+  | CircEaseIn
+  | BackEaseIn
+  | BounceEaseIn
+  | QuadEaseOut
+  | CubicEaseOut
+  | QuartEaseOut
+  | QuintEaseOut
+  | SineEaseOut
+  | ExpoEaseOut
+  | CircEaseOut
+  | BackEaseOut
+  | BounceEaseOut
+  | QuadEaseInOut
+  | CubicEaseInOut
+  | QuartEaseInOut
+  | QuintEaseInOut
+  | SineEaseInOut
+  | ExpoEaseInOut
+  | CircEaseInOut
+  | BackEaseInOut
+  | BounceEaseInOut;
+  
+  let tweenEquationStr = tweenEquation => switch(tweenEquation) {
+    | Power0 => "Power0"
+    | Power1 => "Power1"
+    | Power2 => "Power2"
+    | Power3 => "Power3"
+    | Power4 => "Power4"
+    | Linear => "Linear"
+    | Quad => "Quad"
+    | Cubic => "Cubic"
+    | Quint => "Quint"
+    | Quart => "Quart"
+    | Sine => "Sine"
+    | Expo => "Expo"
+    | Circ => "Circ"
+    | Elastic => "Elastic"
+    | Back => "Back"
+    | Bounce => "Bounce"
+    | Stepped => "Stepped"
+    | QuadEaseIn => "Quad.easeIn"
+    | CubicEaseIn => "Cubic.easeIn"
+    | QuartEaseIn => "Quart.easeIn"
+    | QuintEaseIn => "Quint.easeIn"
+    | SineEaseIn => "Sine.easeIn"
+    | ExpoEaseIn => "Expo.easeIn"
+    | CircEaseIn => "Circ.easeIn"
+    | BackEaseIn => "Back.easeIn"
+    | BounceEaseIn => "Bounce.easeIn"
+    | QuadEaseOut => "Quad.easeOut"
+    | CubicEaseOut => "Cubic.easeOut"
+    | QuartEaseOut => "Quart.easeOut"
+    | QuintEaseOut => "Quint.easeOut"
+    | SineEaseOut => "Sine.easeOut"
+    | ExpoEaseOut => "Expo.easeOut"
+    | CircEaseOut => "Circ.easeOut"
+    | BackEaseOut => "Back.easeOut"
+    | BounceEaseOut => "Bounce.easeOut"
+    | QuadEaseInOut => "Quad.easeInOut"
+    | CubicEaseInOut => "Cubic.easeInOut"
+    | QuartEaseInOut => "Quart.easeInOut"
+    | QuintEaseInOut => "Quint.easeInOut"
+    | SineEaseInOut => "Sine.easeInOut"
+    | ExpoEaseInOut => "Expo.easeInOut"
+    | CircEaseInOut => "Circ.easeInOut"
+    | BackEaseInOut => "Back.easeInOut"
+    | BounceEaseInOut => "Bounce.easeInOut"
+  };
+
 
   [@bs.deriving abstract] 
   type numberTweenBuilderConfig = {
@@ -553,5 +716,34 @@ module DOM = {
 };
 
 
-let test = phaser;
-let game = Game.make(gameConfig(~type_=(phaser -> auto), ~parent="test", ~width=800, ~height=600, ()));
+module GameObjectFactory = {
+  type t = gameObjectFactory;
+  type font = string;
+  type text = string;
+  [@bs.get] external scene: t => scene = "scene";
+  [@bs.get] external systems: t => systems = "systems";
+  [@bs.get] external updateList: t =>  GameObjects.updateList = "UpdateList";
+  [@bs.get] external displayList: t =>  GameObjects.displayList = "DisplayList";
+  [@bs.send] external bitmapText: (t, int, int, font, text, int, int) => GameObjects.bitmapText = "bitmapText";
+  [@bs.send] external text:  (t, int, int, text) => GameObjects.text = "text";
+  [@bs.send] external blitter: (t, int, int, string) => GameObjects.blitter = "blitter";
+  [@bs.send] external blitterWithStrFrames: (t, int, int, string, string) => GameObjects.blitter = "blitter";
+  [@bs.send] external blitterWithIntFrames: (t, int, int, string, int) => GameObjects.blitter = "blitter";
+  [@bs.send] external circle: (t, int, int, int, int, int) => GameObjects.arc = "circle";
+  [@bs.send] external container: (t, int, int, gameObject) => GameObjects.container = "container";
+  [@bs.send] external containerWithArr: (t, int, int, array(gameObject)) => GameObjects.container = "container";
+  [@bs.send] external polygonInt: (t, int, int, array(point), int, int) => GameObjects.polygon = "polygon";
+  [@bs.send] external polygonFloat: (t, float, float, array(point), int, int) => GameObjects.polygon = "polygon";
+  [@bs.send] external extern: t => GameObjects.extern = "extern";
+  [@bs.send] external imageIntStr: (t, int, int, string,string) => GameObjects.image = "image";
+  [@bs.send] external imageIntInt: (t, int, int, string, int) => GameObjects.image = "image";
+  [@bs.send] external imageFloatStr: (t, float, float, string, string) => GameObjects.image ="image";
+  [@bs.send] external imageFloatInt: (t, float, float, string, int) => GameObjects.image ="image";
+  [@bs.send] external existing: (t, gameObject) => gameObject = "existing";
+  [@bs.send] external quadStr: (t, int, int, string, string) => GameObjects.quad = "quad";
+  [@bs.send] external quadInt: (t, int, int, string, int) => GameObjects.quad = "quad";
+  [@bs.send] external pathInt: (t, int, int) => GameObjects.path = "path";
+  [@bs.send] external pathFloat: (t, float, float) => GameObjects.path = "path";
+  [@bs.send] external tween: (t, tweenBuilderConfig) => TweenManager.tween = "tween";
+  [@bs.send] external zone: (t, int, int, int, int) => GameObjects.zone = "zone";
+};
