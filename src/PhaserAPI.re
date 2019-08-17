@@ -463,6 +463,7 @@ module GameObjects = {
   };
 
   module Graphics = {
+    type command;
     [@bs.get] external active: t => bool = "active"; 
     [@bs.set] external setActive: (t, bool) => unit = "active";
     [@bs.get] external alpha: t => int = "alpha";
@@ -490,6 +491,37 @@ module GameObjects = {
     [@bs.set] external setBlendMode: (t, blendModes) => unit = "blendMode"; 
     [@bs.get] external arcadeBody: t => Js.Nullable.t(arcadeBody) = "body";
     [@bs.get] external impactBody: t => Js.Nullable.t(impactBody) = "body";
+    [@bs.get] external cameraFilter: t => int = "cameraFilter";
+    [@bs.get] external commandBuffer: t => array(command) = "commandBuffer"; 
+    [@bs.get] external defaultFillAlpha: t => int = "defaultFillAlpha";
+    [@bs.get] external defaultFillAlphaF: t => float = "defaultFillAlpha";
+    [@bs.get] external defaultFillColor: t => int = "defaultFillColor";
+    [@bs.get] external defaultFillColorF: t => float = "defaultFillColor";
+    [@bs.get] external defaultStrokeAlpha: t => int = "defaultStrokeAlpha";
+    [@bs.get] external defaultStrokeAlphaF: t => float = "defaultStrokeAlpha";
+    [@bs.get] external defaultStrokeColor: t => int = "defaultStrokeColor";
+    [@bs.get] external defaultStrokecolorF: t => float = "defaultStrokeColor";
+    [@bs.get] external defaultStrokeWidth: t => int = "defaultStrokeWidth";
+    [@bs.get] external defaultStrokeWidthF: t => float = "defaultStrokeWidth";
+    [@bs.get] external depth: t => int = "depth";
+    [@bs.get] external depthF: t => float = "depth";
+    [@bs.get] external rotation: t => int = "rotation";
+    [@bs.get] external rotationF: t => float = "rotation";
+    [@bs.set] external setRotation: (t, int) => unit = "rotation";
+    [@bs.set] external setRotationF: (t, float) => unit = "rotation";
+    [@bs.get] external scale: t => int = "scale";
+    [@bs.get] external scaleF: t => float = "scale";
+    [@bs.get] external scaleX: t => int = "scaleX";
+    [@bs.get] external scaleXF: t => float = "scaleX";
+    [@bs.get] external scaleY: t => int = "scaleY";
+    [@bs.get] external scaleYF: t => float = "scaleY";
+    [@bs.get] external scene: t => scene = "scene";
+    [@bs.get] external scaleFactorX: t => int = "scaleFactorX";
+    [@bs.get] external scaleFactorXF: t => float ="scaleFactorF"
+    [@bs.set] external setScaleFactorXF: (t, float) => unit = "scaleFactorX";
+    [@bs.get] external scaleFactorY: t => int = "scaleFactorY";
+    [@bs.get] external scaleFactorYF: t => float = "scaleFactorY";
+    [@bs.set] external setScaleFactorYF: (t, float) => unit = "scaleFactorY";
   };
 };
 
