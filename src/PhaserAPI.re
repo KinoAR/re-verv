@@ -161,6 +161,8 @@ type vector2Like = {
   y:int
 };
 
+
+type arcadeBody;
 [@bs.deriving abstract]
 type arcadeWorldConfig = {
   [@bs.optional] fps: int,
@@ -200,6 +202,7 @@ type boundsConfig = {
   [@bs.optional] bottom: bool,
 };
 
+type impactBody;
 [@bs.deriving abstract]
 type impactWorldConfig = {
   [@bs.optional] gravity: int,
@@ -391,6 +394,37 @@ module GameObjects = {
   type ellipse;
   type extern;
   type graphics;
+  [@bs.deriving abstract]
+  type fillStyle = {
+    [@bs.optional] color: int,
+    [@bs.optional] alpha: int,
+    [@bs.as "color"][@bs.optional] colorF: float,
+    [@bs.as "alpha"][@bs.optional] alphaF: float
+  };
+  [@bs.deriving abstract]
+  type lineStyle = {
+    [@bs.optional] width: int,
+    [@bs.optional] color: int,
+    [@bs.optional] alpha: int,
+    [@bs.as "width"][@bs.optional] widthF: float,
+    [@bs.as "color"][@bs.optional] colorF: float,
+    [@bs.as "alpha"][@bs.optional] alphaF: float,
+  };
+
+  [@bs.deriving abstract]
+  type styles = {
+    [@bs.optional] lineStyle,
+    [@bs.optional] fillStyle
+  };
+  [@bs.deriving abstract]
+  type graphicsOptions = {
+    [@bs.optional] x: int,
+    [@bs.optional] y: int,
+    [@bs.as "x"] [@bs.optional] xF: float,
+    [@bs.as "y"] [@bs.optional] yF: float,
+    [@bs.optional] lineStyle,
+    [@bs.optional] fillStyle
+  };
   type pathFollower;
   type grid;
   type group;
@@ -410,6 +444,8 @@ module GameObjects = {
   type tileSprite;
   type triangle;
   type zone;
+
+
   module Text = {
     [@bs.send] external setColor: (text, string) => text = "setColor";
   };
@@ -424,6 +460,36 @@ module GameObjects = {
 
   module Zone = {
 
+  };
+
+  module Graphics = {
+    [@bs.get] external active: t => bool = "active"; 
+    [@bs.set] external setActive: (t, bool) => unit = "active";
+    [@bs.get] external alpha: t => int = "alpha";
+    [@bs.get] external alphaF: t => float = "alpha";
+    [@bs.set] external setAlpha: (t, int) =>  unit = "alpha";
+    [@bs.set] external setAlphaF: (t, float) => unit = "alpha"; 
+    [@bs.get] external alphaBottomLeft: t => int = "alphaBottomLeft";
+    [@bs.get] external alphaBottomLeftF: t => float = "alphaBottomleft";
+    [@bs.set] external setAlphaBottomleft: (t, int) => unit = "alphaBottomLeft";
+    [@bs.set] external setAlphaBottomLeftf: (t, float) => unit = "alphaBottomRight";
+    [@bs.set] external setAlphaBottomRight: (t, int) => unit = "alphaBottomRight";
+    [@bs.get] external alphaTopLeft: t => int = "alphaTopLeft";
+    [@bs.get] external alphaTopLeftf: t => float = "alphaTopLeft";
+    [@bs.set] external setAlphaTopleft: (t, int) => unit = "alphaTopLeft";
+    [@bs.set] external setAlphaTopLeftf: (t, float) => unit = "alphaTopLeft";
+    [@bs.get] external alphaTopRight: t => int = "alphaTopRight";
+    [@bs.get] external alphaTopRightf: t => float = "alphaTopRight";
+    [@bs.set] external setAlphaTopRight: (t, int) => unit = "alphaTopRight";
+    [@bs.set] external setAlphaTopRightf: (t, float) => unit = "alphaTopRight";
+    [@bs.get] external angle: t => int = "angle";
+    [@bs.get] external angleF: t => float = "angle";
+    [@bs.set] external setAngle: (t, int) => unit = "angle";
+    [@bs.set] external setAngleF: (t, float) => unit = "angle";
+    [@bs.get] external blendMode: t => blendModes = "blendMode";
+    [@bs.set] external setBlendMode: (t, blendModes) => unit = "blendMode"; 
+    [@bs.get] external arcadeBody: t => Js.Nullable.t(arcadeBody) = "body";
+    [@bs.get] external impactBody: t => Js.Nullable.t(impactBody) = "body";
   };
 };
 
@@ -593,6 +659,16 @@ module TweenManager = {
     | BounceEaseInOut => "Bounce.easeInOut"
   };
 
+  /** Each one of these are functions in the documentation */
+  [@bs.deriving abstract]
+  type tweenDataGenConfig = {
+    delay: Utils.any,
+    duration: Utils.any,
+    hold: Utils.any,
+    repeat: Utils.any,
+    repeatDelay: Utils.any 
+  };
+
 
   [@bs.deriving abstract] 
   type numberTweenBuilderConfig = {
@@ -675,6 +751,37 @@ module TweenManager = {
     [@bs.optional] onYoYoScope: Utils.any,
   };
 
+
+  [@bs.deriving abstract]
+  type tweenDataConfig = {
+    target: Utils.any,
+    index: int,
+    key: string,
+    getActiveValue: (Utils.any, string, int, int, int, tween) => float,
+    getEndValue: (Utils.any, string, int, int, int, tween) => float,
+    getStartValue: (Utils.any, string, int, int, int, tween) => float,
+    ease: Utils.any,
+    [@bs.optional] duration: float,
+    [@bs.optional] totalDuration: float,
+    [@bs.optional] delay: float,
+    [@bs.optional] yoyo: bool,
+    [@bs.optional]  hold: float,
+    [@bs.optional] repeat: int,
+    [@bs.optional] repeatDelay: float,
+    [@bs.optional] flipX: bool,
+    [@bs.optional] flipY: bool,
+    [@bs.optional] progress: float,
+    [@bs.optional] elapsed: float,
+    [@bs.optional] repeatCounter: int,
+    [@bs.optional] start: float,
+    [@bs.optional] current: float,
+    [@bs.as "end"] [@bs.optional] end_: float,
+    [@bs.optional] t1: float,
+    [@bs.optional] t2: float,
+    [@bs.optional] gen:tweenDataGenConfig,
+    [@bs.optional] state: int
+  };
+
   [@bs.deriving abstract] 
   type staggerConfig = {
     [@bs.optional] start: int,
@@ -724,6 +831,7 @@ module GameObjectFactory = {
   [@bs.get] external systems: t => systems = "systems";
   [@bs.get] external updateList: t =>  GameObjects.updateList = "UpdateList";
   [@bs.get] external displayList: t =>  GameObjects.displayList = "DisplayList";
+  [@bs.send] external graphics: (t, GameObjects.graphicsOptions) => GameObjects.graphics = "graphics";
   [@bs.send] external bitmapText: (t, int, int, font, text, int, int) => GameObjects.bitmapText = "bitmapText";
   [@bs.send] external text:  (t, int, int, text) => GameObjects.text = "text";
   [@bs.send] external blitter: (t, int, int, string) => GameObjects.blitter = "blitter";

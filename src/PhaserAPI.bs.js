@@ -14,11 +14,14 @@ var $$Image = /* module */[];
 
 var Zone = /* module */[];
 
+var Graphics = /* module */[];
+
 var GameObjects = /* module */[
   /* Text */$$Text,
   /* Polygon */Polygon,
   /* Image */$$Image,
-  /* Zone */Zone
+  /* Zone */Zone,
+  /* Graphics */Graphics
 ];
 
 var Scene = /* module */[];
