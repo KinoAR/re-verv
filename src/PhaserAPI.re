@@ -1,7 +1,7 @@
 
 
-type phaser;
-type game;
+type phaserT;
+type gameT;
 type systems;
 type clock;
 type time = float;
@@ -22,9 +22,9 @@ type pluginManager;
 
 type tweenBuilderConfig;
 
-type inputPlugin;
-type loaderPlugin;
-type gameObjectCreator;
+type inputPluginT;
+type loaderPluginT;
+type gameObjectCreatorT;
 
 
 
@@ -55,11 +55,11 @@ type blendModes;
 type scaleModes;
 
 
-[@bs.get] external rendererAuto: phaser => rendererType = "AUTO";
-[@bs.get] external rendererCanvas: phaser => rendererType = "CANVAS";
-[@bs.get] external rendererHeadless: phaser => rendererType = "HEADLESS";
-[@bs.get] external rendererWebGL: phaser => rendererType = "WEBGL";
-[@bs.get] external blendModes: phaser => blendModes = "BLENDMODES";
+[@bs.get] external rendererAuto: phaserT => rendererType = "AUTO";
+[@bs.get] external rendererCanvas: phaserT => rendererType = "CANVAS";
+[@bs.get] external rendererHeadless: phaserT => rendererType = "HEADLESS";
+[@bs.get] external rendererWebGL: phaserT => rendererType = "WEBGL";
+[@bs.get] external blendModes: phaserT => blendModes = "BLENDMODES";
 
 
 [@bs.deriving abstract]
@@ -368,10 +368,10 @@ type gameConfig = {
 };
 
 
-[@bs.module] external phaser: phaser = "phaser"; 
+[@bs.module] external phaser: phaserT = "phaser"; 
 
 module Game {
-  type t = game;
+  type t = gameT;
   [@bs.module "phaser"][@bs.new] external make: (gameConfig) => t = "Game";
 };
 
@@ -384,6 +384,8 @@ module GameObjects = {
   type t = gameObject;
   type text;
   type bitmapText;
+  type bitmapMask;
+  type geometryMask;
   type dynamicBitmapText;
   type blitter;
   type arc;
@@ -464,6 +466,7 @@ module GameObjects = {
 
   module Graphics = {
     type command;
+    type t = graphics;
     [@bs.get] external active: t => bool = "active"; 
     [@bs.set] external setActive: (t, bool) => unit = "active";
     [@bs.get] external alpha: t => int = "alpha";
@@ -516,12 +519,43 @@ module GameObjects = {
     [@bs.get] external scaleY: t => int = "scaleY";
     [@bs.get] external scaleYF: t => float = "scaleY";
     [@bs.get] external scene: t => scene = "scene";
-    [@bs.get] external scaleFactorX: t => int = "scaleFactorX";
-    [@bs.get] external scaleFactorXF: t => float ="scaleFactorF"
-    [@bs.set] external setScaleFactorXF: (t, float) => unit = "scaleFactorX";
-    [@bs.get] external scaleFactorY: t => int = "scaleFactorY";
-    [@bs.get] external scaleFactorYF: t => float = "scaleFactorY";
-    [@bs.set] external setScaleFactorYF: (t, float) => unit = "scaleFactorY";
+    [@bs.get] external scrollFactorX: t => int = "scrollFactorX";
+    [@bs.get] external scrollFactorXF: t => float ="scrollFactorF"
+    [@bs.set] external setScrollFactorXF: (t, float) => unit = "scrollFactorX";
+    [@bs.get] external scrollFactorY: t => int = "scrollFactorY";
+    [@bs.get] external scrollFactorYF: t => float = "scrollFactorY";
+    [@bs.set] external setScrollFactorYF: (t, float) => unit = "scrollFactorY";
+    [@bs.get] external state: t => int = "state";
+    [@bs.get] external stateStr: t => string = "state";
+    [@bs.get] external tabIndex: t => int = "tabIndex";
+    [@bs.get] external type_: t=> string = "type"; 
+    [@bs.get] external visible: t => bool = "visible";
+    [@bs.get] external w: t => int = "w";
+    [@bs.get] external x: t => int = "x";
+    [@bs.get] external y: t => int = "y";
+    [@bs.get] external z: t => int = "z";
+
+    [@bs.send] external beginPath: t => t = "beginPath";
+    [@bs.send] external clear: t => t = "clear";
+    [@bs.send] external clearAlpha: t => t ="clearAlpha";
+    [@bs.send] external clearMask: (t, bool) => t = "clearMask";
+    [@bs.send] external closePath: t => t = "closePath";
+    [@bs.send] external createBitmapMask: (t, gameObject) => bitmapMask = "createBitmapMask";
+    [@bs.send] external createGeometryMask: (t, t) => geometryMask = "createGeometryMask";
+    [@bs.send] external destroy: (t, bool) => unit = "destroy";
+    [@bs.send] external disableInteractive: t => t = "disableInteractive";
+    [@bs.send] external emit: (string, Utils.any) => bool = "emit";
+    [@bs.send] external eventNames: t => array(string) = "eventNames";
+    [@bs.send] external fill: t => t = "fill";
+    [@bs.send] external fillCircle: (t, int, int, int) => t = "fillCircle";
+    [@bs.send] external fillCircleF: (t, float, float, float) => t = "fillCircle";
+    [@bs.send] external fillEllipse: (t, int, int, int, int, int) => t = "fillEllipse";
+    [@bs.send] external fillEllipseF: (t, float, float, float, float, int) => t = "fillElipse";
+    [@bs.send] external fillGradientStyle: (t, int, int, int, int, int) => t = "fillGradientStyle";
+    [@bs.send] external fillGradientStyleF: (t, int, int, int, int, float) => t = "fillGradientStyleF";
+    [@bs.send] external fillPath: t => t = "fillPath";
+    [@bs.send] external fillPoint: (t, int, int, int) => t = "fillPoint";
+    [@bs.send] external fillPointF: (t, float, float, float) => t = "fillPoint";
   };
 };
 
@@ -531,8 +565,9 @@ module Scene {
   type t = scene;
   type scenePlugin;
   [@bs.module "phaser"] [@bs.new] external make: (sceneConfig) => t = "Scene";
-  [@bs.get] external game: t => game = "game";
+  [@bs.get] external game: t => gameT = "game";
   [@bs.get] external add: t => gameObjectFactory = "add";
+  [@bs.get] external load: t => loaderPluginT = "load";
   [@bs.get] external impact: t => impactPhysics = "impact";
   [@bs.get] external matter: t => matterPhysics = "matter";
   [@bs.get] external physics: t => arcadePhysics = "physics";
@@ -540,8 +575,8 @@ module Scene {
   [@bs.get] external events: t => eventEmitter = "events";
   [@bs.get] external sys: t => systems = "sys";
   [@bs.get] external scene: t => scenePlugin = "scene";
-  [@bs.get] external input: t => inputPlugin = "input";
-  [@bs.get] external makeGameObject: t => gameObjectCreator = "make";
+  [@bs.get] external input: t => inputPluginT = "input";
+  [@bs.get] external makeGameObject: t => gameObjectCreatorT = "make";
   [@bs.get] external registry: t => dataManager = "registry";
   [@bs.get] external scale: t => scaleManager =  "scale";
   [@bs.get] external lights: t => lightsManager = "lights";
@@ -887,3 +922,89 @@ module GameObjectFactory = {
   [@bs.send] external tween: (t, tweenBuilderConfig) => TweenManager.tween = "tween";
   [@bs.send] external zone: (t, int, int, int, int) => GameObjects.zone = "zone";
 };
+
+
+module LoaderPlugin  {
+  type t = loaderPluginT;
+  type file;
+  type xhrSettingsObject;
+  [@bs.deriving abstract]
+  type animationConfig = {
+    key: string,
+    [@bs.optional] url: string,
+    [@bs.optional] dataKey: string,
+    [@bs.optional] xhrSettings: xhrSettingsObject
+  };
+
+  [@bs.deriving abstract]
+  type atlasConfig = {
+    key: string,
+    [@bs.optional] textureURL:string,
+    [@bs.optional] atlasURL: string,
+    [@bs.optional] textureXhrSettings: xhrSettingsObject,
+    [@bs.optional] atlasXhrSettings: xhrSettingsObject
+  };
+
+  [@bs.deriving abstract]
+  type audioConfig =  {
+    key:string,
+    [@bs.optional] urls: array(string),
+    [@bs.optional] config: Utils.any,
+    [@bs.optional] xhrSettings: xhrSettingsObject,
+  };
+
+  [@bs.deriving abstract]
+  type audioSpriteConfig = {
+    key:string,
+    jsonURL: string,
+    [@bs.optional] audioURL: array(string),
+    [@bs.optional] audioConfig: Utils.any,
+    [@bs.optional] audioXhrSettings: xhrSettingsObject,
+    [@bs.optional] jsonXhrSettings: xhrSettingsObject
+  };
+
+  [@bs.deriving abstract]
+  type image = {
+    key:string,
+    [@bs.optional] url: array(string),
+    [@bs.optional] xhrSettings: xhrSettingsObject
+  };
+
+  [@bs.deriving abstract]
+  type xmlConfig = {
+    key:string,
+    [@bs.optional] url: string,
+    [@bs.optional] xhrSettings: xhrSettingsObject
+  };
+
+  [@bs.get] external baseURL: t => string = "baseURL";
+  [@bs.set] external setBaseURL: (t, string) => t  = "setBaseURL";
+  [@bs.get] external crossOrigin: t => string = "crossOrigin";
+  [@bs.set] external setCrossOrigin: (t, string) => unit = "crossOrigin";
+  [@bs.get] external path: t => string = "path";
+  [@bs.set] external setPath: (t, string) => t = "setPath";
+  [@bs.get] external prefix: t => string = "prefix";
+  [@bs.set] external setPrefix: (t, string) => unit = "setPrefix";
+  [@bs.get] external progress: t => float = "progress";
+  [@bs.get] external scene: t => scene = "scene";
+  [@bs.get] external state: t => int = "state";
+  [@bs.get] external systems: t => systems = "systems";
+  [@bs.get] external totalComplete: t => int = "totalComplete";
+  [@bs.get] external totalFailed: t => int = "totalFailed";
+  [@bs.get] external totalToLoad: t => int = "totalToLoad";
+  [@bs.get] external xhr: t => xhrSettingsObject = "xhr";
+  [@bs.send] external start: t => unit = "start";
+  [@bs.send] external addFile: (t, file) => unit = "addFile";
+  [@bs.send] external addListener: (string, 'a => unit) => t = "addListener";
+  [@bs.send] external addPack: (t, 'a, string) => bool = "addPack";
+  [@bs.send] external animation: (t, animationConfig) => t = "animation"; 
+  [@bs.send] external atlas: (t, atlasConfig) => t = "atlas";
+  [@bs.send] external update:   t => unit = "update";
+  [@bs.send] external updateProgress: t => unit = "updateProgress";
+  [@bs.send] external isLoading: t => bool = "isLoading";
+  [@bs.send] external isReady: t => bool = "isReady";
+  [@bs.send] external keyExists: (t, file) => bool = "keyExists";
+  [@bs.send] external listenerCount: (t, string) => int = "listenerCount";
+  [@bs.send] external listeners: (t, string) => array('a) = "listeners";
+  [@bs.send] external reset: t => unit = "reset";
+}
