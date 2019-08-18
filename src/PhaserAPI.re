@@ -162,7 +162,7 @@ type vector2Like = {
 };
 
 
-type arcadeBody;
+type arcadeBodyT;
 [@bs.deriving abstract]
 type arcadeWorldConfig = {
   [@bs.optional] fps: int,
@@ -370,6 +370,37 @@ type gameConfig = {
 
 [@bs.module] external phaser: phaserT = "phaser"; 
 
+
+
+module Math = {
+  type vector2T;
+  module Vector2 = {
+    type t = vector2T;
+    [@bs.module "Phaser.Math"][@bs.new] external make: (int, int) => t = "Vector2";
+    [@bs.module "Phaser.Math"][@bs.new] external makeF: (float, float) => t = "Vector2";
+    [@bs.get] external x: t => int = "x";
+    [@bs.get] external y: t => int = "y";
+    /** Methods Add */
+    [@bs.send] external add: (t, t) => t = "add";
+    [@bs.send] external angle: t => int = "angle";
+    [@bs.send] external angleF: t => float = "angle";
+    [@bs.send] external clone: t => t  = "clone";
+    [@bs.send] external copy: (t, t) => t = "copy";
+    [@bs.send] external cross: (t, t) => int = "cross";
+    [@bs.send] external distance: (t, t) => int  ="distance";
+    [@bs.send] external divide: (t, t) => int = "divide";
+    [@bs.send] external distanceSq: (t, t) => int = "distanceSq";
+    [@bs.send] external dot: (t, t) => t = "dot";
+    [@bs.send] external equals: (t, t) => t = "equals";
+    [@bs.send] external length: t => int = "length";
+    [@bs.send] external lengthF: t => float = "length";
+    [@bs.send] external lengthSq: t => int = "lengthSq";
+    [@bs.send] external lengthSqF: t => float = "lengthSq";
+    [@bs.send] external negate:  t => t = "negate";
+    [@bs.send] external normalize: t => t = "normalize";
+  };
+};
+
 module Game {
   type t = gameT;
   [@bs.module "phaser"][@bs.new] external make: (gameConfig) => t = "Game";
@@ -379,6 +410,9 @@ module Game {
 module Tilemaps = {
 
 };
+
+
+
 
 module GameObjects = {
   type t = gameObject;
@@ -492,7 +526,7 @@ module GameObjects = {
     [@bs.set] external setAngleF: (t, float) => unit = "angle";
     [@bs.get] external blendMode: t => blendModes = "blendMode";
     [@bs.set] external setBlendMode: (t, blendModes) => unit = "blendMode"; 
-    [@bs.get] external arcadeBody: t => Js.Nullable.t(arcadeBody) = "body";
+    [@bs.get] external arcadeBody: t => Js.Nullable.t(arcadeBodyT) = "body";
     [@bs.get] external impactBody: t => Js.Nullable.t(impactBody) = "body";
     [@bs.get] external cameraFilter: t => int = "cameraFilter";
     [@bs.get] external commandBuffer: t => array(command) = "commandBuffer"; 
@@ -556,6 +590,186 @@ module GameObjects = {
     [@bs.send] external fillPath: t => t = "fillPath";
     [@bs.send] external fillPoint: (t, int, int, int) => t = "fillPoint";
     [@bs.send] external fillPointF: (t, float, float, float) => t = "fillPoint";
+  };
+};
+
+module Physics = {
+  type t;
+  module Arcade = {
+    [@bs.deriving abstract]
+    type arcadeBodyBoundsT = {
+      x: float,
+      y: float,
+      right: float,
+      bottom: float
+    };
+    type arcadeWorldT;
+    module Body = {
+      type t = arcadeBodyT;
+      /** Members */
+      [@bs.get] external allowDrag: t => bool = "allowDrag";
+      [@bs.get] external allowGravity: t => bool = "allowGravity";
+      [@bs.get] external allowRotation: t => bool = "allowRotation";
+      [@bs.get] external angle: t => int = "angle";
+      [@bs.get] external angleF: t => float = "angle";
+      [@bs.get] external angularAcceleration: t => int = "angularAcceleration";
+      [@bs.get] external angularAccelerationF: t => float = "angularAcceleration";
+      [@bs.get] external angularDrag: t => int = "angularDrag";
+      [@bs.get] external angularDragF: t => float = "angularDrag";
+      [@bs.get] external angularVelocity: t => int  = "angularVelocity";
+      [@bs.get] external angularVelocityF: t => float = "angularVelocity";
+      [@bs.get] external bottom: t => int = "bottom";
+      [@bs.get] external collideWorldBounds: t => bool = "collideWorldBounds";
+      [@bs.get] external customSeperateX: t => bool = "customSeparateX";
+      [@bs.get] external customSeparateY: t => bool = "customSeparateY";
+      [@bs.get] external debugBodyColor: t => int = "debugBodyColor";
+      [@bs.get] external debugShowBody: t => bool = "debugShowBody";
+      [@bs.get] external debugShowVelocity: t => bool = "debugShowVelocity";
+      [@bs.get] external embedded: t => bool = "embedded";
+      [@bs.get] external enable: t => bool = "enable";
+      [@bs.get] external facing: t => int = "facing";
+      [@bs.get] external gameObject: t => GameObjects.t = "gameObject";
+      [@bs.get] external halfHeight: t => int = "halfHeight";
+      [@bs.get] external halfHeightF: t => float = "halfHeight";
+      [@bs.get] external halfWidth: t => int = "halfWidth";
+      [@bs.get] external halfWidthF: t => float = "halfWidth";
+      [@bs.get] external height: t => int = "height";
+      [@bs.get] external heightF: t => float = "height";
+      [@bs.get] external immovable: t => bool = "immovable";
+      [@bs.get] external mass: t => int = "mass";
+      [@bs.get] external massF: t => float = "mass";
+      [@bs.get] external moves: t => bool = "moves";
+      [@bs.get] external onCollide: t => bool = "onCollide";
+      [@bs.get] external onOverlap: t => bool = "onOverlap";
+      [@bs.get] external onWorldBounds: t => bool = "onWorldBounds";
+      [@bs.get] external overlapR: t => int = "overlapR";
+      [@bs.get] external overlapRF: t => float = "overlapR";
+      [@bs.get] external overlapX: t => int = "overlapX";
+      [@bs.get] external overlapXF: t => float = "overlapX";
+      [@bs.get] external overlapY: t => int = "overlapY";
+      [@bs.get] external overlapYF: t => float = "overlapY";
+      [@bs.get] external preRotation:t => int = "preRotation";
+      [@bs.get] external preRotationF: t => float = "preRotationF";
+      [@bs.get] external physicsType: t => int = "physicsType";
+      [@bs.get] external radius: t => int = "radius";
+      [@bs.get] external radiusF: t => float = "radius";
+      [@bs.get] external right: t => int = "right";
+      [@bs.get] external rightF: t => float = "right";
+      [@bs.get] external rotation: t => int = "rotation";
+      [@bs.get] external rotationF: t => float = "rotation";
+      [@bs.get] external sourceHeight: t => int = "sourceHeight";
+      [@bs.get] external sourceHeightF: t => float = "sourceHeight";
+      [@bs.get] external sourceWidth: t => int = "sourceWidth";
+      [@bs.get] external sourceWidthF: t => float = "sourceWidth";
+      [@bs.get] external speed: t => int = "speed";
+      [@bs.get] external speedF: t => float = "speed";
+      [@bs.get] external syncBounds: t => bool = "syncBounds";
+      [@bs.get] external useDamping: t => bool = "useDamping";
+      [@bs.get] external width:  t => int = "width";
+      [@bs.get] external widthF: t => float = "width";
+      [@bs.get] external x: t => int = "x";
+      [@bs.get] external xF: t => float = "x";
+      [@bs.get] external y: t => int = "y";
+      [@bs.get] external yF: t => float = "y";
+
+
+      /** Methods */
+      [@bs.send] external checkWorldBounds: t => bool = "checkWorldBounds";
+      [@bs.send] external deltaAbsX: t => float = "deltaAbsX";
+      [@bs.send] external deltaAbsY: t => float = "deltaAbsY";
+      [@bs.send] external deltaX: t => float = "deltaX";
+      [@bs.send] external deltaY: t => float = "deltaY";
+      [@bs.send] external deltaZ: t => float = "deltaZ";
+      [@bs.send] external destroy: t => unit = "destroy";
+      [@bs.send] external drawDebug: (t,  GameObjects.graphics) => unit = "drawDebug";
+      [@bs.send] external getBounds: (t, arcadeBodyBoundsT) => arcadeBodyBoundsT = "getBounds";
+      [@bs.send] external hitTest: (t, int, int) => bool = "hitTest";
+      [@bs.send] external hitTestF: (t, float, float) => bool = "hitTest";
+      [@bs.send] external onCeiling: t => bool = "onCeiling";
+      [@bs.send] external onFloor: t => bool = "onFloor";
+      [@bs.send] external onWall: t => bool = "onWall";
+      [@bs.send] external postUpdate: t => unit = "postUpdate";
+      [@bs.send] external preUpdate: (t, bool, float) => unit = "preUpdate";
+      [@bs.send] external reset: (t, int, int) => unit = "reset";
+      [@bs.send] external resetF: (t, float, float) => unit = "reset";
+      [@bs.send] external resetFlags: t => unit = "resetFlags";
+      [@bs.send] external setAcceleration: (t, int, int) => t = "setAcceleration";
+      [@bs.send] external setAccelerationF: (t, float, float) => t = "setAcceleration";
+      [@bs.send] external setAccelerationX: (t, int) => t = "setAccelerationX";
+      [@bs.send] external setAccelerationXF: (t, float) => t = "setAccelerationX";
+      [@bs.send] external setAccelerationY: (t, int) => t = "setAccelerationY";
+      [@bs.send] external setAccelerationYF: (t, float) => t = "setAccelerationY";
+      [@bs.send] external setAllowDrag: (t, bool) => t = "setAllowDrag";
+      [@bs.send] external setAllowGravity: (t, bool) => t = "setAllowGravity";
+      [@bs.send] external setAllowRotation: (t, bool) => t = "setAllowRotation";
+      [@bs.send] external setAngularAcceleration: (t, int) => t = "setAngularAcceleration";
+      [@bs.send] external setAngularAccelerationF: (t, float) => t = "setAngularAccleration";
+      [@bs.send] external setAngularDrag: (t, int) => t = "setAngularDrag";
+      [@bs.send] external setAngularDragF: (t, float) => t = "setAngularDrag";
+      [@bs.send] external setAngularVelocity: (t, int) => t = "setAngularVelocity";
+      [@bs.send] external setAngularVelcotiyF: (t, float) => t = "setAngularVelocity";
+      [@bs.send] external setBounce: (t, int, int) => t = "setBounce";
+      [@bs.send] external setBounceF: (t, float, float) => t = "setBounce";
+      [@bs.send] external setBounceX: (t, int) => t = "setBounceX";
+      [@bs.send] external setBounceXF: (t, float) => t = "setBounceX";
+      [@bs.send] external setBounceY: (t, int) => t = "setBounceY";
+      [@bs.send] external setBounceYF: (t, float) => t = "setBounceYF";
+      [@bs.send] external setCircle: (t, int, int, int) => t = "setCircle";
+      [@bs.send] external setCircleF: (t, float, int, int) => t = "setCircle";
+      [@bs.send] external setCollideWorldBounds: (t, bool, float, float) => t = "setCollideWorldBounds";
+      [@bs.send] external setDrag: (t, int, int) => t = "setDrag";
+      [@bs.send] external setDragF: (t, float, float) => t = "setDrag";
+      [@bs.send] external setDragX: (t, int) => t = "setDragX";
+      [@bs.send] external setDragXF: (t, float) => t = "setDragX";
+      [@bs.send] external setDragY: (t, int) => t = "setDragY";
+      [@bs.send] external setDragYF: (t, float) => t = "setDragY";
+      [@bs.send] external setFriction: (t, int, int) => t = "setFriction";
+      [@bs.send] external setFrictionF: (t, float, float) => t = "setFriction";
+      [@bs.send] external setFrictionX: (t, int) => t = "setFrictionX";
+      [@bs.send] external setFrictionXF: (t, float) => t = "setFrictionX";
+      [@bs.send] external setFricitionY: (t, int) => t = "setFrictionY";
+      [@bs.send] external setFrictionYF: (t, float) => t = "setFrictionY";
+      [@bs.send] external setGravity: (t, int, int) => t = "setGravity";
+      [@bs.send] external setGravityF: (t, float ,float) => t = "setGravity";
+      [@bs.send] external setGravityX: (t, int) => t = "setGravityX";
+      [@bs.send] external setGravityXF: (t, float) => t = "setGravityX";
+      [@bs.send] external setGravityY: (t, int) => t = "setGravityY";
+      [@bs.send] external setGravityYF: (t, float) => t = "setGravityY";
+      [@bs.send] external setImmovable: (t, bool) => t = "setImmovable";
+      [@bs.send] external setMass: (t, int) => t = "setMass";
+      [@bs.send] external setMassF: (t, float) => t = "setMass";
+      [@bs.send] external setMaxSpeed: (t, int) => t = "setMaxSpeed";
+      [@bs.send] external setMaxSpeedF: (t, float) => t = "setMaxSpeed";
+      [@bs.send] external setMaxVelocity: (t, int, int) => t  = "setMaxVelocity";
+      [@bs.send] external setMaxVelocityF:(t, float, float) => t = "setMaxVelocity";
+      [@bs.send] external setOffset: (t, int, int) => t = "setOffset";
+      [@bs.send] external setOffsetF: (t, float, float) => t = "setOffset";
+      [@bs.send] external setSize: (t, int, int, bool) => t = "setSize";
+      [@bs.send] external setSizeF: (t, float, float, bool) => t = "setSize";
+      [@bs.send] external setVelocity: (t, int, int) => t = "setVelocity";
+      [@bs.send] external setVelocityF: (t, float, float) => t = "setVelocity";
+      [@bs.send] external setVelocityX: (t, int) => t = "setVelocityX";
+      [@bs.send] external setVelocityXF: (t, float) => t = "setVelocityX";
+      [@bs.send] external setVleocityY: (t, int) => t = "setVelocityY";
+      [@bs.send] external setVelocityYF: (t, float) => t ="setVelocityY";
+      [@bs.send] external stop: t => t = "stop";
+      [@bs.send] external update: (t, float) => unit = "update";
+      [@bs.send] external updateBounds: t => unit = "updateBounds";
+      [@bs.send] external updateCenter: t => unit = "updateCenter";
+      [@bs.send] external willDrawDebug: t => unit = "willDrawDebug";
+     };
+  };
+
+  module Impact = {
+    module Body = {
+      type t = matterBody;
+    };
+  };
+
+  module Matter = {
+    module Body = {
+      type t = matterBody;
+    };
   };
 };
 

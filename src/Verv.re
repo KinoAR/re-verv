@@ -64,3 +64,6 @@ let createScene = (~key, ~init=?,
   
   scene;
 };
+
+let vector2 = (x, y) => Math.Vector2.make(x, y);
+let vector2F = (x,  y) => Math.Vector2.makeF(x, y);

@@ -4,6 +4,7 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Phaser = require("phaser");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var PhaserMath = require("Phaser.Math");
 
 var phaser = Phaser;
 
@@ -60,6 +61,14 @@ function createScene(key, init, preload, create, update, param) {
   return scene;
 }
 
+function vector2(x, y) {
+  return new PhaserMath.Vector2(x, y);
+}
+
+function vector2F(x, y) {
+  return new PhaserMath.Vector2(x, y);
+}
+
 exports.phaser = phaser;
 exports.auto = auto;
 exports.canvas = canvas;
@@ -69,4 +78,6 @@ exports.createGame = createGame;
 exports.zeroCallback = zeroCallback;
 exports.dataCallback = dataCallback;
 exports.createScene = createScene;
+exports.vector2 = vector2;
+exports.vector2F = vector2F;
 /* phaser Not a pure module */

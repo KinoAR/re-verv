@@ -2,6 +2,10 @@
 'use strict';
 
 
+var Vector2 = /* module */[];
+
+var $$Math = /* module */[/* Vector2 */Vector2];
+
 var Game = /* module */[];
 
 var Tilemaps = /* module */[];
@@ -22,6 +26,24 @@ var GameObjects = /* module */[
   /* Image */$$Image,
   /* Zone */Zone,
   /* Graphics */Graphics
+];
+
+var Body = /* module */[];
+
+var Arcade = /* module */[/* Body */Body];
+
+var Body$1 = /* module */[];
+
+var Impact = /* module */[/* Body */Body$1];
+
+var Body$2 = /* module */[];
+
+var Matter = /* module */[/* Body */Body$2];
+
+var Physics = /* module */[
+  /* Arcade */Arcade,
+  /* Impact */Impact,
+  /* Matter */Matter
 ];
 
 var Scene = /* module */[];
@@ -128,12 +150,17 @@ var DOM = /* module */[];
 
 var GameObjectFactory = /* module */[];
 
+var LoaderPlugin = /* module */[];
+
+exports.$$Math = $$Math;
 exports.Game = Game;
 exports.Tilemaps = Tilemaps;
 exports.GameObjects = GameObjects;
+exports.Physics = Physics;
 exports.Scene = Scene;
 exports.BlendModes = BlendModes;
 exports.TweenManager = TweenManager;
 exports.DOM = DOM;
 exports.GameObjectFactory = GameObjectFactory;
+exports.LoaderPlugin = LoaderPlugin;
 /* No side effect */
