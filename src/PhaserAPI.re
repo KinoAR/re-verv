@@ -371,6 +371,28 @@ type gameConfig = {
 [@bs.module] external phaser: phaserT = "phaser"; 
 
 
+module Events = {
+  module EventEmitter = (E: {type t;}) => {
+    type eventEmitterT;
+    // type t = eventEmitterT;
+    [@bs.send] external addEventListener: (E.t, string, [@bs.this] ('a => unit), 'a) => E.t = "addEventListener";
+    [@bs.send] external once: (E.t, string, [@bs.this] ('a => unit), 'a) => E.t = "on";
+    [@bs.send] external on: (E.t, string, [@bs.this]('a) => unit, 'a) => E.t  = "on";
+    [@bs.send] external off: (E.t, string, [@bs.this] ('a => unit), 'a, bool) => E.t = "on";
+    [@bs.send] external offStr: (E.t, string) => E.t = "off";
+    [@bs.send] external listeners: (E.t, string) => array('a) = "listeners";
+    [@bs.send] external eventNames: E.t => array(string) = "eventNames";
+    [@bs.send] external emit0: (E.t, string) => bool = "emit";
+    [@bs.send] external emit1: (E.t, string, 'a) => bool = "emit";
+    [@bs.send] external emit2: (E.t, string, 'a, 'b) => bool = "emit";
+    [@bs.send] external destroy: E.t => unit = "destroy";
+    [@bs.send] external shutdown: E.t => unit = "shutdown";
+    [@bs.send] external removeAllListenersStr: (E.t, string) => E.t = "removeAllListeners";
+    [@bs.send] external removeAllListeners: E.t => E.t = "removeAllListeners"; 
+    [@bs.send] external removeListenerStr: (E.t, string) => E.t = "removeLIstener";
+  };
+};
+
 
 module Math = {
   type vector2T;
@@ -400,6 +422,60 @@ module Math = {
     [@bs.send] external normalize: t => t = "normalize";
   };
 };
+
+
+
+module Input = {
+  type inputT;
+  type t = inputT;
+  module Gamepad = {
+
+  };
+
+
+  module Keyboard = {
+    type keyboardPluginT;
+    
+    module Key =  {
+      type keyT;
+      type t = keyT;
+      [@bs.module "Phaser.Input.Keyboard"] [@bs.new] external make: (keyboardPluginT, int) => t = "Key";
+      [@bs.get] external altKey: t => bool = "altKey";
+      [@bs.get] external ctrlKey: t => bool = "ctrlKey";
+      [@bs.get] external duration: t => int = "duration";
+      [@bs.get] external enabled: t => bool ="enabled";
+      [@bs.get] external isUp: t => bool = "isUp";
+      [@bs.get] external isDown: t => bool = "isDown";
+      [@bs.get] external keyCode: t => int = "keyCode";
+      [@bs.get] external location: t => int = "location"; 
+      [@bs.get] external shiftKey: t => bool = "shiftKey";
+      [@bs.get] external metaKey: t => bool = "metaKey";
+      [@bs.get] external repeats: t => int = "repeats";
+      [@bs.get] external timeUp: t => int = "timeUp";
+      [@bs.get] external timeDown: t => int = "timeDown"
+      include Events.EventEmitter({
+        type nonrec t = t;
+      });  
+    }
+
+    type inputKeyboardT;
+    type t = inputKeyboardT;
+    [@bs.send] external downDuration: (t, Key.t, int) => bool = "DownDuration";
+    [@bs.send] external justDown: (t, Key.t) => bool = "JustDown";
+    [@bs.send] external justUp: (t, Key.t) => bool = "JustUp";
+    [@bs.send] external upDuration: (t, Key.t, int) => bool = "UpDuration";
+  };
+
+  module Mouse = {
+
+  };
+
+  module Touch = {
+
+  };
+};
+
+
 
 module Game =  {
   type t = gameT;
@@ -604,6 +680,21 @@ module Physics = {
       bottom: float
     };
     type arcadeWorldT;
+    [@bs.deriving abstract]
+    type arcadeWorldTreeMinMaxT = {
+      minX: float,
+      minY: float,
+      maxX: float,
+      maxY: float
+    };
+    [@bs.deriving abstract]
+    type arcadeBodyCollisionT = {
+      none: bool,
+      top: bool,
+      down: bool,
+      left: bool,
+      right: bool
+    };
     module Body = {
       type t = arcadeBodyT;
       /** Members */
@@ -639,6 +730,7 @@ module Physics = {
       [@bs.get] external mass: t => int = "mass";
       [@bs.get] external massF: t => float = "mass";
       [@bs.get] external moves: t => bool = "moves";
+      [@bs.get] external touching: t => arcadeBodyCollisionT = "touching";
       [@bs.get] external onCollide: t => bool = "onCollide";
       [@bs.get] external onOverlap: t => bool = "onOverlap";
       [@bs.get] external onWorldBounds: t => bool = "onWorldBounds";

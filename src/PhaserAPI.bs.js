@@ -2,9 +2,32 @@
 'use strict';
 
 
+function EventEmitter(E) {
+  return /* module */[];
+}
+
+var Events = /* module */[/* EventEmitter */EventEmitter];
+
 var Vector2 = /* module */[];
 
 var $$Math = /* module */[/* Vector2 */Vector2];
+
+var $$Gamepad = /* module */[];
+
+var Key = /* module */[];
+
+var Keyboard = /* module */[/* Key */Key];
+
+var Mouse = /* module */[];
+
+var $$Touch = /* module */[];
+
+var Input = /* module */[
+  /* Gamepad */$$Gamepad,
+  /* Keyboard */Keyboard,
+  /* Mouse */Mouse,
+  /* Touch */$$Touch
+];
 
 var Game = /* module */[];
 
@@ -152,7 +175,9 @@ var GameObjectFactory = /* module */[];
 
 var LoaderPlugin = /* module */[];
 
+exports.Events = Events;
 exports.$$Math = $$Math;
+exports.Input = Input;
 exports.Game = Game;
 exports.Tilemaps = Tilemaps;
 exports.GameObjects = GameObjects;
