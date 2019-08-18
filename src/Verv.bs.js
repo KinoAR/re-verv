@@ -3,6 +3,7 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var Phaser = require("phaser");
+var Tablecloth = require("tablecloth-bucklescript/src/tablecloth.bs.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var PhaserMath = require("Phaser.Math");
 
@@ -61,13 +62,40 @@ function createScene(key, init, preload, create, update, param) {
   return scene;
 }
 
-function vector2(x, y) {
-  return new PhaserMath.Vector2(x, y);
+function toPhaserVec2(param) {
+  return new PhaserMath.Vector2(param[0], param[1]);
 }
 
-function vector2F(x, y) {
-  return new PhaserMath.Vector2(x, y);
+function toPhaserVec2F(param) {
+  return new PhaserMath.Vector2(param[0], param[1]);
 }
+
+function $plus$bang(param, param$1) {
+  return /* tuple */[
+          param[0] + param$1[0],
+          param[1] + param$1[1]
+        ];
+}
+
+function toIntVector(vector2F) {
+  return Tablecloth.Tuple2[/* mapAll */9]((function (prim) {
+                return prim | 0;
+              }), vector2F);
+}
+
+function toFloatVector(vector2F) {
+  return Tablecloth.Tuple2[/* mapAll */9]((function (prim) {
+                return prim;
+              }), vector2F);
+}
+
+var Vector2 = /* module */[
+  /* toPhaserVec2 */toPhaserVec2,
+  /* toPhaserVec2F */toPhaserVec2F,
+  /* +! */$plus$bang,
+  /* toIntVector */toIntVector,
+  /* toFloatVector */toFloatVector
+];
 
 exports.phaser = phaser;
 exports.auto = auto;
@@ -78,6 +106,5 @@ exports.createGame = createGame;
 exports.zeroCallback = zeroCallback;
 exports.dataCallback = dataCallback;
 exports.createScene = createScene;
-exports.vector2 = vector2;
-exports.vector2F = vector2F;
+exports.Vector2 = Vector2;
 /* phaser Not a pure module */

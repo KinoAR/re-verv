@@ -401,7 +401,7 @@ module Math = {
   };
 };
 
-module Game {
+module Game =  {
   type t = gameT;
   [@bs.module "phaser"][@bs.new] external make: (gameConfig) => t = "Game";
 };
@@ -775,7 +775,7 @@ module Physics = {
 
 
 
-module Scene {
+module Scene = {
   type t = scene;
   type scenePlugin;
   [@bs.module "phaser"] [@bs.new] external make: (sceneConfig) => t = "Scene";
@@ -808,7 +808,7 @@ module Scene {
 
 
 
-module BlendModes {
+module BlendModes = {
   type t = blendModes;
   [@bs.get] external add: blendModes => int = "ADD";
   [@bs.get] external burn: blendModes => int = "BURN";
@@ -1138,7 +1138,7 @@ module GameObjectFactory = {
 };
 
 
-module LoaderPlugin  {
+module LoaderPlugin = {
   type t = loaderPluginT;
   type file;
   type xhrSettingsObject;
