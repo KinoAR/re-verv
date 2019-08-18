@@ -477,6 +477,7 @@ module Input = {
 
 
 
+
 module Game =  {
   type t = gameT;
   [@bs.module "phaser"][@bs.new] external make: (gameConfig) => t = "Game";
@@ -1181,7 +1182,12 @@ module TweenManager = {
   [@bs.send] external remove: (t, tween) => t = "remove";
   [@bs.send] external resumeAll: t => t = "resumeAll";
   [@bs.send] external setGlobalTimeScale: (t, float) => t = "setGlobalTimeScale";
-
+  module Tween = {
+    type t = tween;
+    include Events.EventEmitter({
+      type nonrec t = t;
+    })
+  }
 };
 
 module DOM = {

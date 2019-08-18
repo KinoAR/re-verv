@@ -167,7 +167,12 @@ function tweenEquationStr(tweenEquation) {
   }
 }
 
-var TweenManager = /* module */[/* tweenEquationStr */tweenEquationStr];
+var Tween = /* module */[];
+
+var TweenManager = /* module */[
+  /* tweenEquationStr */tweenEquationStr,
+  /* Tween */Tween
+];
 
 var DOM = /* module */[];
 
