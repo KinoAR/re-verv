@@ -3,7 +3,7 @@
 type phaserT;
 type gameT;
 type systems;
-type clock;
+type clockT;
 type time = float;
 type delta = float;
 type phaserDom;
@@ -37,7 +37,7 @@ type gameObjectCreatorT;
 
 /* init, create need to have a data "object" */
 [@bs.deriving abstract]
-type scene = {
+type sceneT = {
   [@bs.optional] init: unit => unit,
   [@bs.optional] preload: unit => unit,
   [@bs.optional] create: unit => unit,
@@ -329,7 +329,7 @@ type sceneSettings = {
   visible:bool,
   isBooted:bool,
   isTransition:bool,
-  [@bs.optional] transitionFrom:scene,
+  [@bs.optional] transitionFrom:sceneT,
   transitionDuration: int,
   transitionAllowInput:bool,
   /*data:Js.t(<..>), */
@@ -349,7 +349,7 @@ type gameConfig = {
   height: int,
   [@bs.optional] zoom: int,
   [@bs.optional] resolution: int,
-  [@bs.optional] scene: scene,
+  [@bs.optional] scene: sceneT,
   [@bs.optional] canvasStyle: string,
   [@bs.optional] seed: array(string),
   [@bs.optional] url:string,
@@ -426,6 +426,41 @@ module Math = {
   };
 };
 
+
+module Time = {
+  [@bs.deriving abstract] 
+  type timerEventConfigT = {
+    [@bs.optional] delay: int,
+    [@bs.optional] repeat: int,
+    [@bs.optional] loop: bool,
+    [@bs.optional] callback: unit => unit,
+    [@bs.optional] callbackScope: Utils.any,
+    [@bs.optional] args: array(Utils.any),
+    [@bs.optional] timeScale: int,
+    [@bs.as "timeScale"][@bs.optional] timeScaleF: float,
+    [@bs.optional] startAt: int,
+    [@bs.optional] paused: bool
+  };
+  module Clock = {
+    type t = clockT;
+    [@bs.module "phaser"][@bs.scope "Time"] [@bs.new] external make: (sceneT) => t = "Clock";
+    [@bs.get] external paused: t => bool = "paused";
+    [@bs.get] external timeScale: t => int = "timeScale";
+    [@bs.get] external timeScaleF: t => float = "timeScale";
+    [@bs.get] external scene: t => sceneT = "scene";
+    [@bs.get] external now: t => int = "now";
+    [@bs.get] external nowF: t => float = "now";
+    [@bs.send] external addEvent: (t, timerEventConfigT) => t = "addEvent";  
+    [@bs.send] external clearPendingEvents: t => t = "clearPendingEvents";
+    [@bs.send] external preUpdate: (int, float) => unit = "preUpdate";
+    [@bs.send] external removeAllEvents: t => t = "removeAllEvents";
+    [@bs.send] external update: (int, float) => unit = "update";
+  }
+
+  module TimerEvent = {
+
+  }
+};
 
 
 module Input = {
@@ -668,7 +703,7 @@ module GameObjects = {
     [@bs.get] external scaleXF: t => float = "scaleX";
     [@bs.get] external scaleY: t => int = "scaleY";
     [@bs.get] external scaleYF: t => float = "scaleY";
-    [@bs.get] external scene: t => scene = "scene";
+    [@bs.get] external scene: t => sceneT = "scene";
     [@bs.get] external scrollFactorX: t => int = "scrollFactorX";
     [@bs.get] external scrollFactorXF: t => float ="scrollFactorF"
     [@bs.set] external setScrollFactorXF: (t, float) => unit = "scrollFactorX";
@@ -908,7 +943,7 @@ module Physics = {
 
 
 module Scene = {
-  type t = scene;
+  type t = sceneT;
   type scenePlugin;
   [@bs.module "phaser"] [@bs.new] external make: (sceneConfig) => t = "Scene";
   [@bs.get] external game: t => gameT = "game";
@@ -927,7 +962,7 @@ module Scene = {
   [@bs.get] external scale: t => scaleManagerT =  "scale";
   [@bs.get] external lights: t => lightsManager = "lights";
   [@bs.get] external textures: t => textureManager = "textures";
-  [@bs.get] external time: t => clock = "time";
+  [@bs.get] external time: t => clockT = "time";
   [@bs.get] external tweens: t => tweenManager = "tweens";
   [@bs.set] external setUpdate: (t, (time, delta) => unit) => unit = "update";
   [@bs.set] external setInit: (t, [@bs.this](t, Utils.any) => unit) => unit = "init";
@@ -1245,7 +1280,7 @@ module GameObjectFactory = {
   type t = gameObjectFactory;
   type font = string;
   type text = string;
-  [@bs.get] external scene: t => scene = "scene";
+  [@bs.get] external scene: t => sceneT = "scene";
   [@bs.get] external systems: t => systems = "systems";
   [@bs.get] external updateList: t =>  GameObjects.updateList = "UpdateList";
   [@bs.get] external displayList: t =>  GameObjects.displayList = "DisplayList";
@@ -1337,7 +1372,7 @@ module LoaderPlugin = {
   [@bs.get] external prefix: t => string = "prefix";
   [@bs.set] external setPrefix: (t, string) => unit = "setPrefix";
   [@bs.get] external progress: t => float = "progress";
-  [@bs.get] external scene: t => scene = "scene";
+  [@bs.get] external scene: t => sceneT = "scene";
   [@bs.get] external state: t => int = "state";
   [@bs.get] external systems: t => systems = "systems";
   [@bs.get] external totalComplete: t => int = "totalComplete";

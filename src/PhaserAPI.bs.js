@@ -12,6 +12,15 @@ var Vector2 = /* module */[];
 
 var $$Math = /* module */[/* Vector2 */Vector2];
 
+var Clock = /* module */[];
+
+var TimerEvent = /* module */[];
+
+var Time = /* module */[
+  /* Clock */Clock,
+  /* TimerEvent */TimerEvent
+];
+
 var InputManager = /* module */[];
 
 var $$Gamepad = /* module */[];
@@ -185,6 +194,7 @@ var LoaderPlugin = /* module */[];
 
 exports.Events = Events;
 exports.$$Math = $$Math;
+exports.Time = Time;
 exports.Input = Input;
 exports.Game = Game;
 exports.Tilemaps = Tilemaps;
