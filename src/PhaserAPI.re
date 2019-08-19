@@ -10,15 +10,16 @@ type phaserDom;
 type eventEmitter;
 type lightsManager;
 type gameObjectFactory;
-type gameObject;
+type gameObjectT;
 type point;
-type scaleManager;
+type scaleManagerT;
 type dataManager;
 type textureManager;
 type tweenManager;
 type baseSoundManager;
 type pluginManager;
-
+type htmlCanvasElementT;
+type configT;
 
 type tweenBuilderConfig;
 
@@ -372,6 +373,8 @@ type gameConfig = {
 
 
 module Events = {
+  type eventEmitterT;
+
   module EventEmitter = (E: {type t;}) => {
     type eventEmitterT;
     // type t = eventEmitterT;
@@ -398,8 +401,8 @@ module Math = {
   type vector2T;
   module Vector2 = {
     type t = vector2T;
-    [@bs.module "Phaser.Math"][@bs.new] external make: (int, int) => t = "Vector2";
-    [@bs.module "Phaser.Math"][@bs.new] external makeF: (float, float) => t = "Vector2";
+    [@bs.module "phaser"][@bs.scope "Math"][@bs.new] external make: (int, int) => t = "Vector2";
+    [@bs.module "phaser"][@bs.scope "Math"][@bs.new] external makeF: (float, float) => t = "Vector2";
     [@bs.get] external x: t => int = "x";
     [@bs.get] external y: t => int = "y";
     /** Methods Add */
@@ -427,7 +430,43 @@ module Math = {
 
 module Input = {
   type inputT;
+  type pointerT;
+  type inputManagerT;
+  type mouseManagerT;
+  type touchManagerT;
+  type keyboardManagerT;
+
   type t = inputT;
+  module InputManager = {
+    type t = inputManagerT;
+    [@bs.get] external activePointer: t => pointerT = "activePointer"; 
+    [@bs.get] external canvas: t => htmlCanvasElementT = "canvas";
+    [@bs.get] external defaultCursor: t => string = "defaultCursor";
+    [@bs.get] external config: t => configT = "config";
+    [@bs.get] external enabled: t => bool = "enabled";
+    [@bs.get] external globalTopOnly: t => bool = "globalTopOnly";
+    [@bs.get] external events: t => Events.eventEmitterT = "events";
+    [@bs.get] external game: t => gameT = "game";
+    [@bs.get] external touch: t => touchManagerT = "touch";
+    [@bs.get] external isOver: t => bool = "isOver";
+    [@bs.get] external keyboard: t => Js.Nullable.t(keyboardManagerT) = "keyboard";
+    [@bs.get] external mouse: t => Js.Nullable.t(mouseManagerT) = "mouse";
+    [@bs.get] external scaleManager: t => scaleManagerT = "scaleManager";
+    [@bs.get] external mousePointer: t => Js.Nullable.t(pointerT) = "mousePointer";
+    [@bs.get] external pointersTotal: t => int = "pointersTotal";
+    [@bs.get] external pointers: t => array(pointerT) = "pointers";
+    [@bs.get] external time: t => float = "time";
+
+    [@bs.send] external destroy: t => unit = "destroy";
+    [@bs.send] external addPointer: (t, int) => array(pointerT) = "addPointer";
+    [@bs.send] external boot: t => unit = "boot";
+    [@bs.send] external pointWithinHitArea: (t, gameObjectT, int, int) => bool = "pointWithinHitArea";
+    [@bs.send] external setDefaultCursor: (t, string) => unit = "setDefaultCursor";
+    [@bs.send] external transformPointer: (t, pointerT, int, int, bool) => unit = "transformPointer";
+    [@bs.send] external updateInputPlugins: (t, int, array(pointerT)) => unit = "updateInputPlugins";
+  };
+
+
   module Gamepad = {
 
   };
@@ -439,7 +478,7 @@ module Input = {
     module Key =  {
       type keyT;
       type t = keyT;
-      [@bs.module "Phaser.Input.Keyboard"] [@bs.new] external make: (keyboardPluginT, int) => t = "Key";
+      [@bs.module "phaser"] [@bs.scope ("Input", "Keyboard")] [@bs.new] external make: (keyboardPluginT, int) => t = "Key";
       [@bs.get] external altKey: t => bool = "altKey";
       [@bs.get] external ctrlKey: t => bool = "ctrlKey";
       [@bs.get] external duration: t => int = "duration";
@@ -492,7 +531,7 @@ module Tilemaps = {
 
 
 module GameObjects = {
-  type t = gameObject;
+  type t = gameObjectT;
   type text;
   type bitmapText;
   type bitmapMask;
@@ -651,7 +690,7 @@ module GameObjects = {
     [@bs.send] external clearAlpha: t => t ="clearAlpha";
     [@bs.send] external clearMask: (t, bool) => t = "clearMask";
     [@bs.send] external closePath: t => t = "closePath";
-    [@bs.send] external createBitmapMask: (t, gameObject) => bitmapMask = "createBitmapMask";
+    [@bs.send] external createBitmapMask: (t, gameObjectT) => bitmapMask = "createBitmapMask";
     [@bs.send] external createGeometryMask: (t, t) => geometryMask = "createGeometryMask";
     [@bs.send] external destroy: (t, bool) => unit = "destroy";
     [@bs.send] external disableInteractive: t => t = "disableInteractive";
@@ -885,7 +924,7 @@ module Scene = {
   [@bs.get] external input: t => inputPluginT = "input";
   [@bs.get] external makeGameObject: t => gameObjectCreatorT = "make";
   [@bs.get] external registry: t => dataManager = "registry";
-  [@bs.get] external scale: t => scaleManager =  "scale";
+  [@bs.get] external scale: t => scaleManagerT =  "scale";
   [@bs.get] external lights: t => lightsManager = "lights";
   [@bs.get] external textures: t => textureManager = "textures";
   [@bs.get] external time: t => clock = "time";
@@ -1217,8 +1256,8 @@ module GameObjectFactory = {
   [@bs.send] external blitterWithStrFrames: (t, int, int, string, string) => GameObjects.blitter = "blitter";
   [@bs.send] external blitterWithIntFrames: (t, int, int, string, int) => GameObjects.blitter = "blitter";
   [@bs.send] external circle: (t, int, int, int, int, int) => GameObjects.arc = "circle";
-  [@bs.send] external container: (t, int, int, gameObject) => GameObjects.container = "container";
-  [@bs.send] external containerWithArr: (t, int, int, array(gameObject)) => GameObjects.container = "container";
+  [@bs.send] external container: (t, int, int, gameObjectT) => GameObjects.container = "container";
+  [@bs.send] external containerWithArr: (t, int, int, array(gameObjectT)) => GameObjects.container = "container";
   [@bs.send] external polygonInt: (t, int, int, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external polygonFloat: (t, float, float, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external extern: t => GameObjects.extern = "extern";
@@ -1226,7 +1265,7 @@ module GameObjectFactory = {
   [@bs.send] external imageIntInt: (t, int, int, string, int) => GameObjects.image = "image";
   [@bs.send] external imageFloatStr: (t, float, float, string, string) => GameObjects.image ="image";
   [@bs.send] external imageFloatInt: (t, float, float, string, int) => GameObjects.image ="image";
-  [@bs.send] external existing: (t, gameObject) => gameObject = "existing";
+  [@bs.send] external existing: (t, gameObjectT) => gameObjectT = "existing";
   [@bs.send] external quadStr: (t, int, int, string, string) => GameObjects.quad = "quad";
   [@bs.send] external quadInt: (t, int, int, string, int) => GameObjects.quad = "quad";
   [@bs.send] external pathInt: (t, int, int) => GameObjects.path = "path";

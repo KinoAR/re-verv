@@ -5,7 +5,6 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var Phaser = require("phaser");
 var Tablecloth = require("tablecloth-bucklescript/src/tablecloth.bs.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
-var PhaserMath = require("Phaser.Math");
 
 var phaser = Phaser;
 
@@ -63,11 +62,11 @@ function createScene(key, init, preload, create, update, param) {
 }
 
 function toPhaserVec2(param) {
-  return new PhaserMath.Vector2(param[0], param[1]);
+  return new (Phaser.Math.Vector2)(param[0], param[1]);
 }
 
 function toPhaserVec2F(param) {
-  return new PhaserMath.Vector2(param[0], param[1]);
+  return new (Phaser.Math.Vector2)(param[0], param[1]);
 }
 
 function $plus$bang(param, param$1) {

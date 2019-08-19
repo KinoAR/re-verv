@@ -12,6 +12,8 @@ var Vector2 = /* module */[];
 
 var $$Math = /* module */[/* Vector2 */Vector2];
 
+var InputManager = /* module */[];
+
 var $$Gamepad = /* module */[];
 
 var Key = /* module */[];
@@ -23,6 +25,7 @@ var Mouse = /* module */[];
 var $$Touch = /* module */[];
 
 var Input = /* module */[
+  /* InputManager */InputManager,
   /* Gamepad */$$Gamepad,
   /* Keyboard */Keyboard,
   /* Mouse */Mouse,
