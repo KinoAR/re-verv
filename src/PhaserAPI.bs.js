@@ -21,6 +21,10 @@ var Time = /* module */[
   /* TimerEvent */TimerEvent
 ];
 
+var BaseSound = /* module */[];
+
+var Sound = /* module */[/* BaseSound */BaseSound];
+
 var InputManager = /* module */[];
 
 var $$Gamepad = /* module */[];
@@ -195,6 +199,7 @@ var LoaderPlugin = /* module */[];
 exports.Events = Events;
 exports.$$Math = $$Math;
 exports.Time = Time;
+exports.Sound = Sound;
 exports.Input = Input;
 exports.Game = Game;
 exports.Tilemaps = Tilemaps;

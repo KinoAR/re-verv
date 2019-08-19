@@ -428,6 +428,7 @@ module Math = {
 
 
 module Time = {
+  type timerEventT;
   [@bs.deriving abstract] 
   type timerEventConfigT = {
     [@bs.optional] delay: int,
@@ -458,8 +459,71 @@ module Time = {
   }
 
   module TimerEvent = {
-
+    type t = timerEventT;
+    [@bs.module "phaser"][@bs.scope "Time"] [@bs.new] external make: (timerEventConfigT) => t = "TimerEvent";
+    [@bs.get] external paused: t => bool = "paused";
+    [@bs.get] external repeatCount: t => int = "repeatCount";
+    [@bs.get] external repeat: t => int = "repeat";
+    [@bs.get] external startAt: t => int = "startAt";
+    [@bs.get] external timeScale: t => float = "timeScale";
+    [@bs.get] external hasDispatched: t => bool = "hasDispatched";
+    [@bs.get] external elapsed: t => int = "elapsed";
+    [@bs.get] external delay: t => int = "delay";
+    [@bs.send] external destroy: t => unit = "destroy";
+    [@bs.send] external getElapsed: t => int = "getElapsed";
+    [@bs.send] external getElapsedSeconds: t => int = "getElapsedSeconds";
+    [@bs.send] external getOverallProgress: t => float = "getOverallProgress";
+    [@bs.send] external getRepeatCount: t => int = "getRepeatCount";
+    [@bs.send] external remove: (t, bool) => unit = "remove";
+    [@bs.send] external reset: (t, timerEventConfigT) => t = "reset";
   }
+};
+
+module Sound = {
+  type baseSoundT;
+  type spriteMapT;
+
+  [@bs.deriving abstract]
+  type audioSpriteSoundT = {
+    spritemap: spriteMapT
+  };
+
+  [@bs.deriving abstract]
+  type soundConfigT = {
+    [@bs.optional] mute: bool,
+    [@bs.optional] volume: float,
+    [@bs.optional] rate: float,
+    [@bs.optional] detune: float,
+    [@bs.optional] seek: int,
+    [@bs.optional] loop: bool,
+    [@bs.optional] delay: int
+  };
+
+  [@bs.deriving abstract]
+  type decodeAudioConfigT = {
+    key:string,
+    data:string
+  };
+
+  [@bs.deriving abstract]
+  type soundMarkerT = {
+    [@bs.optional] name:string,
+    [@bs.optional] start: int,
+    [@bs.optional]duration: int,
+    [@bs.optional] config: soundConfigT
+  };
+
+  module BaseSound = {
+    type t = baseSoundT;
+    [@bs.send] external addMarker: (t, soundMarkerT) => bool = "addMarker";
+    [@bs.send] external pause: t => bool = "pause";
+    [@bs.send] external play: (t, string) => bool = "play";
+    [@Bs.send] external playWithConfig: (t, string, soundConfigT) => bool = "play";
+    [@bs.send] external removeMarker: (t, string) => Js.Nullable.t(soundMarkerT) = "removeMarker";
+    include(Events.EventEmitter({
+      type nonrec t = t;
+    }))
+  };
 };
 
 
