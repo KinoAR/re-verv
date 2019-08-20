@@ -5,6 +5,7 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var Phaser = require("phaser");
 var Tablecloth = require("tablecloth-bucklescript/src/tablecloth.bs.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var CamlinternalOO = require("bs-platform/lib/js/camlinternalOO.js");
 
 var phaser = Phaser;
 
@@ -96,6 +97,36 @@ var Vector2 = /* module */[
   /* toFloatVector */toFloatVector
 ];
 
+function addText(scene, x, y, text, color) {
+  var text$1 = scene.add.text(x, y, text);
+  return text$1.setColor(color);
+}
+
+var $$Text = /* module */[/* addText */addText];
+
+var class_tables = [
+  0,
+  0,
+  0
+];
+
+function addBitmapText(scene, x, y, text, color) {
+  if (!class_tables[0]) {
+    var $$class = CamlinternalOO.create_table(0);
+    var env = CamlinternalOO.new_variable($$class, "");
+    var env_init = function (env$1) {
+      var self = CamlinternalOO.create_object_opt(0, $$class);
+      self[env] = env$1;
+      return self;
+    };
+    CamlinternalOO.init_class($$class);
+    class_tables[0] = env_init;
+  }
+  return Curry._1(class_tables[0], 0);
+}
+
+var BitMapText = /* module */[/* addBitmapText */addBitmapText];
+
 exports.phaser = phaser;
 exports.auto = auto;
 exports.canvas = canvas;
@@ -106,4 +137,6 @@ exports.zeroCallback = zeroCallback;
 exports.dataCallback = dataCallback;
 exports.createScene = createScene;
 exports.Vector2 = Vector2;
+exports.$$Text = $$Text;
+exports.BitMapText = BitMapText;
 /* phaser Not a pure module */

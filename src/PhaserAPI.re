@@ -13,14 +13,14 @@ type gameObjectFactory;
 type gameObjectT;
 type point;
 type scaleManagerT;
-type dataManager;
+type dataManagerT;
 type textureManager;
 type tweenManager;
 type baseSoundManager;
 type pluginManager;
 type htmlCanvasElementT;
 type configT;
-
+type camera2DT;
 type tweenBuilderConfig;
 
 type inputPluginT;
@@ -203,7 +203,7 @@ type boundsConfig = {
   [@bs.optional] bottom: bool,
 };
 
-type impactBody;
+type impactBodyT;
 [@bs.deriving abstract]
 type impactWorldConfig = {
   [@bs.optional] gravity: int,
@@ -233,10 +233,10 @@ type matterBodyTileOptions = {
   [@bs.optional] addToWorld: bool
 };
 
-type matterBody;
+type matterBodyT;
 [@bs.deriving abstract]
 type matterTileOptions = {
-  [@bs.optional] body: matterBody,
+  [@bs.optional] body: matterBodyT,
   [@bs.optional] isStatic: bool,
   [@bs.optional] addToWorld: bool
 };
@@ -481,6 +481,7 @@ module Time = {
 
 module Sound = {
   type baseSoundT;
+  type baseSoundManagerT;
   type spriteMapT;
 
   [@bs.deriving abstract]
@@ -493,7 +494,7 @@ module Sound = {
     [@bs.optional] mute: bool,
     [@bs.optional] volume: float,
     [@bs.optional] rate: float,
-    [@bs.optional] detune: float,
+    [@bs.optional] detune: int,
     [@bs.optional] seek: int,
     [@bs.optional] loop: bool,
     [@bs.optional] delay: int
@@ -524,6 +525,28 @@ module Sound = {
       type nonrec t = t;
     }))
   };
+
+  module BaseSoundManager = {
+    type t = baseSoundManagerT;
+    [@bs.get] external detune: t => int = "detune";
+    [@bs.get] external game: t => gameT = "game";
+    [@bs.get] external mute: t => bool = "mute";
+    [@bs.get] external rate: t =>  float = "rate";
+    [@bs.get] external volume: t => float = "volume";
+    [@bs.send] external addAudioSprite: (t, string, soundConfigT) => audioSpriteSoundT = "addAudioSprite";
+    [@bs.send] external pauseAll: t => unit = "pauseAll";
+    [@bs.send] external play: (t, string) => bool = "play";
+    [@bs.send] external playWithConfig: (t, string, soundConfigT) => bool = "play";
+    [@bs.send] external removeByKey: (t, string) => int = "removeByKey";
+    [@bs.send] external resumeAll: t => unit = "resumeAll";
+    [@bs.send] external stopAll: t => unit = "stopAll";
+    [@bs.send] external setDetune: (t, int) => t = "setDetune";
+    [@bs.send] external setRate: (t, float) => t = "setRate";
+    
+    include(Events.EventEmitter({
+      type nonrec t = t;
+    }))
+  };
 };
 
 
@@ -534,6 +557,7 @@ module Input = {
   type mouseManagerT;
   type touchManagerT;
   type keyboardManagerT;
+  type interactiveObjectT;
 
   type t = inputT;
   module InputManager = {
@@ -631,8 +655,8 @@ module Tilemaps = {
 
 module GameObjects = {
   type t = gameObjectT;
-  type text;
-  type bitmapText;
+  type textT;
+  type bitmapTextT;
   type bitmapMask;
   type geometryMask;
   type dynamicBitmapText;
@@ -640,7 +664,7 @@ module GameObjects = {
   type arc;
   type displayList;
   type updateList;
-  type container;
+  type containerT;
   type curve;
   type ellipse;
   type extern;
@@ -676,10 +700,11 @@ module GameObjects = {
     [@bs.optional] lineStyle,
     [@bs.optional] fillStyle
   };
+  type jsonGameObjectT;
   type pathFollower;
   type grid;
   type group;
-  type image;
+  type imageT;
   type isoBox;
   type isoTriangle;
   type line;
@@ -695,10 +720,152 @@ module GameObjects = {
   type tileSprite;
   type triangle;
   type zone;
+  
+ module BaseGameObject = (G: {type t;}) => {
+   [@bs.module "phaser"][@bs.scope "GameObjects"][@bs.new] external makeBase: (sceneT, string) => gameObjectT = "GameObject";
+   [@bs.get] external active: G.t => bool = "active";
+   [@bs.get] external cameraFilter: G.t => int = "cameraFilter";
+   [@bs.get] external type_: G.t => string = "type";
+   [@bs.get] external tabIndex: G.t => int = "tabIndex";
+   [@bs.get] external state: G.t => string = "state";
+   [@bs.get] external stateInt: G.t => int = "state";
+   [@bs.get] external ignoreDestroy: G.t => bool = "ignoreDestroy";
+   [@bs.get] external name: G.t => string = "name";
+   [@bs.get] external parentContainer: G.t => containerT = "parentContainer";
+   [@bs.get] external renderFlags: G.t => int = "renderFlags";
+   [@bs.get] external scene: G.t => sceneT = "scene";
+   [@bs.get] external input: G.t => Js.Nullable.t(Input.interactiveObjectT) = "input";
+   [@bs.get] external data: G.t => dataManagerT = "data";
+   [@bs.get] external arcadeBody: G.t => Js.Nullable.t(arcadeBodyT) = "body";
+   [@bs.get] external impactBody: G.t => Js.Nullable.t(impactBodyT) = "body";
+   [@bs.get] external matterBody: G.t => Js.Nullable.t(matterBodyT) = "body"; 
+   [@bs.get] external renderMask: G.t => int = "RENDER_MASK";
 
+   [@bs.set] external setActive: (t, bool) => unit = "active";
+   [@bs.send] external disableInteractive: G.t => G.t = "disableInteractive"; 
+   [@bs.send] external getData: (G.t, string) => 'a = "getData";
+   [@bs.send] external getIndexList: G.t => array(int) = "getIndexList";
+   [@bs.send] external removeInteractive: G.t => G.t = "removeInteractive";
+   [@bs.send] external setName: (G.t, string) => G.t = "setName";
+   [@bs.send] external setState: (G.t, string) => G.t = "setState";
+   [@bs.send] external setDataEnabled: G.t => G.t = "setDataEnabled";
+   [@bs.send] external setData: (G.t, string, 'a) => G.t = "setData";
+   [@bs.send] external willRender: (G.t, camera2DT) => bool = "willRender";
+   include(Events.EventEmitter({
+     type nonrec t = t;
+   }))
+ };
+
+  module Components = {
+    module Alpha = (A:{type t;}) => {
+      [@bs.send] external setAllAlpha: (A.t, ~topLeft:int, ~topRight:int, ~bottomLeft:int, ~bottomRight:int) => A.t = "setAlpha";
+      [@bs.send] external clearAlpha: A.t => A.t = "clearAlpha";
+      [@bs.get] external alpha: A.t => int = "alpha";
+      [@bs.get] external alphaF: A.t => float = "alpha";
+      [@bs.set] external setAlpha: (A.t, int) =>  unit = "alpha";
+      [@bs.set] external setAlphaF: (A.t, float) => unit = "alpha"; 
+      [@bs.get] external alphaBottomLeft: A.t => int = "alphaBottomLeft";
+      [@bs.get] external alphaBottomLeftF: A.t => float = "alphaBottomleft";
+      [@bs.set] external setAlphaBottomleft: (A.t, int) => unit = "alphaBottomLeft";
+      [@bs.set] external setAlphaBottomLeftf: (A.t, float) => unit = "alphaBottomRight";
+      [@bs.set] external setAlphaBottomRight: (A.t, int) => unit = "alphaBottomRight";
+      [@bs.get] external alphaTopLeft: A.t => int = "alphaTopLeft";
+      [@bs.get] external alphaTopLeftf: A.t => float = "alphaTopLeft";
+      [@bs.set] external setAlphaTopleft: (A.t, int) => unit = "alphaTopLeft";
+      [@bs.set] external setAlphaTopLeftf: (A.t, float) => unit = "alphaTopLeft";
+      [@bs.get] external alphaTopRight: A.t => int = "alphaTopRight";
+      [@bs.get] external alphaTopRightf: A.t => float = "alphaTopRight";
+      [@bs.set] external setAlphaTopRight: (A.t, int) => unit = "alphaTopRight";
+      [@bs.set] external setAlphaTopRightf: (A.t, float) => unit = "alphaTopRight";
+    };
+
+    module Transform = (T:{type t;}) => {
+        [@bs.get] external angle: T.t => int = "angle";
+        [@bs.get] external angleF: T.t => float = "angle";
+        [@bs.set] external setAngle: (T.t, int) => T.t = "setAngle";
+        [@bs.set] external setAngleF: (T.t, float) => T.t = "setAngle";
+        [@bs.get] external rotation: T.t => int = "rotation";
+        [@bs.get] external rotationF: T.t => float = "rotation";
+        [@bs.set] external setRotation: (T.t, int) => T.t = "setRotation";
+        [@bs.set] external setRotationF: (T.t, float) => T.t = "Rotation";
+        [@bs.get] external scale: T.t => int = "scale";
+        [@bs.get] external scaleF: T.t => float = "scale";
+        [@bs.get] external scaleX: T.t => int = "scaleX";
+        [@bs.get] external scaleXF: T.t => float = "scaleX";
+        [@bs.get] external scaleY: T.t => int = "scaleY";
+        [@bs.get] external scaleYF: T.t => float = "scaleY";
+        [@bs.get] external w: T.t => int = "w";
+        [@bs.get] external x: T.t => int = "x";
+        [@bs.get] external y: T.t => int = "y";
+        [@bs.get] external z: T.t => int = "z";
+        [@bs.send] external setScale: (T.t, ~x: int, ~y: int) => T.t = "setScale";
+        [@bs.send] external setPosition: (T.t, ~x:int, ~y:int, ~z:int, ~w:int) => T.t = "setPosition";
+        [@bs.send] external setPositionF: (T.t, ~x:float, ~y:float, ~z:float, ~w:float) => T.t = "setPosition";
+        [@bs.send] external getParentRotation: T.t => int = "getParentRotation";
+        [@bs.send] external getParentRotationF: T.t => float = "getParentRotation";
+        [@bs.send] external setW: (T.t, int) => T.t = "setW";
+        [@bs.send] external setX: (T.t, int) => T.t = "setX";
+        [@bs.send] external setY: (T.t, int) => T.t = "setY";
+        [@bs.send] external setZ: (T.t, int) => T.t = "setZ";
+    };
+
+    module Visible = (V:{type t;}) => {
+      [@bs.get] external visible: V.t => bool = "visible";
+      [@bs.send] external setVisible: (V.t, bool) => V.t = "setVisible";
+    };
+
+    module Depth = (D:{type t;}) => {
+      [@bs.get] external depth: D.t => int = "depth";
+      [@bs.get] external depthF: D.t => float = "depth";
+      [@bs.send] external setDepth: (D.t, int) => D.t = "setDepth";
+    };
+
+    module ScrollFactor = (SF:{type t;}) => {
+      [@bs.get] external scrollFactorX: SF.t => int = "scrollFactorX";
+      [@bs.get] external scrollFactorXF: SF.t => float = "scrollFactorF";
+      [@bs.set] external setScrollFactorXF: (SF.t, float) => unit = "scrollFactorX";
+      [@bs.get] external scrollFactorY: SF.t => int = "scrollFactorY";
+      [@bs.get] external scrollFactorYF: SF.t => float = "scrollFactorY";
+      [@bs.set] external setScrollFactorYF: (SF.t, float) => unit = "scrollFactorY";
+      [@bs.send] external setScrollFactor:  (SF.t, ~x:int, ~y:int) => SF.t = "setScrollFactor";
+      [@bs.send] external setScrollFactorF:  (SF.t, ~x:float, ~y:float) => SF.t = "setScrollFactor";
+    };
+  }
 
   module Text = {
-    [@bs.send] external setColor: (text, string) => text = "setColor";
+    type t = textT;
+    [@bs.send] external setColor: (textT, string) => textT = "setColor";
+    include(BaseGameObject({
+      type nonrec t = t;
+    }))
+  };
+
+  module BitmapText = {
+    type t = bitmapTextT;
+    include BaseGameObject({
+      type nonrec t = t;
+    });
+  };
+
+  module Container = {
+    type t = containerT;
+
+    include BaseGameObject({
+      type nonrec t = t;
+    });
+
+    include Components.Alpha({
+      type nonrec t = t;
+    });
+    include Components.Transform({
+      type nonrec t = t;
+    });
+    include Components.Visible({
+      type nonrec t = t;
+    });
+    include Components.Depth({
+      type nonrec t = t;
+    });
   };
 
   module Polygon = {
@@ -706,7 +873,23 @@ module GameObjects = {
   };
 
   module Image = {
+    type t = imageT;
+    include BaseGameObject({
+      type nonrec t = t;
+    });
 
+    include Components.Alpha({
+      type nonrec t = t;
+    });
+    include Components.Transform({
+      type nonrec t = t;
+    });
+    include Components.Visible({
+      type nonrec t = t;
+    });
+    include Components.Depth({
+      type nonrec t = t;
+    });
   };
 
   module Zone = {
@@ -716,34 +899,9 @@ module GameObjects = {
   module Graphics = {
     type command;
     type t = graphics;
-    [@bs.get] external active: t => bool = "active"; 
-    [@bs.set] external setActive: (t, bool) => unit = "active";
-    [@bs.get] external alpha: t => int = "alpha";
-    [@bs.get] external alphaF: t => float = "alpha";
-    [@bs.set] external setAlpha: (t, int) =>  unit = "alpha";
-    [@bs.set] external setAlphaF: (t, float) => unit = "alpha"; 
-    [@bs.get] external alphaBottomLeft: t => int = "alphaBottomLeft";
-    [@bs.get] external alphaBottomLeftF: t => float = "alphaBottomleft";
-    [@bs.set] external setAlphaBottomleft: (t, int) => unit = "alphaBottomLeft";
-    [@bs.set] external setAlphaBottomLeftf: (t, float) => unit = "alphaBottomRight";
-    [@bs.set] external setAlphaBottomRight: (t, int) => unit = "alphaBottomRight";
-    [@bs.get] external alphaTopLeft: t => int = "alphaTopLeft";
-    [@bs.get] external alphaTopLeftf: t => float = "alphaTopLeft";
-    [@bs.set] external setAlphaTopleft: (t, int) => unit = "alphaTopLeft";
-    [@bs.set] external setAlphaTopLeftf: (t, float) => unit = "alphaTopLeft";
-    [@bs.get] external alphaTopRight: t => int = "alphaTopRight";
-    [@bs.get] external alphaTopRightf: t => float = "alphaTopRight";
-    [@bs.set] external setAlphaTopRight: (t, int) => unit = "alphaTopRight";
-    [@bs.set] external setAlphaTopRightf: (t, float) => unit = "alphaTopRight";
-    [@bs.get] external angle: t => int = "angle";
-    [@bs.get] external angleF: t => float = "angle";
-    [@bs.set] external setAngle: (t, int) => unit = "angle";
-    [@bs.set] external setAngleF: (t, float) => unit = "angle";
+    
     [@bs.get] external blendMode: t => blendModes = "blendMode";
     [@bs.set] external setBlendMode: (t, blendModes) => unit = "blendMode"; 
-    [@bs.get] external arcadeBody: t => Js.Nullable.t(arcadeBodyT) = "body";
-    [@bs.get] external impactBody: t => Js.Nullable.t(impactBody) = "body";
-    [@bs.get] external cameraFilter: t => int = "cameraFilter";
     [@bs.get] external commandBuffer: t => array(command) = "commandBuffer"; 
     [@bs.get] external defaultFillAlpha: t => int = "defaultFillAlpha";
     [@bs.get] external defaultFillAlphaF: t => float = "defaultFillAlpha";
@@ -755,46 +913,13 @@ module GameObjects = {
     [@bs.get] external defaultStrokecolorF: t => float = "defaultStrokeColor";
     [@bs.get] external defaultStrokeWidth: t => int = "defaultStrokeWidth";
     [@bs.get] external defaultStrokeWidthF: t => float = "defaultStrokeWidth";
-    [@bs.get] external depth: t => int = "depth";
-    [@bs.get] external depthF: t => float = "depth";
-    [@bs.get] external rotation: t => int = "rotation";
-    [@bs.get] external rotationF: t => float = "rotation";
-    [@bs.set] external setRotation: (t, int) => unit = "rotation";
-    [@bs.set] external setRotationF: (t, float) => unit = "rotation";
-    [@bs.get] external scale: t => int = "scale";
-    [@bs.get] external scaleF: t => float = "scale";
-    [@bs.get] external scaleX: t => int = "scaleX";
-    [@bs.get] external scaleXF: t => float = "scaleX";
-    [@bs.get] external scaleY: t => int = "scaleY";
-    [@bs.get] external scaleYF: t => float = "scaleY";
-    [@bs.get] external scene: t => sceneT = "scene";
-    [@bs.get] external scrollFactorX: t => int = "scrollFactorX";
-    [@bs.get] external scrollFactorXF: t => float ="scrollFactorF"
-    [@bs.set] external setScrollFactorXF: (t, float) => unit = "scrollFactorX";
-    [@bs.get] external scrollFactorY: t => int = "scrollFactorY";
-    [@bs.get] external scrollFactorYF: t => float = "scrollFactorY";
-    [@bs.set] external setScrollFactorYF: (t, float) => unit = "scrollFactorY";
-    [@bs.get] external state: t => int = "state";
-    [@bs.get] external stateStr: t => string = "state";
-    [@bs.get] external tabIndex: t => int = "tabIndex";
-    [@bs.get] external type_: t=> string = "type"; 
-    [@bs.get] external visible: t => bool = "visible";
-    [@bs.get] external w: t => int = "w";
-    [@bs.get] external x: t => int = "x";
-    [@bs.get] external y: t => int = "y";
-    [@bs.get] external z: t => int = "z";
-
     [@bs.send] external beginPath: t => t = "beginPath";
     [@bs.send] external clear: t => t = "clear";
-    [@bs.send] external clearAlpha: t => t ="clearAlpha";
     [@bs.send] external clearMask: (t, bool) => t = "clearMask";
     [@bs.send] external closePath: t => t = "closePath";
     [@bs.send] external createBitmapMask: (t, gameObjectT) => bitmapMask = "createBitmapMask";
     [@bs.send] external createGeometryMask: (t, t) => geometryMask = "createGeometryMask";
-    [@bs.send] external destroy: (t, bool) => unit = "destroy";
-    [@bs.send] external disableInteractive: t => t = "disableInteractive";
     [@bs.send] external emit: (string, Utils.any) => bool = "emit";
-    [@bs.send] external eventNames: t => array(string) = "eventNames";
     [@bs.send] external fill: t => t = "fill";
     [@bs.send] external fillCircle: (t, int, int, int) => t = "fillCircle";
     [@bs.send] external fillCircleF: (t, float, float, float) => t = "fillCircle";
@@ -805,6 +930,43 @@ module GameObjects = {
     [@bs.send] external fillPath: t => t = "fillPath";
     [@bs.send] external fillPoint: (t, int, int, int) => t = "fillPoint";
     [@bs.send] external fillPointF: (t, float, float, float) => t = "fillPoint";
+
+    include BaseGameObject({
+      type nonrec t = t;
+    });
+
+    include(Components.Alpha({
+      type nonrec t = t;
+    }))
+    include(Components.Transform({
+      type nonrec t = t;
+    }))
+    include(Components.Visible({
+      type nonrec t = t;
+    }))
+    include(Components.Depth({
+      type nonrec t = t;
+    }))
+  };
+
+  module Sprite = {
+
+    include BaseGameObject({
+      type nonrec t = t;
+    });
+
+    include Components.Alpha({
+      type nonrec t = t;
+    });
+    include Components.Transform({
+      type nonrec t = t;
+    });
+    include Components.Visible({
+      type nonrec t = t;
+    });
+    include Components.Depth({
+      type nonrec t = t;
+    });
   };
 };
 
@@ -993,13 +1155,13 @@ module Physics = {
 
   module Impact = {
     module Body = {
-      type t = matterBody;
+      type t = impactBodyT;
     };
   };
 
   module Matter = {
     module Body = {
-      type t = matterBody;
+      type t = matterBodyT;
     };
   };
 };
@@ -1016,13 +1178,13 @@ module Scene = {
   [@bs.get] external impact: t => impactPhysics = "impact";
   [@bs.get] external matter: t => matterPhysics = "matter";
   [@bs.get] external physics: t => arcadePhysics = "physics";
-  [@bs.get] external data: t => dataManager = "data";
+  [@bs.get] external data: t => dataManagerT = "data";
   [@bs.get] external events: t => eventEmitter = "events";
   [@bs.get] external sys: t => systems = "sys";
   [@bs.get] external scene: t => scenePlugin = "scene";
   [@bs.get] external input: t => inputPluginT = "input";
   [@bs.get] external makeGameObject: t => gameObjectCreatorT = "make";
-  [@bs.get] external registry: t => dataManager = "registry";
+  [@bs.get] external registry: t => dataManagerT = "registry";
   [@bs.get] external scale: t => scaleManagerT =  "scale";
   [@bs.get] external lights: t => lightsManager = "lights";
   [@bs.get] external textures: t => textureManager = "textures";
@@ -1349,21 +1511,21 @@ module GameObjectFactory = {
   [@bs.get] external updateList: t =>  GameObjects.updateList = "UpdateList";
   [@bs.get] external displayList: t =>  GameObjects.displayList = "DisplayList";
   [@bs.send] external graphics: (t, GameObjects.graphicsOptions) => GameObjects.graphics = "graphics";
-  [@bs.send] external bitmapText: (t, int, int, font, text, int, int) => GameObjects.bitmapText = "bitmapText";
-  [@bs.send] external text:  (t, int, int, text) => GameObjects.text = "text";
+  [@bs.send] external bitmapText: (t, int, int, font, text, int, int) => GameObjects.bitmapTextT = "bitmapText";
+  [@bs.send] external text:  (t, int, int, text) => GameObjects.textT = "text";
   [@bs.send] external blitter: (t, int, int, string) => GameObjects.blitter = "blitter";
   [@bs.send] external blitterWithStrFrames: (t, int, int, string, string) => GameObjects.blitter = "blitter";
   [@bs.send] external blitterWithIntFrames: (t, int, int, string, int) => GameObjects.blitter = "blitter";
   [@bs.send] external circle: (t, int, int, int, int, int) => GameObjects.arc = "circle";
-  [@bs.send] external container: (t, int, int, gameObjectT) => GameObjects.container = "container";
-  [@bs.send] external containerWithArr: (t, int, int, array(gameObjectT)) => GameObjects.container = "container";
+  [@bs.send] external container: (t, int, int, gameObjectT) => GameObjects.containerT = "container";
+  [@bs.send] external containerWithArr: (t, int, int, array(gameObjectT)) => GameObjects.containerT = "container";
   [@bs.send] external polygonInt: (t, int, int, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external polygonFloat: (t, float, float, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external extern: t => GameObjects.extern = "extern";
-  [@bs.send] external imageIntStr: (t, int, int, string,string) => GameObjects.image = "image";
-  [@bs.send] external imageIntInt: (t, int, int, string, int) => GameObjects.image = "image";
-  [@bs.send] external imageFloatStr: (t, float, float, string, string) => GameObjects.image ="image";
-  [@bs.send] external imageFloatInt: (t, float, float, string, int) => GameObjects.image ="image";
+  [@bs.send] external imageIntStr: (t, int, int, string,string) => GameObjects.imageT = "image";
+  [@bs.send] external imageIntInt: (t, int, int, string, int) => GameObjects.imageT = "image";
+  [@bs.send] external imageFloatStr: (t, float, float, string, string) => GameObjects.imageT ="image";
+  [@bs.send] external imageFloatInt: (t, float, float, string, int) => GameObjects.imageT ="image";
   [@bs.send] external existing: (t, gameObjectT) => gameObjectT = "existing";
   [@bs.send] external quadStr: (t, int, int, string, string) => GameObjects.quad = "quad";
   [@bs.send] external quadInt: (t, int, int, string, int) => GameObjects.quad = "quad";

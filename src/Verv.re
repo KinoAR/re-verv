@@ -83,3 +83,17 @@ module Vector2 = {
   
 };
 
+module Text = {
+  let addText = (scene, x, y, text, color) => {
+    let text = scene -> Scene.add -> GameObjectFactory.text(x, y, text);
+    text-> GameObjects.Text.setColor(color);
+  };
+  
+};
+
+module BitMapText = {
+  let addBitmapText = (scene, x, y, text, color) => {
+
+  };
+};
+

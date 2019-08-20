@@ -23,7 +23,12 @@ var Time = /* module */[
 
 var BaseSound = /* module */[];
 
-var Sound = /* module */[/* BaseSound */BaseSound];
+var BaseSoundManager = /* module */[];
+
+var Sound = /* module */[
+  /* BaseSound */BaseSound,
+  /* BaseSoundManager */BaseSoundManager
+];
 
 var InputManager = /* module */[];
 
@@ -49,7 +54,43 @@ var Game = /* module */[];
 
 var Tilemaps = /* module */[];
 
+function BaseGameObject(G) {
+  return /* module */[];
+}
+
+function Alpha(A) {
+  return /* module */[];
+}
+
+function Transform(T) {
+  return /* module */[];
+}
+
+function Visible(V) {
+  return /* module */[];
+}
+
+function Depth(D) {
+  return /* module */[];
+}
+
+function ScrollFactor(SF) {
+  return /* module */[];
+}
+
+var Components = /* module */[
+  /* Alpha */Alpha,
+  /* Transform */Transform,
+  /* Visible */Visible,
+  /* Depth */Depth,
+  /* ScrollFactor */ScrollFactor
+];
+
 var $$Text = /* module */[];
+
+var BitmapText = /* module */[];
+
+var Container = /* module */[];
 
 var Polygon = /* module */[];
 
@@ -59,12 +100,19 @@ var Zone = /* module */[];
 
 var Graphics = /* module */[];
 
+var Sprite = /* module */[];
+
 var GameObjects = /* module */[
+  /* BaseGameObject */BaseGameObject,
+  /* Components */Components,
   /* Text */$$Text,
+  /* BitmapText */BitmapText,
+  /* Container */Container,
   /* Polygon */Polygon,
   /* Image */$$Image,
   /* Zone */Zone,
-  /* Graphics */Graphics
+  /* Graphics */Graphics,
+  /* Sprite */Sprite
 ];
 
 var Body = /* module */[];
