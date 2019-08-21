@@ -871,7 +871,7 @@ module GameObjects = {
       [@bs.send] external getTopLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopLeft";
       [@bs.send] external getTopRight: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopRight";
     };
-
+    /** Add path follower and need to be more */
     module PathFollower = (P:{type t;}) => {
 
       [@bs.send] external isFollowing: P.t => bool = "isFollowing";
