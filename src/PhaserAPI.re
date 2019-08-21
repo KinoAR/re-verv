@@ -698,6 +698,7 @@ module Curves = {
 
 module GameObjects = {
   type t = gameObjectT;
+  type spriteT;
   type textT;
   type bitmapTextT;
   type bitmapMask;
@@ -763,6 +764,8 @@ module GameObjects = {
   type tileSprite;
   type triangle;
   type zone;
+
+  [@bs.send] external toJSON: (t) => jsonGameObjectT = "ToJSON";
   
  module BaseGameObject = (G: {type t;}) => {
    [@bs.module "phaser"][@bs.scope "GameObjects"][@bs.new] external makeBase: (sceneT, string) => gameObjectT = "GameObject";
@@ -921,6 +924,22 @@ module GameObjects = {
       [@bs.send] external setSizeToFrame: (S.t, ~frame:Textures.frameT) => S.t = "setSizeToFrame";
     };
 
+    module ComputedSize = (CS:{type t;}) => {
+      [@bs.get] external displayHeight: CS.t => int = "displayHeight";
+      [@bs.get] external displayHeightF: CS.t => float = "displayHeight";
+      [@bs.get] external displayWidth: CS.t => int = "displayWidth";
+      [@bs.get] external displayWidthF: CS.t => float = "displayWidth";
+      [@bs.get] external height: CS.t => int = "height";
+      [@bs.get] external heightF: CS.t => float = "height";
+      [@bs.get] external width: CS.t => int = "width";
+      [@bs.get] external widthF: CS.t => float = "width";
+
+      [@bs.send] external setSize: (CS.t, ~width:int, ~height:int) => CS.t = "setSize";
+      [@bs.send] external setSizeF: (CS.t, ~width:float, ~height:float) => CS.t = "setSize";
+      [@bs.send] external setDisplaySize: (CS.t, ~width:int, ~height:int) => CS.t = "setDisplaySize";
+      [@bs.send] external setDisplaySizeF: (CS.t, ~width:float, ~height:float) => CS.t = "setDisplaySize";
+    };
+
     module Tint = (T:{type t;}) => {
       [@bs.get] external isTinted: T.t => bool ="isTinted";
       [@bs.get] external tint: T.t => int = "tint";
@@ -963,6 +982,16 @@ module GameObjects = {
       [@bs.set] external setScrollFactorYF: (SF.t, float) => unit = "scrollFactorY";
       [@bs.send] external setScrollFactor:  (SF.t, ~x:int, ~y:int=?, unit) => SF.t = "setScrollFactor";
       [@bs.send] external setScrollFactorF:  (SF.t, ~x:float, ~y:float=?, unit) => SF.t = "setScrollFactor";
+    };
+
+
+    module Texture = (T:{type t;}) => {
+      [@bs.get] external frame: T.t => Textures.frameT = "frame";
+      [@bs.get] external texture: T.t => Textures.t = "texture";
+
+      [@bs.send] external setFrame: (T.t, string, ~updateSize:bool=?, ~updateOrigin:bool=?) => T.t = "setFrame";
+      [@bs.send] external setTexture: (T.t, string, ~frame:string=?, unit) => T.t = "setTexture";
+      [@bs.send] external setTextureIndex: (T.t, string, ~frame:int=?, unit) => T.t = "setTexture";
     };
   }
 
@@ -1059,9 +1088,7 @@ module GameObjects = {
   module Graphics = {
     type command;
     type t = graphics;
-    
-    [@bs.get] external blendMode: t => blendModesT = "blendMode";
-    [@bs.set] external setBlendMode: (t, blendModesT) => unit = "blendMode"; 
+
     [@bs.get] external commandBuffer: t => array(command) = "commandBuffer"; 
     [@bs.get] external defaultFillAlpha: t => int = "defaultFillAlpha";
     [@bs.get] external defaultFillAlphaF: t => float = "defaultFillAlpha";
@@ -1107,10 +1134,17 @@ module GameObjects = {
     include(Components.Depth({
       type nonrec t = t;
     }))
+    include(Components.BlendMode({
+      type nonrec t = t;
+    }))
+    include(Components.ScrollFactor({
+      type nonrec t = t;
+    }))
   };
 
   module Sprite = {
-
+    type t = spriteT;
+    [@bs.module "phaser"][@bs.scope "GameObjects"][@bs.new] external make: (t, sceneT, ~x:int, ~y:int, ~texture:string, ~frame:string=?) => t = "Sprite";
     include BaseGameObject({
       type nonrec t = t;
     });

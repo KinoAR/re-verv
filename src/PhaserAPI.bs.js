@@ -102,6 +102,10 @@ function Size(S) {
   return /* module */[];
 }
 
+function ComputedSize(CS) {
+  return /* module */[];
+}
+
 function Tint(T) {
   return /* module */[];
 }
@@ -118,6 +122,10 @@ function ScrollFactor(SF) {
   return /* module */[];
 }
 
+function Texture(T) {
+  return /* module */[];
+}
+
 var Components = /* module */[
   /* Alpha */Alpha,
   /* BlendMode */BlendMode,
@@ -128,10 +136,12 @@ var Components = /* module */[
   /* Depth */Depth,
   /* Origin */Origin,
   /* Size */Size,
+  /* ComputedSize */ComputedSize,
   /* Tint */Tint,
   /* Crop */Crop,
   /* Flip */Flip,
-  /* ScrollFactor */ScrollFactor
+  /* ScrollFactor */ScrollFactor,
+  /* Texture */Texture
 ];
 
 var $$Text = /* module */[];
