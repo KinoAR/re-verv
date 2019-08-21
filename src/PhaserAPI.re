@@ -682,7 +682,7 @@ module Textures = {
     [@bs.get] external trimmed: t => bool = "trimmed";
 
     [@bs.send] external clone: t => t = "clone";
-    [@bs.send] external setSize: (t, ~width:int, ~height:int, ~x:int=?, ~y:int=?) => t = "setSize";
+    [@bs.send] external setSize: (t, ~width:int, ~height:int, ~x:int=?, ~y:int=?, unit) => t = "setSize";
     [@bs.send] external destroy: t => unit = "destroy";
     [@bs.send] external updateUVs: t => t = "updateUVs";
     [@bs.send] external updateUVsInverted: t => t = "updateUVsInverted";
@@ -860,16 +860,16 @@ module GameObjects = {
     };
 
     module GetBounds = (G:{type t;}) => {
-      [@bs.send] external getBottomCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getBottomCenter";
-      [@bs.send] external getBottomLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getBottomLeft";
-      [@bs.send] external getBottomRight: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getBottomRight";
+      [@bs.send] external getBottomCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getBottomCenter";
+      [@bs.send] external getBottomLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getBottomLeft";
+      [@bs.send] external getBottomRight: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getBottomRight";
       [@bs.send] external getBounds: (G.t, ~output:Math.vector2T=?) => Math.vector2T = "getBounds";
       [@bs.send] external getCenter: (G.t, ~output:Math.vector2T=?) => Math.vector2T = "getCenter";
-      [@bs.send] external getLeftCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getLeftCenter";
-      [@bs.send] external getRightCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getRightCenter";
-      [@bs.send] external getTopCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopCenter";
-      [@bs.send] external getTopLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopLeft";
-      [@bs.send] external getTopRight: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopRight";
+      [@bs.send] external getLeftCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getLeftCenter";
+      [@bs.send] external getRightCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getRightCenter";
+      [@bs.send] external getTopCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getTopCenter";
+      [@bs.send] external getTopLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getTopLeft";
+      [@bs.send] external getTopRight: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getTopRight";
     };
     /** Add path follower and need to be more */
     module PathFollower = (P:{type t;}) => {
@@ -933,6 +933,14 @@ module GameObjects = {
       [@bs.send] external clearTint: T.t => T.t = "clearTint";
       [@bs.send] external setTint: (T.t, ~topLeft:int=?, ~topRight:int=?, ~bottomLeft:int=?, ~bottomRight:int=?, unit) => T.t = "setTint";
       [@bs.send] external setTintFill: (T.t, ~topLeft:int=?, ~topRight:int=?, ~bottomLeft:int=?, ~bottomRight:int=?, unit) => T.t = "setTintFill"; 
+    };
+
+    module Crop = (C:{type t;}) => {
+      [@bs.get] external frame: C.t => Textures.frameT = "frame";
+      [@bs.get] external isCropped: C.t => bool = "isCropped";
+      [@bs.get] external texture: C.t => Textures.t = "texture";
+
+      [@bs.send] external setCrop: (C.t, ~x:int=?, ~y:int=?, ~width:int=?, ~height:int=?, unit) => C.t = "setCrop";
     };
 
     module Flip = (F:{type t;}) => {

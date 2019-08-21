@@ -106,6 +106,10 @@ function Tint(T) {
   return /* module */[];
 }
 
+function Crop(C) {
+  return /* module */[];
+}
+
 function Flip(F) {
   return /* module */[];
 }
@@ -125,6 +129,7 @@ var Components = /* module */[
   /* Origin */Origin,
   /* Size */Size,
   /* Tint */Tint,
+  /* Crop */Crop,
   /* Flip */Flip,
   /* ScrollFactor */ScrollFactor
 ];

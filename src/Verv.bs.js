@@ -97,12 +97,12 @@ var Vector2 = /* module */[
   /* toFloatVector */toFloatVector
 ];
 
+var Tween = /* module */[];
+
 function addText(scene, x, y, text, color) {
   var text$1 = scene.add.text(x, y, text);
   return text$1.setColor(color);
 }
-
-var $$Text = /* module */[/* addText */addText];
 
 var class_tables = [
   0,
@@ -110,7 +110,7 @@ var class_tables = [
   0
 ];
 
-function addBitmapText(scene, x, y, text, color) {
+function setBlendMode(text, blendMode) {
   if (!class_tables[0]) {
     var $$class = CamlinternalOO.create_table(0);
     var env = CamlinternalOO.new_variable($$class, "");
@@ -125,6 +125,32 @@ function addBitmapText(scene, x, y, text, color) {
   return Curry._1(class_tables[0], 0);
 }
 
+var $$Text = /* module */[
+  /* addText */addText,
+  /* setBlendMode */setBlendMode
+];
+
+var class_tables$1 = [
+  0,
+  0,
+  0
+];
+
+function addBitmapText(scene, x, y, text, color) {
+  if (!class_tables$1[0]) {
+    var $$class = CamlinternalOO.create_table(0);
+    var env = CamlinternalOO.new_variable($$class, "");
+    var env_init = function (env$1) {
+      var self = CamlinternalOO.create_object_opt(0, $$class);
+      self[env] = env$1;
+      return self;
+    };
+    CamlinternalOO.init_class($$class);
+    class_tables$1[0] = env_init;
+  }
+  return Curry._1(class_tables$1[0], 0);
+}
+
 var BitMapText = /* module */[/* addBitmapText */addBitmapText];
 
 exports.phaser = phaser;
@@ -137,6 +163,7 @@ exports.zeroCallback = zeroCallback;
 exports.dataCallback = dataCallback;
 exports.createScene = createScene;
 exports.Vector2 = Vector2;
+exports.Tween = Tween;
 exports.$$Text = $$Text;
 exports.BitMapText = BitMapText;
 /* phaser Not a pure module */
