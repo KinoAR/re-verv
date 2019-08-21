@@ -54,6 +54,14 @@ var Game = /* module */[];
 
 var Tilemaps = /* module */[];
 
+var Frame = /* module */[];
+
+var Textures = /* module */[/* Frame */Frame];
+
+var Path = /* module */[];
+
+var Curves = /* module */[/* Path */Path];
+
 function BaseGameObject(G) {
   return /* module */[];
 }
@@ -62,7 +70,19 @@ function Alpha(A) {
   return /* module */[];
 }
 
+function BlendMode(B) {
+  return /* module */[];
+}
+
 function Transform(T) {
+  return /* module */[];
+}
+
+function GetBounds(G) {
+  return /* module */[];
+}
+
+function PathFollower(P) {
   return /* module */[];
 }
 
@@ -74,15 +94,38 @@ function Depth(D) {
   return /* module */[];
 }
 
+function Origin(O) {
+  return /* module */[];
+}
+
+function Size(S) {
+  return /* module */[];
+}
+
+function Tint(T) {
+  return /* module */[];
+}
+
+function Flip(F) {
+  return /* module */[];
+}
+
 function ScrollFactor(SF) {
   return /* module */[];
 }
 
 var Components = /* module */[
   /* Alpha */Alpha,
+  /* BlendMode */BlendMode,
   /* Transform */Transform,
+  /* GetBounds */GetBounds,
+  /* PathFollower */PathFollower,
   /* Visible */Visible,
   /* Depth */Depth,
+  /* Origin */Origin,
+  /* Size */Size,
+  /* Tint */Tint,
+  /* Flip */Flip,
   /* ScrollFactor */ScrollFactor
 ];
 
@@ -251,6 +294,8 @@ exports.Sound = Sound;
 exports.Input = Input;
 exports.Game = Game;
 exports.Tilemaps = Tilemaps;
+exports.Textures = Textures;
+exports.Curves = Curves;
 exports.GameObjects = GameObjects;
 exports.Physics = Physics;
 exports.Scene = Scene;

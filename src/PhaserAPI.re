@@ -6,6 +6,7 @@ type systems;
 type clockT;
 type time = float;
 type delta = float;
+type textureT;
 type phaserDom;
 type eventEmitter;
 type lightsManager;
@@ -52,7 +53,7 @@ type mapAdd;
 type rendererType = int;
 type audioContext;
 type centerType;
-type blendModes;
+type blendModesT;
 type scaleModes;
 
 
@@ -60,7 +61,7 @@ type scaleModes;
 [@bs.get] external rendererCanvas: phaserT => rendererType = "CANVAS";
 [@bs.get] external rendererHeadless: phaserT => rendererType = "HEADLESS";
 [@bs.get] external rendererWebGL: phaserT => rendererType = "WEBGL";
-[@bs.get] external blendModes: phaserT => blendModes = "BLENDMODES";
+[@bs.get] external blendModes: phaserT => blendModesT = "BLENDMODES";
 
 
 [@bs.deriving abstract]
@@ -651,7 +652,49 @@ module Tilemaps = {
 };
 
 
+module Textures = {
+  type t = textureT;
+  type frameT;
+  
 
+  /* Needs to be extended with more information */
+  module Frame = {
+    type t = frameT;
+
+    [@bs.get] external canvasData: t => 'a = "canvasData";
+    [@bs.get] external customData: t => 'a = "customData";
+    [@bs.get] external autoRound: t => int = "autoRound";
+    [@bs.get] external centerX: t => int = "centerX";
+    [@bs.get] external centerY: t => int = "centerY";
+    [@bs.get] external cutX: t => int = "cutX";
+    [@bs.get] external cutY: t => int = "cutY";
+    [@bs.get] external customPivot: t => bool = "customPivot";
+    [@bs.get] external halfHeight: t => int = "halfHeight";
+    [@bs.get] external halfWidth: t => int = "halfWidth";
+    [@bs.get] external name: t => string = "name";
+    [@bs.get] external height: t => int = "height";
+    [@bs.get] external width: t => int = "width";
+    [@bs.get] external rotated: t => bool = "rotated";
+    [@bs.get] external x: t => int = "x";
+    [@bs.get] external y: t => int = "y";
+    [@bs.get] external texture: t => textureT = "texture";
+    [@bs.get] external sourceIndex: t => int = "sourceIndex";
+    [@bs.get] external trimmed: t => bool = "trimmed";
+
+    [@bs.send] external clone: t => t = "clone";
+    [@bs.send] external setSize: (t, ~width:int, ~height:int, ~x:int=?, ~y:int=?) => t = "setSize";
+    [@bs.send] external destroy: t => unit = "destroy";
+    [@bs.send] external updateUVs: t => t = "updateUVs";
+    [@bs.send] external updateUVsInverted: t => t = "updateUVsInverted";
+  };
+}
+
+
+module Curves = {
+  module Path = {
+
+  };
+};
 
 module GameObjects = {
   type t = gameObjectT;
@@ -758,7 +801,7 @@ module GameObjects = {
 
   module Components = {
     module Alpha = (A:{type t;}) => {
-      [@bs.send] external setAllAlpha: (A.t, ~topLeft:int, ~topRight:int, ~bottomLeft:int, ~bottomRight:int) => A.t = "setAlpha";
+      [@bs.send] external setAllAlpha: (A.t, ~topLeft:int=?, ~topRight:int=?, ~bottomLeft:int=?, ~bottomRight:int=?, unit) => A.t = "setAlpha";
       [@bs.send] external clearAlpha: A.t => A.t = "clearAlpha";
       [@bs.get] external alpha: A.t => int = "alpha";
       [@bs.get] external alphaF: A.t => float = "alpha";
@@ -779,34 +822,63 @@ module GameObjects = {
       [@bs.set] external setAlphaTopRightf: (A.t, float) => unit = "alphaTopRight";
     };
 
+    module BlendMode = (B:{type t;}) => {
+      [@bs.get] external blendModeStr: B.t => string = "blendMode";
+      [@bs.get] external blendMode: B.t => blendModesT = "blendMode";
+      [@bs.send] external setBlendModeStr: (B.t, string) => B.t = "setBlendMode";
+      [@bs.send] external setBlendMode: (B.t, blendModesT) => B.t = "setBlendMode";
+    };
+
     module Transform = (T:{type t;}) => {
-        [@bs.get] external angle: T.t => int = "angle";
-        [@bs.get] external angleF: T.t => float = "angle";
-        [@bs.set] external setAngle: (T.t, int) => T.t = "setAngle";
-        [@bs.set] external setAngleF: (T.t, float) => T.t = "setAngle";
-        [@bs.get] external rotation: T.t => int = "rotation";
-        [@bs.get] external rotationF: T.t => float = "rotation";
-        [@bs.set] external setRotation: (T.t, int) => T.t = "setRotation";
-        [@bs.set] external setRotationF: (T.t, float) => T.t = "Rotation";
-        [@bs.get] external scale: T.t => int = "scale";
-        [@bs.get] external scaleF: T.t => float = "scale";
-        [@bs.get] external scaleX: T.t => int = "scaleX";
-        [@bs.get] external scaleXF: T.t => float = "scaleX";
-        [@bs.get] external scaleY: T.t => int = "scaleY";
-        [@bs.get] external scaleYF: T.t => float = "scaleY";
-        [@bs.get] external w: T.t => int = "w";
-        [@bs.get] external x: T.t => int = "x";
-        [@bs.get] external y: T.t => int = "y";
-        [@bs.get] external z: T.t => int = "z";
-        [@bs.send] external setScale: (T.t, ~x: int, ~y: int) => T.t = "setScale";
-        [@bs.send] external setPosition: (T.t, ~x:int, ~y:int, ~z:int, ~w:int) => T.t = "setPosition";
-        [@bs.send] external setPositionF: (T.t, ~x:float, ~y:float, ~z:float, ~w:float) => T.t = "setPosition";
-        [@bs.send] external getParentRotation: T.t => int = "getParentRotation";
-        [@bs.send] external getParentRotationF: T.t => float = "getParentRotation";
-        [@bs.send] external setW: (T.t, int) => T.t = "setW";
-        [@bs.send] external setX: (T.t, int) => T.t = "setX";
-        [@bs.send] external setY: (T.t, int) => T.t = "setY";
-        [@bs.send] external setZ: (T.t, int) => T.t = "setZ";
+      [@bs.get] external angle: T.t => int = "angle";
+      [@bs.get] external angleF: T.t => float = "angle";
+      [@bs.set] external setAngle: (T.t, int) => T.t = "setAngle";
+      [@bs.set] external setAngleF: (T.t, float) => T.t = "setAngle";
+      [@bs.get] external rotation: T.t => int = "rotation";
+      [@bs.get] external rotationF: T.t => float = "rotation";
+      [@bs.set] external setRotation: (T.t, int) => T.t = "setRotation";
+      [@bs.set] external setRotationF: (T.t, float) => T.t = "Rotation";
+      [@bs.get] external scale: T.t => int = "scale";
+      [@bs.get] external scaleF: T.t => float = "scale";
+      [@bs.get] external scaleX: T.t => int = "scaleX";
+      [@bs.get] external scaleXF: T.t => float = "scaleX";
+      [@bs.get] external scaleY: T.t => int = "scaleY";
+      [@bs.get] external scaleYF: T.t => float = "scaleY";
+      [@bs.get] external w: T.t => int = "w";
+      [@bs.get] external x: T.t => int = "x";
+      [@bs.get] external y: T.t => int = "y";
+      [@bs.get] external z: T.t => int = "z";
+      [@bs.send] external setScale: (T.t, ~x: int, ~y: int) => T.t = "setScale";
+      [@bs.send] external setPosition: (T.t, ~x:int, ~y:int, ~z:int, ~w:int) => T.t = "setPosition";
+      [@bs.send] external setPositionF: (T.t, ~x:float, ~y:float, ~z:float, ~w:float) => T.t = "setPosition";
+      [@bs.send] external getParentRotation: T.t => int = "getParentRotation";
+      [@bs.send] external getParentRotationF: T.t => float = "getParentRotation";
+      [@bs.send] external setW: (T.t, int) => T.t = "setW";
+      [@bs.send] external setX: (T.t, int) => T.t = "setX";
+      [@bs.send] external setY: (T.t, int) => T.t = "setY";
+      [@bs.send] external setZ: (T.t, int) => T.t = "setZ";
+    };
+
+    module GetBounds = (G:{type t;}) => {
+      [@bs.send] external getBottomCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getBottomCenter";
+      [@bs.send] external getBottomLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getBottomLeft";
+      [@bs.send] external getBottomRight: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getBottomRight";
+      [@bs.send] external getBounds: (G.t, ~output:Math.vector2T=?) => Math.vector2T = "getBounds";
+      [@bs.send] external getCenter: (G.t, ~output:Math.vector2T=?) => Math.vector2T = "getCenter";
+      [@bs.send] external getLeftCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getLeftCenter";
+      [@bs.send] external getRightCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getRightCenter";
+      [@bs.send] external getTopCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopCenter";
+      [@bs.send] external getTopLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopLeft";
+      [@bs.send] external getTopRight: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?) => 'a = "getTopRight";
+    };
+
+    module PathFollower = (P:{type t;}) => {
+
+      [@bs.send] external isFollowing: P.t => bool = "isFollowing";
+      [@bs.send] external pathUpdate: P.t => unit = "pathUpdate";
+      [@bs.send] external resumeFollow: P.t => P.t = "resumeFollow";
+      [@bs.send] external pauseFollow: P.t => P.t = "pauseFollow";
+      [@bs.send] external stopFollow: P.t => P.t = "stopFollow";
     };
 
     module Visible = (V:{type t;}) => {
@@ -820,6 +892,60 @@ module GameObjects = {
       [@bs.send] external setDepth: (D.t, int) => D.t = "setDepth";
     };
 
+    module Origin = (O:{type t;}) => {
+      [@bs.get] external displayOriginX: O.t => float = "displayOriginX";
+      [@bs.get] external displayOriginY: O.t => float = "displayOriginY";
+      [@bs.get] external originX: O.t => float = "originX";
+      [@bs.get] external originY: O.t => float = "originY";
+
+      [@bs.send] external setDisplayOrigin: (O.t, ~x:float, ~y:float=?, unit) => O.t = "setDisplayOrigin";
+      [@bs.send] external setOrigin: (O.t, ~x:float, ~y:float=?, unit) => O.t = "setOrigin";
+      [@bs.send] external setOriginFromFrame: O.t => O.t = "setOriginFromFrame";
+      [@bs.send] external updateDisplayOrigin: O.t => O.t = "updateDisplayOrigin";
+    };
+
+    module Size = (S:{type t;}) => {
+      [@bs.get] external displayHeight: S.t => int = "displayHeight";
+      [@bs.get] external displayHeightF: S.t => float = "displayHeight";
+      [@bs.get] external displayWidth: S.t => int = "displayWidth";
+      [@bs.get] external displayWidthF: S.t => float = "displayWidth";
+      [@bs.get] external height: S.t => int = "height";
+      [@bs.get] external heightF: S.t => float = "height";
+      [@bs.get] external width: S.t => int = "width";
+      [@bs.get] external widthF: S.t => float = "width";
+
+      [@bs.send] external setSize: (S.t, ~width:int, ~height:int) => S.t = "setSize";
+      [@bs.send] external setSizeF: (S.t, ~width:float, ~height:float) => S.t = "setSize";
+      [@bs.send] external setDisplaySize: (S.t, ~width:int, ~height:int) => S.t = "setDisplaySize";
+      [@bs.send] external setDisplaySizeF: (S.t, ~width:float, ~height:float) => S.t = "setDisplaySize";
+      [@bs.send] external setSizeToFrame: (S.t, ~frame:Textures.frameT) => S.t = "setSizeToFrame";
+    };
+
+    module Tint = (T:{type t;}) => {
+      [@bs.get] external isTinted: T.t => bool ="isTinted";
+      [@bs.get] external tint: T.t => int = "tint";
+      [@bs.get] external tintBottomLeft: T.t => int = "tintBottomLeft";
+      [@bs.get] external tintBottomRight: T.t => int = "tintBottomRight";
+      [@bs.get] external tintFill: T.t => bool = "tintFill";
+      [@bs.get] external tintTopLeft: T.t => int = "tintTopLeft";
+      [@bs.get] external tintTopRight: T.t => int = "tintTopRight";
+
+      [@bs.send] external clearTint: T.t => T.t = "clearTint";
+      [@bs.send] external setTint: (T.t, ~topLeft:int=?, ~topRight:int=?, ~bottomLeft:int=?, ~bottomRight:int=?, unit) => T.t = "setTint";
+      [@bs.send] external setTintFill: (T.t, ~topLeft:int=?, ~topRight:int=?, ~bottomLeft:int=?, ~bottomRight:int=?, unit) => T.t = "setTintFill"; 
+    };
+
+    module Flip = (F:{type t;}) => {
+      [@bs.get] external flipX: F.t => bool = "flipX";
+      [@bs.get] external flipY: F.t => bool = "flipY";
+      [@bs.send] external resetFlip: F.t => F.t = "resetFlip";
+      [@bs.send] external setFlip: (F.t, bool, bool) => F.t = "setFlip";
+      [@bs.send] external setFlipX: (F.t, bool) => F.t = "setFlipX";
+      [@bs.send] external setFlipY: (F.t, bool) => F.t = "setFlipY";
+      [@bs.send] external toggleFlipX: F.t => F.t = "toggleFlipX";
+      [@bs.send] external toggleFlipY: F.t => F.t = "toggleFlipY";
+    };
+
     module ScrollFactor = (SF:{type t;}) => {
       [@bs.get] external scrollFactorX: SF.t => int = "scrollFactorX";
       [@bs.get] external scrollFactorXF: SF.t => float = "scrollFactorF";
@@ -827,8 +953,8 @@ module GameObjects = {
       [@bs.get] external scrollFactorY: SF.t => int = "scrollFactorY";
       [@bs.get] external scrollFactorYF: SF.t => float = "scrollFactorY";
       [@bs.set] external setScrollFactorYF: (SF.t, float) => unit = "scrollFactorY";
-      [@bs.send] external setScrollFactor:  (SF.t, ~x:int, ~y:int) => SF.t = "setScrollFactor";
-      [@bs.send] external setScrollFactorF:  (SF.t, ~x:float, ~y:float) => SF.t = "setScrollFactor";
+      [@bs.send] external setScrollFactor:  (SF.t, ~x:int, ~y:int=?, unit) => SF.t = "setScrollFactor";
+      [@bs.send] external setScrollFactorF:  (SF.t, ~x:float, ~y:float=?, unit) => SF.t = "setScrollFactor";
     };
   }
 
@@ -838,6 +964,19 @@ module GameObjects = {
     include(BaseGameObject({
       type nonrec t = t;
     }))
+
+     include Components.Alpha({
+       type nonrec t = t;
+     });
+     include Components.Transform({
+       type nonrec t = t;
+     });
+     include Components.Visible({
+       type nonrec t = t;
+     });
+     include Components.Depth({
+       type nonrec t = t;
+     });
   };
 
   module BitmapText = {
@@ -845,6 +984,19 @@ module GameObjects = {
     include BaseGameObject({
       type nonrec t = t;
     });
+
+     include Components.Alpha({
+       type nonrec t = t;
+     });
+     include Components.Transform({
+       type nonrec t = t;
+     });
+     include Components.Visible({
+       type nonrec t = t;
+     });
+     include Components.Depth({
+       type nonrec t = t;
+     });
   };
 
   module Container = {
@@ -900,8 +1052,8 @@ module GameObjects = {
     type command;
     type t = graphics;
     
-    [@bs.get] external blendMode: t => blendModes = "blendMode";
-    [@bs.set] external setBlendMode: (t, blendModes) => unit = "blendMode"; 
+    [@bs.get] external blendMode: t => blendModesT = "blendMode";
+    [@bs.set] external setBlendMode: (t, blendModesT) => unit = "blendMode"; 
     [@bs.get] external commandBuffer: t => array(command) = "commandBuffer"; 
     [@bs.get] external defaultFillAlpha: t => int = "defaultFillAlpha";
     [@bs.get] external defaultFillAlphaF: t => float = "defaultFillAlpha";
@@ -1202,37 +1354,37 @@ module Scene = {
 
 
 module BlendModes = {
-  type t = blendModes;
-  [@bs.get] external add: blendModes => int = "ADD";
-  [@bs.get] external burn: blendModes => int = "BURN";
-  [@bs.get] external color: blendModes => int = "COLOR";
-  [@bs.get] external colorBurn: blendModes => int = "COLOR_BURN";
-  [@bs.get] external colorDodge: blendModes => int = "COLOR_DODGE";
-  [@bs.get] external copy: blendModes => int = "COPY";
-  [@bs.get] external lighten: blendModes => int = "LIGHTEN";
-  [@bs.get] external darken: blendModes => int = "DARKEN";
-  [@bs.get] external lighter: blendModes => int = "LIGHTER";
-  [@bs.get] external exclusion: blendModes => int = "EXCLUSION";
-  [@bs.get] external multiply: blendModes => int = "MULTIPLY";
-  [@bs.get] external erase: blendModes => int = "ERASE";
-  [@bs.get] external difference: blendModes => int = "DIFFERENCE";
-  [@bs.get] external destinationOnOver: blendModes => int = "DESTINATION_OVER";
-  [@bs.get] external destinationAtop: blendModes => int = "DESTINATION_ATOP";
-  [@bs.get] external destinationIn: blendModes => int = "DESTINATION_IN";
-  [@bs.get] external destinationOut: blendModes => int = "DESTINATION_OUT";
-  [@bs.get] external hue: blendModes => int = "HUE";
-  [@bs.get] external screen: blendModes => int = "SCREEN";
-  [@bs.get] external normal: blendModes => int = "NORMAL";
-  [@bs.get] external overlay: blendModes => int = "OVERLAY";
-  [@bs.get] external luminosity: blendModes => int = "LUMINOSITY";
-  [@bs.get] external softLight: blendModes => int = "SOFT_LIGHT";
-  [@bs.get] external skipCheck: blendModes => int = "SKIP_CHECK";
-  [@bs.get] external saturation: blendModes => int = "SATURATION";
-  [@bs.get] external hardLight: blendModes => int = "HARD_LIGHT";
-  [@bs.get] external sourceOut: blendModes => int = "SOURCE_OUT";
-  [@bs.get] external sourceIn: blendModes => int = "SOURCE_IN";
-  [@bs.get] external sourceAtop: blendModes => int = "SOURCE_ATOP";
-  [@bs.get] external xor: blendModes => int = "XOR";
+  type t = blendModesT;
+  [@bs.get] external add: t => int = "ADD";
+  [@bs.get] external burn: t => int = "BURN";
+  [@bs.get] external color: t => int = "COLOR";
+  [@bs.get] external colorBurn: t => int = "COLOR_BURN";
+  [@bs.get] external colorDodge: t => int = "COLOR_DODGE";
+  [@bs.get] external copy: t => int = "COPY";
+  [@bs.get] external lighten: t => int = "LIGHTEN";
+  [@bs.get] external darken: t => int = "DARKEN";
+  [@bs.get] external lighter: t => int = "LIGHTER";
+  [@bs.get] external exclusion: t => int = "EXCLUSION";
+  [@bs.get] external multiply: t => int = "MULTIPLY";
+  [@bs.get] external erase: t => int = "ERASE";
+  [@bs.get] external difference: t => int = "DIFFERENCE";
+  [@bs.get] external destinationOnOver: t => int = "DESTINATION_OVER";
+  [@bs.get] external destinationAtop: t => int = "DESTINATION_ATOP";
+  [@bs.get] external destinationIn: t => int = "DESTINATION_IN";
+  [@bs.get] external destinationOut: t => int = "DESTINATION_OUT";
+  [@bs.get] external hue: t => int = "HUE";
+  [@bs.get] external screen: t => int = "SCREEN";
+  [@bs.get] external normal: t => int = "NORMAL";
+  [@bs.get] external overlay: t => int = "OVERLAY";
+  [@bs.get] external luminosity: t => int = "LUMINOSITY";
+  [@bs.get] external softLight: t => int = "SOFT_LIGHT";
+  [@bs.get] external skipCheck: t => int = "SKIP_CHECK";
+  [@bs.get] external saturation: t => int = "SATURATION";
+  [@bs.get] external hardLight: t => int = "HARD_LIGHT";
+  [@bs.get] external sourceOut: t => int = "SOURCE_OUT";
+  [@bs.get] external sourceIn: t => int = "SOURCE_IN";
+  [@bs.get] external sourceAtop: t => int = "SOURCE_ATOP";
+  [@bs.get] external xor: t => int = "XOR";
 };
 
 
