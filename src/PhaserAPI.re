@@ -66,6 +66,11 @@ type scaleModes;
 [@bs.get] external rendererWebGL: phaserT => rendererType = "WEBGL";
 [@bs.get] external blendModes: phaserT => blendModesT = "BLENDMODES";
 
+[@bs.module "phaser"] [@bs.val] external auto: int = "AUTO";
+[@bs.module "phaser"] [@bs.val] external canvas: int = "CANVAS";
+[@bs.module "phaser"] [@bs.val] external down: int = "DOWN";
+[@bs.module "phaser"][@bs.val] external none: int = "NONE";
+[@bs.module "phaser"] [@bs.val] external phaserVersion: string = "VERSION";
 
 [@bs.deriving abstract]
 type fpsConfig = {
