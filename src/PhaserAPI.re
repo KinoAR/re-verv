@@ -639,7 +639,12 @@ module Input = {
 };
 
 
-
+module Geom = {
+  type pointT;
+  module Point = {
+    type t = pointT;
+  }
+}
 
 module Game =  {
   type t = gameT;
@@ -691,8 +696,44 @@ module Textures = {
 
 
 module Curves = {
+  type pathT;
   module Path = {
+    type t = pathT;
+    [@bs.get] external active: t => bool = "active";
+    [@bs.get] external arcLengthDivisions: t => int = "arcLengthDivisions";
+    [@bs.get] external needsUpdate: t => bool = "needsUpdate";
+    [@bs.get] external type_: t => string = "type";
+    [@bs.get] external defaultDivisions: t => int = "defaultDivisions";
+    [@bs.get] external cacheArcLengths: t => array(int) = "cacheArcLengths";
 
+    [@bs.send] external getLength: t => t = "getLength";
+    [@bs.send] external getEndPoint: (t, ~out:Math.vector2T=?, unit) => Math.vector2T = "getEndPoint";
+    [@bs.send] external getRandomPoint: (t, ~out:Math.vector2T=?, unit) => Math.vector2T = "getRandomPoint";
+    [@bs.send] external getPoints: (t, ~divisions:int=?,  unit) => array(Math.vector2T) = "getPoints";
+    [@bs.send] external getLengths: (t, ~divisions:int=?, unit) => array(int) = "getLengths";
+    [@bs.send] external getSpacedPoints: (t, ~divisions:int=?, unit) => array(Math.vector2T) = "getSpacedPoints"; 
+    [@bs.send] external getDistancePoints: (t, ~distance:int) => array(Geom.pointT) = "getDistancePoints";
+    [@bs.send] external updateArcLengths: t => unit = "updateArcLengths";
+    [@bs.send] external getStartPoint: (t, ~out:Math.vector2T=?, unit) => Math.vector2T = "getStartPoint";
+  };
+  
+  module BaseCurve = (C:{type t;}) => {
+    [@bs.get] external active: C.t => bool = "active";
+    [@bs.get] external arcLengthDivisions: C.t => int = "arcLengthDivisions";
+    [@bs.get] external needsUpdate: C.t => bool = "needsUpdate";
+    [@bs.get] external type_: C.t => string = "type";
+    [@bs.get] external defaultDivisions: C.t => int = "defaultDivisions";
+    [@bs.get] external cacheArcLengths: C.t => array(int) = "cacheArcLengths";
+
+    [@bs.send] external getLength: C.t => C.t = "getLength";
+    [@bs.send] external getEndPoint: (C.t, ~out:Math.vector2T=?, unit) => Math.vector2T = "getEndPoint";
+    [@bs.send] external getRandomPoint: (C.t, ~out:Math.vector2T=?, unit) => Math.vector2T = "getRandomPoint";
+    [@bs.send] external getPoints: (C.t, ~divisions:int=?,  unit) => array(Math.vector2T) = "getPoints";
+    [@bs.send] external getLengths: (C.t, ~divisions:int=?, unit) => array(int) = "getLengths";
+    [@bs.send] external getSpacedPoints: (C.t, ~divisions:int=?, unit) => array(Math.vector2T) = "getSpacedPoints"; 
+    [@bs.send] external getDistancePoints: (C.t, ~distance:int) => array(Geom.pointT) = "getDistancePoints";
+    [@bs.send] external updateArcLengths: C.t => unit = "updateArcLengths";
+    [@bs.send] external getStartPoint: (C.t, ~out:Math.vector2T=?, unit) => Math.vector2T = "getStartPoint";
   };
 };
 
@@ -713,6 +754,61 @@ module GameObjects = {
   type ellipse;
   type extern;
   type graphics;
+  [@bs.deriving abstract] 
+  type textShadowT = {
+    [@bs.optional] offsetX: int,
+    [@bs.optional] offsetY: int,
+    [@bs.optional] color:string,
+    [@bs.optional] blur: int,
+    [@bs.optional] stroke: bool,
+    [@bs.optional] fill: bool,
+  };
+  [@bs.deriving abstract]
+  type textPaddingT = {
+    [@bs.optional] x: int,
+    [@bs.optional] y: int,
+    [@bs.optional] left:int,
+    [@bs.optional] right: int,
+    [@bs.optional] top: int,
+    [@bs.optional] bottom: int,
+  };
+  [@bs.deriving abstract]
+  type textWordWrapT = {
+    [@bs.optional] width: int,
+    [@bs.optional] callback: (string, textT) => string,
+    [@bs.optional] any: Utils.any,
+    [@bs.optional] useAdvancedWrap: bool,
+  };
+  [@bs.deriving abstract]
+  type textMetricsT = {
+    [@bs.optional] ascent: int,
+    [@bs.optional] descent: int,
+    [@bs.optional] fontSize: int,
+  };
+  [@bs.deriving abstract]
+  type textStyleT = {
+    [@bs.optional] fontFamily:string,
+    [@bs.optional] fontSize:string,
+    [@bs.optional] fontStyle: string,
+    [@bs.optional] backgroundColor:string,
+    [@bs.optional] color:string,
+    [@bs.optional] stroke:string,
+    [@bs.optional] strokeThickness:int,
+    [@bs.optional] shadow: textShadowT,
+    [@bs.optional] padding: textPaddingT,
+    [@bs.optional] align:string,
+    [@bs.optional] maxLines:int,
+    [@bs.optional] fixedWidth: int,
+    [@bs.optional] fixedHeight: int,
+    [@bs.optional] resolution: int,
+    [@bs.optional] rtl: bool,
+    [@bs.optional] testString: string,
+    [@bs.optional] baseLinex: float,
+    [@bs.optional] baseLineY: float,
+    [@bs.optional] wordWrap: textWordWrapT,
+    [@bs.optional] metrics: textMetricsT,
+
+  };
   [@bs.deriving abstract]
   type fillStyle = {
     [@bs.optional] color: int,
@@ -993,10 +1089,12 @@ module GameObjects = {
       [@bs.send] external setTexture: (T.t, string, ~frame:string=?, unit) => T.t = "setTexture";
       [@bs.send] external setTextureIndex: (T.t, string, ~frame:int=?, unit) => T.t = "setTexture";
     };
+    
   }
 
   module Text = {
     type t = textT;
+    [@bs.module "phaser"][@bs.scope "GameObjects"][@bs.new] external make: (sceneT, ~x:int, ~y:int, ~text:string, ~style:textStyleT) => t = "Text";
     [@bs.send] external setColor: (textT, string) => textT = "setColor";
     include(BaseGameObject({
       type nonrec t = t;
@@ -1063,6 +1161,7 @@ module GameObjects = {
 
   module Image = {
     type t = imageT;
+    [@bs.module "phaser"][@bs.scope "GameObjects"][@bs.new] external make: (sceneT, ~x:int, ~y:int, ~texture:string, ~frame:string=?, unit) => t = "Image";
     include BaseGameObject({
       type nonrec t = t;
     });
@@ -1071,6 +1170,28 @@ module GameObjects = {
       type nonrec t = t;
     });
     include Components.Transform({
+      type nonrec t = t;
+    });
+    include Components.BlendMode({
+      type nonrec t = t;
+    });
+    include Components.Origin({
+      type nonrec t = t;
+    });
+
+    include Components.Tint({
+      type nonrec t = t;
+    });
+    include Components.ScrollFactor({
+      type nonrec t = t;
+    });
+    include Components.Size({
+      type nonrec t = t;
+    });
+    include Components.Flip({
+      type nonrec t = t;
+    });
+    include Components.GetBounds({
       type nonrec t = t;
     });
     include Components.Visible({

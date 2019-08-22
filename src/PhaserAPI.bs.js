@@ -50,6 +50,10 @@ var Input = /* module */[
   /* Touch */$$Touch
 ];
 
+var Point = /* module */[];
+
+var Geom = /* module */[/* Point */Point];
+
 var Game = /* module */[];
 
 var Tilemaps = /* module */[];
@@ -60,7 +64,14 @@ var Textures = /* module */[/* Frame */Frame];
 
 var Path = /* module */[];
 
-var Curves = /* module */[/* Path */Path];
+function BaseCurve(C) {
+  return /* module */[];
+}
+
+var Curves = /* module */[
+  /* Path */Path,
+  /* BaseCurve */BaseCurve
+];
 
 function BaseGameObject(G) {
   return /* module */[];
@@ -307,6 +318,7 @@ exports.$$Math = $$Math;
 exports.Time = Time;
 exports.Sound = Sound;
 exports.Input = Input;
+exports.Geom = Geom;
 exports.Game = Game;
 exports.Tilemaps = Tilemaps;
 exports.Textures = Textures;
