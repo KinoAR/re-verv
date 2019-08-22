@@ -12,6 +12,7 @@ type eventEmitter;
 type lightsManager;
 type gameObjectFactory;
 type gameObjectT;
+type graphicsT;
 type point;
 type scaleManagerT;
 type dataManagerT;
@@ -29,6 +30,8 @@ type loaderPluginT;
 type gameObjectCreatorT;
 
 
+/* Web GL Code */
+type webGLPipelineT;
 
 [@bs.obj] external anyData: (
   ~name:string,
@@ -646,6 +649,35 @@ module Geom = {
   }
 }
 
+module Display = {
+  module Masks = {
+    type bitmapMaskT;
+    type geometryMaskT;
+    /** Fill out the rest of the mask class */
+    module BitmapMask = {
+      type t = bitmapMaskT;
+      [@bs.get] external dirty: t => bool = "dirty";
+      [@bs.get] external invertAlpha: t => bool = "invertAlpha";
+      [@bs.get] external isStencil: t => bool = "isStencil";
+
+
+      [@bs.send] external destroy: t => unit = "destroy";
+      [@bs.send] external setBitmap: (t, gameObjectT) => unit = "setBitmap";
+    };
+    /** Fill out the rest of the mask class */
+    module GeometryMask = {
+      type t = geometryMaskT;
+
+      [@bs.get] external invertAlpha: t => bool = "invertAlpha";
+      [@bs.get] external isStencil: t => bool = "isStencil";
+
+      [@bs.send] external destroy: t => unit = "destroy";
+      [@bs.send] external setInvertAlpha: (t, ~value:bool) => t = "setInvertAlpha";
+      [@bs.send] external setShape: (t, graphicsT) => t = "setShape"; 
+    };
+  };
+};
+
 module Game =  {
   type t = gameT;
   [@bs.module "phaser"][@bs.new] external make: (gameConfig) => t = "Game";
@@ -958,6 +990,16 @@ module GameObjects = {
       [@bs.send] external setZ: (T.t, int) => T.t = "setZ";
     };
 
+    module Pipeline = (P:{type t;}) => {
+      [@bs.get] external defaultPipeline: P.t => webGLPipelineT = "defaultPipeline";
+      [@bs.get] external pipeline: P.t => webGLPipelineT = "pipeline";
+
+      [@bs.send] external getPipelineName: P.t => string = "getPipelineName";
+      [@bs.send] external initPipeline: (P.t, ~pipelineName:string=?, unit) => bool = "initPipeline";
+      [@Bs.send] external resetPipeline: P.t => bool = "resetPipeline";
+      [@bs.send] external setPipeline: (P.t, ~pipelineName:string=?, unit) => P.t = "setPipeline";    
+    };
+
     module GetBounds = (G:{type t;}) => {
       [@bs.send] external getBottomCenter: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getBottomCenter";
       [@bs.send] external getBottomLeft: (G.t, ~output:Math.vector2T=?, ~includeParent:bool=?, unit) => 'a = "getBottomLeft";
@@ -1056,6 +1098,16 @@ module GameObjects = {
       [@bs.get] external texture: C.t => Textures.t = "texture";
 
       [@bs.send] external setCrop: (C.t, ~x:int=?, ~y:int=?, ~width:int=?, ~height:int=?, unit) => C.t = "setCrop";
+    };
+
+    module TextureCrop = (TC:{type t;}) => {
+      [@bs.get] external frame: TC.t => Textures.frameT = "frame";
+      [@bs.get] external isCropped: TC.t => bool = "isCropped";
+      [@bs.get] external texture: TC.t => Textures.t = "texture";
+
+      [@bs.send] external setCrop: (TC.t, ~x:int=?, ~y:int=?, ~width:int=?, ~height:int=?, unit) => TC.t = "setCrop";
+      [@bs.send] external setTexture: (TC.t, ~key:string, ~frame:string=?, unit) => TC.t = "setTexture";
+      [@bs.send] external setFrame: (TC.t, ~frame:string, ~updateSize: bool=? , ~updateOrigin:bool=?, unit) => TC.t = "setFrame";
     };
 
     module Flip = (F:{type t;}) => {
@@ -1273,6 +1325,13 @@ module GameObjects = {
     include Components.Alpha({
       type nonrec t = t;
     });
+    include Components.BlendMode({
+      type nonrec t = t;
+    });
+
+    include Components.Pipeline({
+      type nonrec t =t;
+    });
     include Components.Transform({
       type nonrec t = t;
     });
@@ -1282,6 +1341,30 @@ module GameObjects = {
     include Components.Depth({
       type nonrec t = t;
     });
+
+    include Components.GetBounds({
+      type nonrec t = t;
+    });
+
+    include Components.ScrollFactor({
+      type nonrec t = t;
+    });
+
+    include Components.Size({
+      type nonrec t =t;
+    });
+
+    include Components.Tint({
+      type nonrec t = t;
+    });
+
+    include Components.Origin({
+      type nonrec t = t;
+    });
+
+    include(Components.TextureCrop({
+      type nonrec t = t;
+    }));
   };
 };
 

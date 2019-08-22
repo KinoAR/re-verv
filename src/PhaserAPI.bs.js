@@ -54,6 +54,17 @@ var Point = /* module */[];
 
 var Geom = /* module */[/* Point */Point];
 
+var BitmapMask = /* module */[];
+
+var GeometryMask = /* module */[];
+
+var Masks = /* module */[
+  /* BitmapMask */BitmapMask,
+  /* GeometryMask */GeometryMask
+];
+
+var Display = /* module */[/* Masks */Masks];
+
 var Game = /* module */[];
 
 var Tilemaps = /* module */[];
@@ -86,6 +97,10 @@ function BlendMode(B) {
 }
 
 function Transform(T) {
+  return /* module */[];
+}
+
+function Pipeline(P) {
   return /* module */[];
 }
 
@@ -125,6 +140,10 @@ function Crop(C) {
   return /* module */[];
 }
 
+function TextureCrop(TC) {
+  return /* module */[];
+}
+
 function Flip(F) {
   return /* module */[];
 }
@@ -141,6 +160,7 @@ var Components = /* module */[
   /* Alpha */Alpha,
   /* BlendMode */BlendMode,
   /* Transform */Transform,
+  /* Pipeline */Pipeline,
   /* GetBounds */GetBounds,
   /* PathFollower */PathFollower,
   /* Visible */Visible,
@@ -150,6 +170,7 @@ var Components = /* module */[
   /* ComputedSize */ComputedSize,
   /* Tint */Tint,
   /* Crop */Crop,
+  /* TextureCrop */TextureCrop,
   /* Flip */Flip,
   /* ScrollFactor */ScrollFactor,
   /* Texture */Texture
@@ -319,6 +340,7 @@ exports.Time = Time;
 exports.Sound = Sound;
 exports.Input = Input;
 exports.Geom = Geom;
+exports.Display = Display;
 exports.Game = Game;
 exports.Tilemaps = Tilemaps;
 exports.Textures = Textures;
