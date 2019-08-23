@@ -1,4 +1,18 @@
 let sceneCreate = Verv.dataCallback((scene, _) => {
+
+  module SceneLoader = Verv.MakeLoader({let scene = scene});
+  module SceneFactory = Verv.MakeGameObjFactory({let scene = scene});
+
+  let loader = SceneLoader.loadImage("abc", [|"./abcFile"|]);
+
+  let image = SceneFactory.addImage(0, 0, "abc", ~frame="abc", ());
+  
+  let test =  Verv.Image.((!> 
+    image) 
+  ) |> Verv.Image.setX(30);
+
+  Js.log(test);
+  Js.log(loader);
   let text =
     scene
     ->PhaserAPI.Scene.add

@@ -562,6 +562,7 @@ module Sound = {
 module Input = {
   type inputT;
   type pointerT;
+  type inputPluginT;
   type inputManagerT;
   type mouseManagerT;
   type touchManagerT;
@@ -644,6 +645,24 @@ module Input = {
   module Touch = {
 
   };
+
+
+  module InputPlugin = {
+    type t = inputPluginT;
+
+    [@bs.get] external topOnly: t => bool = "topOnly";
+    [@bs.get] external x: t => int = "x";
+    [@bs.get] external xF: t => float = "x";
+    [@bs.get] external y: t => int = "y";
+    [@bs.get] external yF: t => float = "y";
+    [@bs.get] external scene: t => sceneT = "scene";
+    [@bs.get] external pollRate: t => int = "pollRate";
+    [@bs.get] external dragTimeThreshold: t => int = "dragTimeThreshold";
+    [@bs.get] external activePointer: t => pointerT = "activePointer";
+    include Events.EventEmitter({
+      type nonrec t = t;
+    })
+  }
 };
 
 
@@ -1914,7 +1933,7 @@ module GameObjectFactory = {
   [@bs.get] external updateList: t =>  GameObjects.updateList = "UpdateList";
   [@bs.get] external displayList: t =>  GameObjects.displayList = "DisplayList";
   [@bs.send] external graphics: (t, GameObjects.graphicsOptions) => GameObjects.graphics = "graphics";
-  [@bs.send] external bitmapText: (t, int, int, font, text, int, int) => GameObjects.bitmapTextT = "bitmapText";
+  [@bs.send] external bitmapText: (t, ~x:int, ~y:int, font, ~text:text=?, ~size:int=?, ~align:int=?, unit) => GameObjects.bitmapTextT = "bitmapText";
   [@bs.send] external text:  (t, int, int, text) => GameObjects.textT = "text";
   [@bs.send] external blitter: (t, int, int, string) => GameObjects.blitter = "blitter";
   [@bs.send] external blitterWithStrFrames: (t, int, int, string, string) => GameObjects.blitter = "blitter";
@@ -1925,7 +1944,7 @@ module GameObjectFactory = {
   [@bs.send] external polygonInt: (t, int, int, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external polygonFloat: (t, float, float, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external extern: t => GameObjects.extern = "extern";
-  [@bs.send] external imageIntStr: (t, int, int, string,string) => GameObjects.imageT = "image";
+  [@bs.send] external imageIntStr: (t, int, int, string, ~frame:string=?, unit) => GameObjects.imageT = "image";
   [@bs.send] external imageIntInt: (t, int, int, string, int) => GameObjects.imageT = "image";
   [@bs.send] external imageFloatStr: (t, float, float, string, string) => GameObjects.imageT ="image";
   [@bs.send] external imageFloatInt: (t, float, float, string, int) => GameObjects.imageT ="image";
@@ -1961,9 +1980,9 @@ module LoaderPlugin = {
   };
 
   [@bs.deriving abstract]
-  type audioConfig =  {
+  type audioConfigT =  {
     key:string,
-    [@bs.optional] urls: array(string),
+    [@bs.optional] url: array(string),
     [@bs.optional] config: Utils.any,
     [@bs.optional] xhrSettings: xhrSettingsObject,
   };
@@ -1979,7 +1998,7 @@ module LoaderPlugin = {
   };
 
   [@bs.deriving abstract]
-  type image = {
+  type imageT = {
     key:string,
     [@bs.optional] url: array(string),
     [@bs.optional] xhrSettings: xhrSettingsObject
@@ -1990,6 +2009,12 @@ module LoaderPlugin = {
     key:string,
     [@bs.optional] url: string,
     [@bs.optional] xhrSettings: xhrSettingsObject
+  };
+
+  [@bs.deriving abstract]
+  type cssConfigT = {
+    key:string,
+    [@bs.optional] url:string
   };
 
   [@bs.get] external baseURL: t => string = "baseURL";
@@ -2020,6 +2045,12 @@ module LoaderPlugin = {
   [@bs.send] external isReady: t => bool = "isReady";
   [@bs.send] external keyExists: (t, file) => bool = "keyExists";
   [@bs.send] external listenerCount: (t, string) => int = "listenerCount";
-  [@bs.send] external listeners: (t, string) => array('a) = "listeners";
   [@bs.send] external reset: t => unit = "reset";
+  [@bs.send] external loadImage: (t, imageT) => t = "image";
+  [@bs.send] external loadAudio: (t, audioConfigT) => t = "audio";
+  [@bs.send] external loadCSS: (t, cssConfigT) => t = "css";
+
+  include Events.EventEmitter({
+    type nonrec t = t;
+  })
 }

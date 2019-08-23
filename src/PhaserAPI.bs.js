@@ -42,12 +42,15 @@ var Mouse = /* module */[];
 
 var $$Touch = /* module */[];
 
+var InputPlugin = /* module */[];
+
 var Input = /* module */[
   /* InputManager */InputManager,
   /* Gamepad */$$Gamepad,
   /* Keyboard */Keyboard,
   /* Mouse */Mouse,
-  /* Touch */$$Touch
+  /* Touch */$$Touch,
+  /* InputPlugin */InputPlugin
 ];
 
 var Point = /* module */[];

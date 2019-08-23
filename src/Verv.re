@@ -1,4 +1,7 @@
 open PhaserAPI;
+type vervTextT = VervText(GameObjects.textT);
+type vervImageT = VervImage(GameObjects.imageT);
+type vervImageContaerT = VervImageContainer(vervImageT); 
 let phaser = phaser;
 let auto = phaser->rendererAuto;
 let canvas = phaser->rendererCanvas;
@@ -105,3 +108,79 @@ module BitMapText = {
   };
 };
 
+module Input = {
+
+};
+
+module Image = {
+  module PImg = GameObjects.Image; 
+  type t = vervImageT;
+  let (!>) = (image) => VervImage(image);
+  let lift = (image) => VervImage(image);
+  let map = (f, vervImage) => switch(vervImage) {
+    | VervImage(image) => VervImage(f(image));
+  };
+
+  let (<<=) = (vervImage, f) => switch(vervImage) {
+    | VervImage(image) => VervImage(f(image));
+  };
+
+  let setX = (x, vervImage) => vervImage |> map(PImg.setX(_, x));
+  let setY = (y, vervImage) => vervImage |> map(PImg.setY(_, y));
+  let setW = (w, vervImage) => vervImage |> map(PImg.setW(_, w));
+  let setZ = (z, vervImage) => vervImage |> map(PImg.setZ(_, z));
+  
+  let flatMap = (f, vervImage) => switch(vervImage) {
+    | VervImage(image) => f(image);
+  };
+
+  let phaserImage = (vervImage) => vervImage |> flatMap(Tablecloth.identity); 
+};
+
+module MakeLoader = (S:{let scene:sceneT;}) => {
+  let scene = S.scene;
+
+  let loader =  () => scene -> Scene.load;
+  let keyExists = (keyName) => scene -> Scene.load -> LoaderPlugin.keyExists(keyName);
+
+
+  let loadImage = (imageName, url) => {
+    scene -> Scene.load -> LoaderPlugin.loadImage(
+      LoaderPlugin.imageT(~key=imageName, ~url, ())
+    );
+  };
+
+  let loadAudio = (audioName, urls) => {
+    scene -> Scene.load -> LoaderPlugin.loadAudio(
+      LoaderPlugin.audioConfigT(
+        ~key=audioName,
+        ~url=urls,
+        ()
+      )
+    )
+  };
+
+  let loadCSS = (cssName, url) => {
+    scene -> Scene.load -> LoaderPlugin.loadCSS(
+      LoaderPlugin.cssConfigT(
+        ~key=cssName,
+        ~url, 
+        ()
+      )
+    );
+  };
+};
+
+module MakeGameObjFactory = (A:{let scene:sceneT;}) => {
+  let scene = A.scene;
+
+  let addImage = (x, y, texture, ~frame=?, ()) => {
+    let factory = scene -> Scene.add;
+    switch(frame) {
+      | Some(frame) => factory -> GameObjectFactory.imageIntStr(x, y, texture, ~frame, ());
+      | None => factory -> GameObjectFactory.imageIntStr(x, y, texture, ());
+    }
+  };
+
+  let addBitmapText = ()
+};

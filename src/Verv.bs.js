@@ -153,6 +153,123 @@ function addBitmapText(scene, x, y, text, color) {
 
 var BitMapText = /* module */[/* addBitmapText */addBitmapText];
 
+var Input = /* module */[];
+
+function $bang$great(image) {
+  return /* VervImage */[image];
+}
+
+function lift(image) {
+  return /* VervImage */[image];
+}
+
+function map(f, vervImage) {
+  return /* VervImage */[Curry._1(f, vervImage[0])];
+}
+
+function $less$less$eq(vervImage, f) {
+  return /* VervImage */[Curry._1(f, vervImage[0])];
+}
+
+function setX(x, vervImage) {
+  return map((function (__x) {
+                return __x.setX(x);
+              }), vervImage);
+}
+
+function setY(y, vervImage) {
+  return map((function (__x) {
+                return __x.setY(y);
+              }), vervImage);
+}
+
+function setW(w, vervImage) {
+  return map((function (__x) {
+                return __x.setW(w);
+              }), vervImage);
+}
+
+function setZ(z, vervImage) {
+  return map((function (__x) {
+                return __x.setZ(z);
+              }), vervImage);
+}
+
+function flatMap(f, vervImage) {
+  return Curry._1(f, vervImage[0]);
+}
+
+function phaserImage(vervImage) {
+  return Tablecloth.identity(vervImage[0]);
+}
+
+var $$Image = /* module */[
+  /* PImg */0,
+  /* !> */$bang$great,
+  /* lift */lift,
+  /* map */map,
+  /* <<= */$less$less$eq,
+  /* setX */setX,
+  /* setY */setY,
+  /* setW */setW,
+  /* setZ */setZ,
+  /* flatMap */flatMap,
+  /* phaserImage */phaserImage
+];
+
+function MakeLoader(S) {
+  var scene = S[/* scene */0];
+  var loader = function (param) {
+    return scene.load;
+  };
+  var keyExists = function (keyName) {
+    return scene.load.keyExists(keyName);
+  };
+  var loadImage = function (imageName, url) {
+    return scene.load.image({
+                key: imageName,
+                url: url
+              });
+  };
+  var loadAudio = function (audioName, urls) {
+    return scene.load.audio({
+                key: audioName,
+                url: urls
+              });
+  };
+  var loadCSS = function (cssName, url) {
+    return scene.load.css({
+                key: cssName,
+                url: url
+              });
+  };
+  return /* module */[
+          /* scene */scene,
+          /* loader */loader,
+          /* keyExists */keyExists,
+          /* loadImage */loadImage,
+          /* loadAudio */loadAudio,
+          /* loadCSS */loadCSS
+        ];
+}
+
+function MakeGameObjFactory(A) {
+  var scene = A[/* scene */0];
+  var addImage = function (x, y, texture, frame, param) {
+    var factory = scene.add;
+    if (frame !== undefined) {
+      return factory.image(x, y, texture, frame);
+    } else {
+      return factory.image(x, y, texture, undefined);
+    }
+  };
+  return /* module */[
+          /* scene */scene,
+          /* addImage */addImage,
+          /* addBitmapText : () */0
+        ];
+}
+
 exports.phaser = phaser;
 exports.auto = auto;
 exports.canvas = canvas;
@@ -166,4 +283,8 @@ exports.Vector2 = Vector2;
 exports.Tween = Tween;
 exports.$$Text = $$Text;
 exports.BitMapText = BitMapText;
+exports.Input = Input;
+exports.$$Image = $$Image;
+exports.MakeLoader = MakeLoader;
+exports.MakeGameObjFactory = MakeGameObjFactory;
 /* phaser Not a pure module */
