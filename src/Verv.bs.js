@@ -6,6 +6,7 @@ var Phaser = require("phaser");
 var Tablecloth = require("tablecloth-bucklescript/src/tablecloth.bs.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var CamlinternalOO = require("bs-platform/lib/js/camlinternalOO.js");
+var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
 
 var phaser = Phaser;
 
@@ -16,6 +17,14 @@ var canvas = phaser.CANVAS;
 var headless = phaser.HEADLESS;
 
 var webgl = phaser.WEBGL;
+
+function map(f, vervComponent) {
+  return /* Container */[Curry._1(f, vervComponent[0])];
+}
+
+function flatMap(f, vervComponent) {
+  return Curry._1(f, vervComponent[0]);
+}
 
 function createGame(renderer, parent, width, height, scene) {
   return new Phaser.Game({
@@ -155,20 +164,54 @@ var BitMapText = /* module */[/* addBitmapText */addBitmapText];
 
 var Input = /* module */[];
 
+function ScrollFactor(SF) {
+  var ScF = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* ScrollFactor */15], /* module */[]);
+  var setScrollFactor = function (x, y, container) {
+    if (y !== undefined) {
+      var y$1 = y;
+      return map((function (__x) {
+                    return __x.setScrollFactor(x, y$1);
+                  }), container);
+    } else {
+      return map((function (__x) {
+                    return __x.setScrollFactor(x, undefined);
+                  }), container);
+    }
+  };
+  var scrollFactorX = function (container) {
+    return container[0].scrollFactorX;
+  };
+  var scrollFactorXF = function (container) {
+    return container[0].scrollFactorF;
+  };
+  var scrollFactorY = function (container) {
+    return container[0].scrollFactorY;
+  };
+  var scrollFactorYF = function (container) {
+    return container[0].scrollFactorY;
+  };
+  return /* module */[
+          /* ScF */ScF,
+          /* setScrollFactor */setScrollFactor,
+          /* scrollFactorX */scrollFactorX,
+          /* scrollFactorXF */scrollFactorXF,
+          /* scrollFactorY */scrollFactorY,
+          /* scrollFactorYF */scrollFactorYF
+        ];
+}
+
+var Components = /* module */[/* ScrollFactor */ScrollFactor];
+
 function $bang$great(image) {
-  return /* VervImage */[image];
+  return /* Container */[image];
 }
 
 function lift(image) {
-  return /* VervImage */[image];
+  return /* Container */[image];
 }
 
-function map(f, vervImage) {
-  return /* VervImage */[Curry._1(f, vervImage[0])];
-}
-
-function $less$less$eq(vervImage, f) {
-  return /* VervImage */[Curry._1(f, vervImage[0])];
+function $less$less$eq(vervContainer, f) {
+  return /* Container */[Curry._1(f, vervContainer[0])];
 }
 
 function setX(x, vervImage) {
@@ -195,26 +238,106 @@ function setZ(z, vervImage) {
               }), vervImage);
 }
 
-function flatMap(f, vervImage) {
-  return Curry._1(f, vervImage[0]);
+function toggleFlipX(vervImage) {
+  return map((function (prim) {
+                return prim.toggleFlipX();
+              }), vervImage);
+}
+
+function toggleFlipY(vervImage) {
+  return map((function (prim) {
+                return prim.toggleFlipY();
+              }), vervImage);
+}
+
+function setFlip(x, y, vervImage) {
+  return map((function (__x) {
+                return __x.setFlip(x, y);
+              }), vervImage);
+}
+
+function setFlipX(value, vervImage) {
+  return map((function (__x) {
+                return __x.setFlipX(value);
+              }), vervImage);
+}
+
+function setFlipY(value, vervImage) {
+  return map((function (__x) {
+                return __x.setFlipY(value);
+              }), vervImage);
+}
+
+function setOriginFromFrame(vervImage) {
+  return map((function (prim) {
+                return prim.setOriginFromFrame();
+              }), vervImage);
+}
+
+function setPipeline(pipeline, vervImage) {
+  return map((function (__x) {
+                return __x.setPipeline(undefined);
+              }), vervImage);
 }
 
 function phaserImage(vervImage) {
   return Tablecloth.identity(vervImage[0]);
 }
 
+var ScF = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* ScrollFactor */15], /* module */[]);
+
+function setScrollFactor(x, y, container) {
+  if (y !== undefined) {
+    var y$1 = y;
+    return map((function (__x) {
+                  return __x.setScrollFactor(x, y$1);
+                }), container);
+  } else {
+    return map((function (__x) {
+                  return __x.setScrollFactor(x, undefined);
+                }), container);
+  }
+}
+
+function scrollFactorX(container) {
+  return container[0].scrollFactorX;
+}
+
+function scrollFactorXF(container) {
+  return container[0].scrollFactorF;
+}
+
+function scrollFactorY(container) {
+  return container[0].scrollFactorY;
+}
+
+function scrollFactorYF(container) {
+  return container[0].scrollFactorY;
+}
+
 var $$Image = /* module */[
   /* PImg */0,
   /* !> */$bang$great,
   /* lift */lift,
-  /* map */map,
   /* <<= */$less$less$eq,
   /* setX */setX,
   /* setY */setY,
   /* setW */setW,
   /* setZ */setZ,
-  /* flatMap */flatMap,
-  /* phaserImage */phaserImage
+  /* toggleFlipX */toggleFlipX,
+  /* toggleFlipY */toggleFlipY,
+  /* setFlip */setFlip,
+  /* setFlipX */setFlipX,
+  /* setFlipY */setFlipY,
+  /* setOriginFromFrame */setOriginFromFrame,
+  /* setPipeline */setPipeline,
+  /* phaserImage */phaserImage,
+  /* ScF */ScF,
+  /* setScrollFactor */setScrollFactor,
+  /* scrollFactorX */scrollFactorX,
+  /* scrollFactorXF */scrollFactorXF,
+  /* scrollFactorY */scrollFactorY,
+  /* scrollFactorYF */scrollFactorYF
 ];
 
 function MakeLoader(S) {
@@ -275,6 +398,8 @@ exports.auto = auto;
 exports.canvas = canvas;
 exports.headless = headless;
 exports.webgl = webgl;
+exports.map = map;
+exports.flatMap = flatMap;
 exports.createGame = createGame;
 exports.zeroCallback = zeroCallback;
 exports.dataCallback = dataCallback;
@@ -284,6 +409,7 @@ exports.Tween = Tween;
 exports.$$Text = $$Text;
 exports.BitMapText = BitMapText;
 exports.Input = Input;
+exports.Components = Components;
 exports.$$Image = $$Image;
 exports.MakeLoader = MakeLoader;
 exports.MakeGameObjFactory = MakeGameObjFactory;

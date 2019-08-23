@@ -1,12 +1,22 @@
 open PhaserAPI;
 type vervTextT = VervText(GameObjects.textT);
-type vervImageT = VervImage(GameObjects.imageT);
-type vervImageContaerT = VervImageContainer(vervImageT); 
+type vervContainer ('a) = Container('a);
+type vervImageT = vervContainer(GameObjects.imageT);
+
+
 let phaser = phaser;
 let auto = phaser->rendererAuto;
 let canvas = phaser->rendererCanvas;
 let headless = phaser->rendererHeadless;
 let webgl = phaser->rendererWebGL;
+
+let map = (f, vervComponent) => switch(vervComponent) {
+  | Container(component) => Container(f(component))
+};
+
+let flatMap = (f, vervComponent) => switch(vervComponent) {
+  | Container(component) => f(component);
+};
 
 
 let createGame = (~renderer, ~parent, ~width, ~height, ~scene) => {
@@ -112,29 +122,52 @@ module Input = {
 
 };
 
-module Image = {
-  module PImg = GameObjects.Image; 
-  type t = vervImageT;
-  let (!>) = (image) => VervImage(image);
-  let lift = (image) => VervImage(image);
-  let map = (f, vervImage) => switch(vervImage) {
-    | VervImage(image) => VervImage(f(image));
-  };
+module Components = {
+  module ScrollFactor = (SF:{type t;}) => {
+    module ScF = GameObjects.Components.ScrollFactor({type nonrec t = SF.t;});
 
-  let (<<=) = (vervImage, f) => switch(vervImage) {
-    | VervImage(image) => VervImage(f(image));
+
+    
+
+    let setScrollFactor = (~x, ~y=?, container) => switch(y) {
+      | Some(y) => container |> map(ScF.setScrollFactor(_, ~x, ~y, ()));
+      | None =>  container |> map(ScF.setScrollFactor(_, ~x, ()));
+    };
+
+    let scrollFactorX = (container) => container |> flatMap(ScF.scrollFactorX);
+    let scrollFactorXF = (container) => container |> flatMap(ScF.scrollFactorXF);
+    let scrollFactorY = (container) => container |> flatMap(ScF.scrollFactorY); 
+    let scrollFactorYF = (container) => container |> flatMap(ScF.scrollFactorYF);
+
+  };
+};
+
+module Image = {
+  module PImg = GameObjects.Image;
+  let (!>) = (image:PImg.t) => Container(image);
+  let lift = (image:PImg.t) => Container(image);
+
+
+  let (<<=) = (vervContainer, f) => switch(vervContainer) {
+    | Container(image) => Container(f(image));
   };
 
   let setX = (x, vervImage) => vervImage |> map(PImg.setX(_, x));
   let setY = (y, vervImage) => vervImage |> map(PImg.setY(_, y));
   let setW = (w, vervImage) => vervImage |> map(PImg.setW(_, w));
   let setZ = (z, vervImage) => vervImage |> map(PImg.setZ(_, z));
-  
-  let flatMap = (f, vervImage) => switch(vervImage) {
-    | VervImage(image) => f(image);
-  };
+  let toggleFlipX = (vervImage) => vervImage |> map(PImg.toggleFlipX);
+  let toggleFlipY  = (vervImage) => vervImage |> map(PImg.toggleFlipY);
+  let setFlip = (x, y, vervImage) => vervImage |> map(PImg.setFlip(_ ,x, y));
+  let setFlipX = (value, vervImage) => vervImage |> map(PImg.setFlipX(_, value));
+  let setFlipY = (value, vervImage) => vervImage |> map(PImg.setFlipY(_, value));
+  let setOriginFromFrame = (vervImage) => vervImage |> map(PImg.setOriginFromFrame);
+  let setPipeline = (pipeline, vervImage) => vervImage |> map(PImg.setPipeline(_, pipeline));
+  let phaserImage = (vervImage:vervContainer(PImg.t)) => vervImage |> flatMap(Tablecloth.identity);
 
-  let phaserImage = (vervImage) => vervImage |> flatMap(Tablecloth.identity); 
+  include Components.ScrollFactor({
+    type nonrec t = PImg.t;
+  }) 
 };
 
 module MakeLoader = (S:{let scene:sceneT;}) => {

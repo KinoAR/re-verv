@@ -1267,6 +1267,9 @@ module GameObjects = {
     include Components.Flip({
       type nonrec t = t;
     });
+    include Components.Pipeline({
+      type nonrec t = t;
+    });
     include Components.GetBounds({
       type nonrec t = t;
     });
