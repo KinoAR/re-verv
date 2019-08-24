@@ -195,6 +195,8 @@ var Graphics = /* module */[];
 
 var Sprite = /* module */[];
 
+var Shape = /* module */[];
+
 var GameObjects = /* module */[
   /* BaseGameObject */BaseGameObject,
   /* Components */Components,
@@ -205,7 +207,8 @@ var GameObjects = /* module */[
   /* Image */$$Image,
   /* Zone */Zone,
   /* Graphics */Graphics,
-  /* Sprite */Sprite
+  /* Sprite */Sprite,
+  /* Shape */Shape
 ];
 
 var Body = /* module */[];

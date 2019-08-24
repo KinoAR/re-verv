@@ -810,6 +810,7 @@ module GameObjects = {
   type ellipse;
   type extern;
   type graphics;
+  type shapeT;
   [@bs.deriving abstract] 
   type textShadowT = {
     [@bs.optional] offsetX: int,
@@ -991,8 +992,8 @@ module GameObjects = {
       [@bs.set] external setAngleF: (T.t, float) => T.t = "setAngle";
       [@bs.get] external rotation: T.t => int = "rotation";
       [@bs.get] external rotationF: T.t => float = "rotation";
-      [@bs.set] external setRotation: (T.t, int) => T.t = "setRotation";
-      [@bs.set] external setRotationF: (T.t, float) => T.t = "Rotation";
+      [@bs.send] external setRotation: (T.t, int) => T.t = "setRotation";
+      [@bs.send] external setRotationF: (T.t, float) => T.t = "setRotation";
       [@bs.get] external scale: T.t => int = "scale";
       [@bs.get] external scaleF: T.t => float = "scale";
       [@bs.get] external scaleX: T.t => int = "scaleX";
@@ -1003,8 +1004,8 @@ module GameObjects = {
       [@bs.get] external x: T.t => int = "x";
       [@bs.get] external y: T.t => int = "y";
       [@bs.get] external z: T.t => int = "z";
-      [@bs.send] external setScale: (T.t, ~x: int, ~y: int) => T.t = "setScale";
-      [@bs.send] external setPosition: (T.t, ~x:int, ~y:int, ~z:int, ~w:int) => T.t = "setPosition";
+      [@bs.send] external setScale: (T.t, ~x: int, ~y: int=?, unit) => T.t = "setScale";
+      [@bs.send] external setPosition: (T.t, ~x:int=?, ~y:int=?, ~z:int=?, ~w:int=?, unit) => T.t = "setPosition";
       [@bs.send] external setPositionF: (T.t, ~x:float, ~y:float, ~z:float, ~w:float) => T.t = "setPosition";
       [@bs.send] external getParentRotation: T.t => int = "getParentRotation";
       [@bs.send] external getParentRotationF: T.t => float = "getParentRotation";
@@ -1393,6 +1394,10 @@ module GameObjects = {
       type nonrec t = t;
     }));
   };
+
+  module Shape = {
+    type t = shapeT;
+  }
 };
 
 module Physics = {

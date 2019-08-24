@@ -3,10 +3,7 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var Phaser = require("phaser");
-var Tablecloth = require("tablecloth-bucklescript/src/tablecloth.bs.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
-var CamlinternalOO = require("bs-platform/lib/js/camlinternalOO.js");
-var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
 
 var phaser = Phaser;
 
@@ -17,14 +14,6 @@ var canvas = phaser.CANVAS;
 var headless = phaser.HEADLESS;
 
 var webgl = phaser.WEBGL;
-
-function map(f, vervComponent) {
-  return /* Container */[Curry._1(f, vervComponent[0])];
-}
-
-function flatMap(f, vervComponent) {
-  return Curry._1(f, vervComponent[0]);
-}
 
 function createGame(renderer, parent, width, height, scene) {
   return new Phaser.Game({
@@ -70,275 +59,6 @@ function createScene(key, init, preload, create, update, param) {
   }
   return scene;
 }
-
-function toPhaserVec2(param) {
-  return new (Phaser.Math.Vector2)(param[0], param[1]);
-}
-
-function toPhaserVec2F(param) {
-  return new (Phaser.Math.Vector2)(param[0], param[1]);
-}
-
-function $plus$bang(param, param$1) {
-  return /* tuple */[
-          param[0] + param$1[0],
-          param[1] + param$1[1]
-        ];
-}
-
-function toIntVector(vector2F) {
-  return Tablecloth.Tuple2[/* mapAll */9]((function (prim) {
-                return prim | 0;
-              }), vector2F);
-}
-
-function toFloatVector(vector2F) {
-  return Tablecloth.Tuple2[/* mapAll */9]((function (prim) {
-                return prim;
-              }), vector2F);
-}
-
-var Vector2 = /* module */[
-  /* toPhaserVec2 */toPhaserVec2,
-  /* toPhaserVec2F */toPhaserVec2F,
-  /* +! */$plus$bang,
-  /* toIntVector */toIntVector,
-  /* toFloatVector */toFloatVector
-];
-
-var Tween = /* module */[];
-
-function addText(scene, x, y, text, color) {
-  var text$1 = scene.add.text(x, y, text);
-  return text$1.setColor(color);
-}
-
-var class_tables = [
-  0,
-  0,
-  0
-];
-
-function setBlendMode(text, blendMode) {
-  if (!class_tables[0]) {
-    var $$class = CamlinternalOO.create_table(0);
-    var env = CamlinternalOO.new_variable($$class, "");
-    var env_init = function (env$1) {
-      var self = CamlinternalOO.create_object_opt(0, $$class);
-      self[env] = env$1;
-      return self;
-    };
-    CamlinternalOO.init_class($$class);
-    class_tables[0] = env_init;
-  }
-  return Curry._1(class_tables[0], 0);
-}
-
-var $$Text = /* module */[
-  /* addText */addText,
-  /* setBlendMode */setBlendMode
-];
-
-var class_tables$1 = [
-  0,
-  0,
-  0
-];
-
-function addBitmapText(scene, x, y, text, color) {
-  if (!class_tables$1[0]) {
-    var $$class = CamlinternalOO.create_table(0);
-    var env = CamlinternalOO.new_variable($$class, "");
-    var env_init = function (env$1) {
-      var self = CamlinternalOO.create_object_opt(0, $$class);
-      self[env] = env$1;
-      return self;
-    };
-    CamlinternalOO.init_class($$class);
-    class_tables$1[0] = env_init;
-  }
-  return Curry._1(class_tables$1[0], 0);
-}
-
-var BitMapText = /* module */[/* addBitmapText */addBitmapText];
-
-var Input = /* module */[];
-
-function ScrollFactor(SF) {
-  var ScF = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* ScrollFactor */15], /* module */[]);
-  var setScrollFactor = function (x, y, container) {
-    if (y !== undefined) {
-      var y$1 = y;
-      return map((function (__x) {
-                    return __x.setScrollFactor(x, y$1);
-                  }), container);
-    } else {
-      return map((function (__x) {
-                    return __x.setScrollFactor(x, undefined);
-                  }), container);
-    }
-  };
-  var scrollFactorX = function (container) {
-    return container[0].scrollFactorX;
-  };
-  var scrollFactorXF = function (container) {
-    return container[0].scrollFactorF;
-  };
-  var scrollFactorY = function (container) {
-    return container[0].scrollFactorY;
-  };
-  var scrollFactorYF = function (container) {
-    return container[0].scrollFactorY;
-  };
-  return /* module */[
-          /* ScF */ScF,
-          /* setScrollFactor */setScrollFactor,
-          /* scrollFactorX */scrollFactorX,
-          /* scrollFactorXF */scrollFactorXF,
-          /* scrollFactorY */scrollFactorY,
-          /* scrollFactorYF */scrollFactorYF
-        ];
-}
-
-var Components = /* module */[/* ScrollFactor */ScrollFactor];
-
-function $bang$great(image) {
-  return /* Container */[image];
-}
-
-function lift(image) {
-  return /* Container */[image];
-}
-
-function $less$less$eq(vervContainer, f) {
-  return /* Container */[Curry._1(f, vervContainer[0])];
-}
-
-function setX(x, vervImage) {
-  return map((function (__x) {
-                return __x.setX(x);
-              }), vervImage);
-}
-
-function setY(y, vervImage) {
-  return map((function (__x) {
-                return __x.setY(y);
-              }), vervImage);
-}
-
-function setW(w, vervImage) {
-  return map((function (__x) {
-                return __x.setW(w);
-              }), vervImage);
-}
-
-function setZ(z, vervImage) {
-  return map((function (__x) {
-                return __x.setZ(z);
-              }), vervImage);
-}
-
-function toggleFlipX(vervImage) {
-  return map((function (prim) {
-                return prim.toggleFlipX();
-              }), vervImage);
-}
-
-function toggleFlipY(vervImage) {
-  return map((function (prim) {
-                return prim.toggleFlipY();
-              }), vervImage);
-}
-
-function setFlip(x, y, vervImage) {
-  return map((function (__x) {
-                return __x.setFlip(x, y);
-              }), vervImage);
-}
-
-function setFlipX(value, vervImage) {
-  return map((function (__x) {
-                return __x.setFlipX(value);
-              }), vervImage);
-}
-
-function setFlipY(value, vervImage) {
-  return map((function (__x) {
-                return __x.setFlipY(value);
-              }), vervImage);
-}
-
-function setOriginFromFrame(vervImage) {
-  return map((function (prim) {
-                return prim.setOriginFromFrame();
-              }), vervImage);
-}
-
-function setPipeline(pipeline, vervImage) {
-  return map((function (__x) {
-                return __x.setPipeline(undefined);
-              }), vervImage);
-}
-
-function phaserImage(vervImage) {
-  return Tablecloth.identity(vervImage[0]);
-}
-
-var ScF = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* ScrollFactor */15], /* module */[]);
-
-function setScrollFactor(x, y, container) {
-  if (y !== undefined) {
-    var y$1 = y;
-    return map((function (__x) {
-                  return __x.setScrollFactor(x, y$1);
-                }), container);
-  } else {
-    return map((function (__x) {
-                  return __x.setScrollFactor(x, undefined);
-                }), container);
-  }
-}
-
-function scrollFactorX(container) {
-  return container[0].scrollFactorX;
-}
-
-function scrollFactorXF(container) {
-  return container[0].scrollFactorF;
-}
-
-function scrollFactorY(container) {
-  return container[0].scrollFactorY;
-}
-
-function scrollFactorYF(container) {
-  return container[0].scrollFactorY;
-}
-
-var $$Image = /* module */[
-  /* PImg */0,
-  /* !> */$bang$great,
-  /* lift */lift,
-  /* <<= */$less$less$eq,
-  /* setX */setX,
-  /* setY */setY,
-  /* setW */setW,
-  /* setZ */setZ,
-  /* toggleFlipX */toggleFlipX,
-  /* toggleFlipY */toggleFlipY,
-  /* setFlip */setFlip,
-  /* setFlipX */setFlipX,
-  /* setFlipY */setFlipY,
-  /* setOriginFromFrame */setOriginFromFrame,
-  /* setPipeline */setPipeline,
-  /* phaserImage */phaserImage,
-  /* ScF */ScF,
-  /* setScrollFactor */setScrollFactor,
-  /* scrollFactorX */scrollFactorX,
-  /* scrollFactorXF */scrollFactorXF,
-  /* scrollFactorY */scrollFactorY,
-  /* scrollFactorYF */scrollFactorYF
-];
 
 function MakeLoader(S) {
   var scene = S[/* scene */0];
@@ -393,24 +113,36 @@ function MakeGameObjFactory(A) {
         ];
 }
 
+var Vector2 = 0;
+
+var $$Image = 0;
+
+var Input = 0;
+
+var Tween = 0;
+
+var $$Text = 0;
+
+var BitMapText = 0;
+
+var Shape = 0;
+
 exports.phaser = phaser;
 exports.auto = auto;
 exports.canvas = canvas;
 exports.headless = headless;
 exports.webgl = webgl;
-exports.map = map;
-exports.flatMap = flatMap;
 exports.createGame = createGame;
 exports.zeroCallback = zeroCallback;
 exports.dataCallback = dataCallback;
 exports.createScene = createScene;
 exports.Vector2 = Vector2;
+exports.$$Image = $$Image;
+exports.Input = Input;
 exports.Tween = Tween;
 exports.$$Text = $$Text;
 exports.BitMapText = BitMapText;
-exports.Input = Input;
-exports.Components = Components;
-exports.$$Image = $$Image;
+exports.Shape = Shape;
 exports.MakeLoader = MakeLoader;
 exports.MakeGameObjFactory = MakeGameObjFactory;
 /* phaser Not a pure module */

@@ -16,30 +16,70 @@ g_lib_incls = -I . -I src
 rule build_ast_and_module_sets_from_re
   command = $bsc -pp "$refmt $refmt_flags" $reason_react_jsx  $ppx_flags $warnings $bsc_flags -c -o $out -bs-syntax-only -bs-binary-ast -impl $in
   description = [34mBuilding[39m [2m${out}[22m
-build src/Verv.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Verv.re
+build src/Text.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Text.re
 rule build_deps
   command = $bsdep $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
-build src/Verv.d : build_deps src/Verv.mlast
+build src/Text.d : build_deps src/Text.mlast
 rule re_cmj_cmi
   command = $bsc $g_pkg_flg  -bs-re-out -bs-super-errors $g_pkg_incls $g_lib_incls $bsc_extra_includes $warnings $bsc_flags $gentypeconfig -o $out -c  $in $postbuild
   dyndep = $in_e.d
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
+build src/Text-ReVerv.cmj |  $src_root_dir/src/Text.bs.js src/Text-ReVerv.cmi : re_cmj_cmi src/Text.mlast ||  src/Text.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Verv.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Verv.re
+build src/Verv.d : build_deps src/Verv.mlast
 build src/Verv-ReVerv.cmj |  $src_root_dir/src/Verv.bs.js src/Verv-ReVerv.cmi : re_cmj_cmi src/Verv.mlast ||  src/Verv.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Image.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Image.re
+build src/Image.d : build_deps src/Image.mlast
+build src/Image-ReVerv.cmj |  $src_root_dir/src/Image.bs.js src/Image-ReVerv.cmi : re_cmj_cmi src/Image.mlast ||  src/Image.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build src/Index.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Index.re
 build src/Index.d : build_deps src/Index.mlast
 build src/Index-ReVerv.cmj |  $src_root_dir/src/Index.bs.js src/Index-ReVerv.cmi : re_cmj_cmi src/Index.mlast ||  src/Index.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Input.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Input.re
+build src/Input.d : build_deps src/Input.mlast
+build src/Input-ReVerv.cmj |  $src_root_dir/src/Input.bs.js src/Input-ReVerv.cmi : re_cmj_cmi src/Input.mlast ||  src/Input.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Shape.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Shape.re
+build src/Shape.d : build_deps src/Shape.mlast
+build src/Shape-ReVerv.cmj |  $src_root_dir/src/Shape.bs.js src/Shape-ReVerv.cmi : re_cmj_cmi src/Shape.mlast ||  src/Shape.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Tween.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Tween.re
+build src/Tween.d : build_deps src/Tween.mlast
+build src/Tween-ReVerv.cmj |  $src_root_dir/src/Tween.bs.js src/Tween-ReVerv.cmi : re_cmj_cmi src/Tween.mlast ||  src/Tween.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build src/Utils.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Utils.re
 build src/Utils.d : build_deps src/Utils.mlast
 build src/Utils-ReVerv.cmj |  $src_root_dir/src/Utils.bs.js src/Utils-ReVerv.cmi : re_cmj_cmi src/Utils.mlast ||  src/Utils.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/VBase.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/VBase.re
+build src/VBase.d : build_deps src/VBase.mlast
+build src/VBase-ReVerv.cmj |  $src_root_dir/src/VBase.bs.js src/VBase-ReVerv.cmi : re_cmj_cmi src/VBase.mlast ||  src/VBase.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Vector2.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Vector2.re
+build src/Vector2.d : build_deps src/Vector2.mlast
+build src/Vector2-ReVerv.cmj |  $src_root_dir/src/Vector2.bs.js src/Vector2-ReVerv.cmi : re_cmj_cmi src/Vector2.mlast ||  src/Vector2.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build src/PhaserAPI.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/PhaserAPI.re
 build src/PhaserAPI.d : build_deps src/PhaserAPI.mlast
 build src/PhaserAPI-ReVerv.cmj |  $src_root_dir/src/PhaserAPI.bs.js src/PhaserAPI-ReVerv.cmi : re_cmj_cmi src/PhaserAPI.mlast ||  src/PhaserAPI.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Rectangle.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Rectangle.re
+build src/Rectangle.d : build_deps src/Rectangle.mlast
+build src/Rectangle-ReVerv.cmj |  $src_root_dir/src/Rectangle.bs.js src/Rectangle-ReVerv.cmi : re_cmj_cmi src/Rectangle.mlast ||  src/Rectangle.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/BitMapText.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/BitMapText.re
+build src/BitMapText.d : build_deps src/BitMapText.mlast
+build src/BitMapText-ReVerv.cmj |  $src_root_dir/src/BitMapText.bs.js src/BitMapText-ReVerv.cmi : re_cmj_cmi src/BitMapText.mlast ||  src/BitMapText.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Components.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Components.re
+build src/Components.d : build_deps src/Components.mlast
+build src/Components-ReVerv.cmj |  $src_root_dir/src/Components.bs.js src/Components-ReVerv.cmi : re_cmj_cmi src/Components.mlast ||  src/Components.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 rule build_package
   command = $bsc -w -49 -no-alias-deps -bs-cmi-only -c $in

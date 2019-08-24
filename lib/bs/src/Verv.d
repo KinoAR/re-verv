@@ -1,1 +1,1 @@
-src/Verv-ReVerv.cmj : ReVerv.cmi src/PhaserAPI-ReVerv.cmj src/PhaserAPI-ReVerv.cmi
+src/Verv-ReVerv.cmj : ReVerv.cmi src/BitMapText-ReVerv.cmj src/BitMapText-ReVerv.cmi src/Image-ReVerv.cmj src/Image-ReVerv.cmi src/Input-ReVerv.cmj src/Input-ReVerv.cmi src/PhaserAPI-ReVerv.cmj src/PhaserAPI-ReVerv.cmi src/Shape-ReVerv.cmj src/Shape-ReVerv.cmi src/Text-ReVerv.cmj src/Text-ReVerv.cmi src/Tween-ReVerv.cmj src/Tween-ReVerv.cmi src/Vector2-ReVerv.cmj src/Vector2-ReVerv.cmi

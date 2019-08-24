@@ -4,13 +4,14 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Verv$ReVerv = require("./Verv.bs.js");
+var Image$ReVerv = require("./Image.bs.js");
 
 var sceneCreate = Verv$ReVerv.dataCallback((function (scene, param) {
         var SceneLoader = Verv$ReVerv.MakeLoader(/* module */[/* scene */scene]);
         var SceneFactory = Verv$ReVerv.MakeGameObjFactory(/* module */[/* scene */scene]);
         var loader = Curry._2(SceneLoader[/* loadImage */3], "abc", /* array */["./abcFile"]);
         var image = Curry._5(SceneFactory[/* addImage */1], 0, 0, "abc", "abc", /* () */0);
-        var test = Verv$ReVerv.$$Image[/* setX */4](30, Verv$ReVerv.$$Image[/* !> */1](image));
+        var test = Curry._2(Image$ReVerv.setX, 30, Image$ReVerv.$bang$great(image));
         console.log(test);
         console.log(loader);
         var text = scene.add.text(64, 200, "Hello World");
