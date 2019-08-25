@@ -3,7 +3,7 @@
 
 var VBase$ReVerv = require("./VBase.bs.js");
 
-var Static = /* module */[];
+var Static = /* module */[/* PAStatic */0];
 
 function allowDrag(param) {
   return VBase$ReVerv.flatMap((function (prim) {

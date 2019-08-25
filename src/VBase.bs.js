@@ -18,8 +18,8 @@ function useState(fn) {
           (function (param) {
               var wrappedValue = initial;
               var fn = param;
-              initial[0] = Curry._1(fn, wrappedValue[0]);
-              return initial[0];
+              wrappedValue[0] = Curry._1(fn, wrappedValue[0]);
+              return wrappedValue[0];
             })
         ];
 }

@@ -11,12 +11,11 @@ let flatMap = (f, vervComponent) => switch(vervComponent) {
 let useState = (fn) => {
   let initial = ref(fn());
   let setValue = (wrappedValue, fn) => {
-    initial := fn(wrappedValue^);
-    initial^;
+    wrappedValue := fn(wrappedValue^);
+    wrappedValue^;
   };
   (initial, setValue(initial));
 };
-// let useReducer((state, action))
 
 let useReducer = (fn:('state, 'action) => 'state, state:'state) => {
   (state, fn(state))

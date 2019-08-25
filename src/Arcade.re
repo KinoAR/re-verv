@@ -2,7 +2,8 @@ open VBase;
 open PhaserAPI;
 
 module Static = {
-
+  module PAStatic = Physics.Arcade.StaticBody;
+  
 };
 
 module Dynamic = {
@@ -147,5 +148,4 @@ module Dynamic = {
 
 
 module World = {
-
 };
