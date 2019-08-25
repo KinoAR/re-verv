@@ -1021,7 +1021,7 @@ module GameObjects = {
 
       [@bs.send] external getPipelineName: P.t => string = "getPipelineName";
       [@bs.send] external initPipeline: (P.t, ~pipelineName:string=?, unit) => bool = "initPipeline";
-      [@Bs.send] external resetPipeline: P.t => bool = "resetPipeline";
+      [@bs.send] external resetPipeline: P.t => bool = "resetPipeline";
       [@bs.send] external setPipeline: (P.t, ~pipelineName:string=?, unit) => P.t = "setPipeline";    
     };
 

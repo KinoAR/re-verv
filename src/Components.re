@@ -181,3 +181,18 @@ module BlendMode = (B:{type t;}) => {
     let toggleFlipX = container => container |> map(F.toggleFlipX);
     let toggleFlipY = container => container |> map(F.toggleFlipY);
   };
+
+  module Pipeline = (P:{type t;}) => {
+    module PPipeline = GameObjects.Components.Pipeline({type nonrec t = P.t});
+
+    let defaultPipeline = container => container |> flatMap(PPipeline.defaultPipeline);
+    let pipeline = container => container |> flatMap(PPipeline.pipeline);
+
+    let getPipelineName = container => container |> flatMap(PPipeline.getPipelineName);
+    let resetPipeline = container => container |> flatMap(PPipeline.resetPipeline);
+    let initPipeline = (~pipelineName, container) => container |> map(PPipeline.initPipeline(_, ~pipelineName));
+    let setPipeline = (~pipelineName=?, container) => switch(pipelineName) {
+      | Some(name) => container |> map(PPipeline.setPipeline(_, ~pipelineName=name, ()));
+      | None => container |> map(PPipeline.setPipeline(_, ()));
+    }
+  };

@@ -2,6 +2,7 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var VBase$ReVerv = require("./VBase.bs.js");
 var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
 
@@ -731,6 +732,59 @@ function Flip(F) {
         ];
 }
 
+function Pipeline(P) {
+  var PPipeline = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* Pipeline */3], /* module */[]);
+  var defaultPipeline = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.defaultPipeline;
+                }), container);
+  };
+  var pipeline = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.pipeline;
+                }), container);
+  };
+  var getPipelineName = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.getPipelineName();
+                }), container);
+  };
+  var resetPipeline = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.resetPipeline();
+                }), container);
+  };
+  var initPipeline = function (pipelineName, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  var partial_arg = pipelineName;
+                  return (function (param) {
+                      return __x.initPipeline(partial_arg !== undefined ? Caml_option.valFromOption(partial_arg) : undefined);
+                    });
+                }), container);
+  };
+  var setPipeline = function (pipelineName, container) {
+    if (pipelineName !== undefined) {
+      var name = pipelineName;
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setPipeline(name);
+                  }), container);
+    } else {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setPipeline(undefined);
+                  }), container);
+    }
+  };
+  return /* module */[
+          /* PPipeline */PPipeline,
+          /* defaultPipeline */defaultPipeline,
+          /* pipeline */pipeline,
+          /* getPipelineName */getPipelineName,
+          /* resetPipeline */resetPipeline,
+          /* initPipeline */initPipeline,
+          /* setPipeline */setPipeline
+        ];
+}
+
 exports.BlendMode = BlendMode;
 exports.ScrollFactor = ScrollFactor;
 exports.Transform = Transform;
@@ -739,4 +793,5 @@ exports.Origin = Origin;
 exports.Size = Size;
 exports.Tint = Tint;
 exports.Flip = Flip;
+exports.Pipeline = Pipeline;
 /* No side effect */
