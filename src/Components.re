@@ -2,6 +2,37 @@ open PhaserAPI;
 open VBase;
 
 
+module BaseGameObject = (G:{type t}) => {
+  module PBaseGO = GameObjects.BaseGameObject({type nonrec t = G.t});
+  let makeBase =  (scene, name) => Container(PBaseGO.makeBase(scene, name));
+  let active = container => container |> flatMap(PBaseGO.active);
+  let cameraFilter = container => container |> flatMap(PBaseGO.cameraFilter);
+  let type_ = container => container |> flatMap(PBaseGO.type_);
+  let tabIndex = container => container |> flatMap(PBaseGO.tabIndex);
+  let state = container => container |> flatMap(PBaseGO.state);
+  let stateInt = container => container |> flatMap(PBaseGO.stateInt);
+  let name = container => container |> flatMap(PBaseGO.name);
+  let scene = container => container |> flatMap(PBaseGO.scene);
+  let data = container => container |> flatMap(PBaseGO.data);
+  let arcadeBody = container => container |> flatMap(PBaseGO.arcadeBody);
+  let impactBody = container => container |> flatMap(PBaseGO.impactBody);
+  let matterBody = container => container |> flatMap(PBaseGO.matterBody);
+  let renderMask = container => container |> flatMap(PBaseGO.renderMask);
+  let renderFlags = container => container |> flatMap(PBaseGO.renderFlags);
+  let parentContainer = container => container |> flatMap(PBaseGO.parentContainer);
+  let ignoreDestroy = container => container |> flatMap(PBaseGO.ignoreDestroy);
+
+  let getIndexList = container => container |> flatMap(PBaseGO.getIndexList);
+  let getData = container => container |> flatMap(PBaseGO.getData);
+  let removeInteractive = container => container |> map(PBaseGO.removeInteractive);
+  let setName = (name, container) => container |> map(PBaseGO.setName(_, name));
+  let setData = (data, container) => container |> map(PBaseGO.setData(_, data));
+  let willRender = (camera2D, container) => container |> flatMap(PBaseGO.willRender(_, camera2D));
+  let setState = (state, container) => container |> map(PBaseGO.setState(_, state));
+  let setActive = (active, container) => container |> map(PBaseGO.setActive(_, active));
+  let setDataEnabled = container => container |> map(PBaseGO.setDataEnabled);
+};
+
 module Alpha = (A:{type t;}) => {
   module PAlpha = GameObjects.Components.Alpha({type nonrec t = A.t});
 

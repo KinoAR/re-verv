@@ -940,7 +940,7 @@ module GameObjects = {
    [@bs.get] external matterBody: G.t => Js.Nullable.t(matterBodyT) = "body"; 
    [@bs.get] external renderMask: G.t => int = "RENDER_MASK";
 
-   [@bs.set] external setActive: (t, bool) => unit = "active";
+   [@bs.set] external setActive: (t, bool) => G.t = "active";
    [@bs.send] external disableInteractive: G.t => G.t = "disableInteractive"; 
    [@bs.send] external getData: (G.t, string) => 'a = "getData";
    [@bs.send] external getIndexList: G.t => array(int) = "getIndexList";

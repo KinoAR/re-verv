@@ -2,9 +2,173 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Phaser = require("phaser");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var VBase$ReVerv = require("./VBase.bs.js");
 var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
+
+function BaseGameObject(G) {
+  var PBaseGO = PhaserAPI$ReVerv.GameObjects[/* BaseGameObject */0](/* module */[]);
+  var makeBase = function (scene, name) {
+    return /* Container */[new (Phaser.GameObjects.GameObject)(scene, name)];
+  };
+  var active = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.active;
+                }), container);
+  };
+  var cameraFilter = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.cameraFilter;
+                }), container);
+  };
+  var type_ = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.type;
+                }), container);
+  };
+  var tabIndex = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.tabIndex;
+                }), container);
+  };
+  var state = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.state;
+                }), container);
+  };
+  var stateInt = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.state;
+                }), container);
+  };
+  var name = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.name;
+                }), container);
+  };
+  var scene = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.scene;
+                }), container);
+  };
+  var data = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.data;
+                }), container);
+  };
+  var arcadeBody = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.body;
+                }), container);
+  };
+  var impactBody = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.body;
+                }), container);
+  };
+  var matterBody = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.body;
+                }), container);
+  };
+  var renderMask = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.RENDER_MASK;
+                }), container);
+  };
+  var renderFlags = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.renderFlags;
+                }), container);
+  };
+  var parentContainer = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.parentContainer;
+                }), container);
+  };
+  var ignoreDestroy = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.ignoreDestroy;
+                }), container);
+  };
+  var getIndexList = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.getIndexList();
+                }), container);
+  };
+  var getData = function (container) {
+    return VBase$ReVerv.flatMap((function (prim, prim$1) {
+                  return prim.getData(prim$1);
+                }), container);
+  };
+  var removeInteractive = function (container) {
+    return VBase$ReVerv.map((function (prim) {
+                  return prim.removeInteractive();
+                }), container);
+  };
+  var setName = function (name, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.setName(name);
+                }), container);
+  };
+  var setData = function (data, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return (function (param) {
+                      return __x.setData(data, param);
+                    });
+                }), container);
+  };
+  var willRender = function (camera2D, container) {
+    return VBase$ReVerv.flatMap((function (__x) {
+                  return __x.willRender(camera2D);
+                }), container);
+  };
+  var setState = function (state, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.setState(state);
+                }), container);
+  };
+  var setActive = function (active, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.active = active;
+                }), container);
+  };
+  var setDataEnabled = function (container) {
+    return VBase$ReVerv.map((function (prim) {
+                  return prim.setDataEnabled();
+                }), container);
+  };
+  return /* module */[
+          /* PBaseGO */PBaseGO,
+          /* makeBase */makeBase,
+          /* active */active,
+          /* cameraFilter */cameraFilter,
+          /* type_ */type_,
+          /* tabIndex */tabIndex,
+          /* state */state,
+          /* stateInt */stateInt,
+          /* name */name,
+          /* scene */scene,
+          /* data */data,
+          /* arcadeBody */arcadeBody,
+          /* impactBody */impactBody,
+          /* matterBody */matterBody,
+          /* renderMask */renderMask,
+          /* renderFlags */renderFlags,
+          /* parentContainer */parentContainer,
+          /* ignoreDestroy */ignoreDestroy,
+          /* getIndexList */getIndexList,
+          /* getData */getData,
+          /* removeInteractive */removeInteractive,
+          /* setName */setName,
+          /* setData */setData,
+          /* willRender */willRender,
+          /* setState */setState,
+          /* setActive */setActive,
+          /* setDataEnabled */setDataEnabled
+        ];
+}
 
 function Alpha(A) {
   var PAlpha = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* Alpha */0], /* module */[]);
@@ -1067,6 +1231,7 @@ function GetBounds(G) {
   return /* module */[/* PGB */PGB];
 }
 
+exports.BaseGameObject = BaseGameObject;
 exports.Alpha = Alpha;
 exports.BlendMode = BlendMode;
 exports.ScrollFactor = ScrollFactor;
@@ -1080,4 +1245,4 @@ exports.Tint = Tint;
 exports.Flip = Flip;
 exports.Pipeline = Pipeline;
 exports.GetBounds = GetBounds;
-/* No side effect */
+/* phaser Not a pure module */
