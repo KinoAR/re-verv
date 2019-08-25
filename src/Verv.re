@@ -77,7 +77,7 @@ module MakeLoader = (S:{let scene:PhaserAPI.sceneT;}) => {
   open PhaserAPI;
   let scene = S.scene;
 
-  let loader =  () => scene -> Scene.load;
+  let loader =  scene -> Scene.load;
   let keyExists = (keyName) => scene -> Scene.load -> LoaderPlugin.keyExists(keyName);
 
 

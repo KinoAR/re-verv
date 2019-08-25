@@ -1174,7 +1174,29 @@ module GameObjects = {
   module Text = {
     type t = textT;
     [@bs.module "phaser"][@bs.scope "GameObjects"][@bs.new] external make: (sceneT, ~x:int, ~y:int, ~text:string, ~style:textStyleT) => t = "Text";
+     
+    [@bs.get] external dirty: t => bool = "dirty";
+    [@bs.get] external lineSpacing: t => float = "lineSpacing";
     [@bs.send] external setColor: (textT, string) => textT = "setColor";
+    [@bs.send] external initRTL: t => unit = "initiRTL";
+    [@bs.send] external runWordWrap: (t, string) => string = "runWordWrap";
+    [@bs.send] external setBackgroundColor: (t, string) => t = "setBackgroundColor";
+    [@bs.send] external setFont: (t, string) => t ="setFont";
+    [@bs.send] external setFontFamily: (t, string) => t = "setFont";
+    [@bs.send] external setFontSize: (t, int) => t = "setFontSize";
+    [@bs.send] external setFixedSize: (t, int, int) => t = "setFixedSize";
+    [@bs.send] external setFill: (t, string) => t = "setFill";
+    [@bs.send] external setLineSpacing: (t, float) => t = "setLineSpacing";
+    [@bs.send] external setMaxLines: (t, ~max:int=?, unit) => t = "setMaxLines";
+    [@bs.send] external setShadowBlur: (t, float) => t = "setShadowBlur";
+    [@bs.send] external setShadowColor: (t, string) => t = "setShadowColor";
+    [@bs.send] external setShadowFill: (t, bool) => t = "setShadowFill";
+    [@bs.send] external setShadowOffset: (t, int, int) => t = "setShadowOffset";
+    [@bs.send] external setShadowStroke: (t, bool) => t = "setShadowStroke";
+    [@bs.send] external setStroke: (t, string, float) => t = "setStroke";
+    [@bs.send] external updateText: t => t = "updateText";
+     
+
     include(BaseGameObject({
       type nonrec t = t;
     }))

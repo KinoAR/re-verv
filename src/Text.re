@@ -3,7 +3,25 @@ open PhaserAPI;
 type t = GameObjects.Text.t;
 module PText = GameObjects.Text;
 
+
+let make = (scene, ~x, ~y, ~text, ~style) => Container(PText.make(scene, ~x, ~y, ~text, ~style));
+let dirty = component => component |> flatMap(PText.dirty);
 let setColor = (color, container) => container |> map(PText.setColor(_, color));
+let initRTL = component => component |> flatMap(PText.initRTL);
+let lineSpacing = component => component |> flatMap(PText.lineSpacing);
+let setLineSpacing = (lineSpacing, component) => component |> map(PText.setLineSpacing(_, lineSpacing));
+let setStroke = (color, thickness, component) => component |> map(PText.setStroke(_, color, thickness));
+let updateText = component => component |> map(PText.updateText);
+let setShadowStroke = (enabled, component) => component |> map(PText.setShadowStroke(_, enabled));
+let setShadowFill = (enabled, component) => component |> map(PText.setShadowFill(_, enabled));
+let setFontFamily = (fontFamily, component) => component |> map(PText.setFontFamily(_, fontFamily));
+let setFont = (font, component) => component |> map(PText.setFont(_, font));
+let setFontSize = (size, component) => component |> map(PText.setFontSize(_, size));
+let setBackgroundColor = (color, component) => component |> map(PText.setBackgroundColor(_, color));
+let setShadowColor = (color, component) => component |> map(PText.setShadowColor(_, color));
+let setShadowBlur = (blur, component) => component |> map(PText.setShadowBlur(_, blur));
+let setFixedSize = (width, height, component) => component |> map(PText.setFixedSize(_, width, height));
+let setFill = (color, component) => component |> map(PText.setFill(_, color));
 
 include Components.BaseGameObject({type nonrec t = t;});
 include Components.BlendMode({type nonrec t = t;});

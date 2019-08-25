@@ -63,9 +63,7 @@ function createScene(key, init, preload, create, update, param) {
 
 function MakeLoader(S) {
   var scene = S[/* scene */0];
-  var loader = function (param) {
-    return scene.load;
-  };
+  var loader = scene.load;
   var keyExists = function (keyName) {
     return scene.load.keyExists(keyName);
   };
