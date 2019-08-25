@@ -6,6 +6,179 @@ var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var VBase$ReVerv = require("./VBase.bs.js");
 var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
 
+function Alpha(A) {
+  var PAlpha = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* Alpha */0], /* module */[]);
+  var alpha = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alpha;
+                }), container);
+  };
+  var alphaF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alpha;
+                }), container);
+  };
+  var alphaTopLeft = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaTopLeft;
+                }), container);
+  };
+  var alphaTopLeftF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaTopLeft;
+                }), container);
+  };
+  var alphaTopRight = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaTopRight;
+                }), container);
+  };
+  var alphaTopRightF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaTopRight;
+                }), container);
+  };
+  var alphaBottomLeft = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaBottomLeft;
+                }), container);
+  };
+  var alphaBottomLeftF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaBottomleft;
+                }), container);
+  };
+  var alphaBottomRight = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaBottomRight;
+                }), container);
+  };
+  var alphaBottomRightF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.alphaBottomRight;
+                }), container);
+  };
+  var clearAlpha = function (container) {
+    return VBase$ReVerv.map((function (prim) {
+                  return prim.clearAlpha();
+                }), container);
+  };
+  var setAlpha = function (topLeft, topRight, bottomLeft, bottomRight, container) {
+    var fn = function (prim, prim$1, prim$2, prim$3, prim$4, prim$5) {
+      return prim.setAlpha(prim$1 !== undefined ? Caml_option.valFromOption(prim$1) : undefined, prim$2 !== undefined ? Caml_option.valFromOption(prim$2) : undefined, prim$3 !== undefined ? Caml_option.valFromOption(prim$3) : undefined, prim$4 !== undefined ? Caml_option.valFromOption(prim$4) : undefined);
+    };
+    if (topLeft !== undefined) {
+      var topLeft$1 = topLeft;
+      if (topRight !== undefined) {
+        var topRight$1 = topRight;
+        if (bottomLeft !== undefined) {
+          var bottomLeft$1 = bottomLeft;
+          if (bottomRight !== undefined) {
+            var bottomRight$1 = bottomRight;
+            return VBase$ReVerv.map((function (__x) {
+                          return fn(__x, topLeft$1, topRight$1, bottomLeft$1, bottomRight$1, /* () */0);
+                        }), container);
+          } else {
+            return VBase$ReVerv.map((function (__x) {
+                          return fn(__x, topLeft$1, topRight$1, bottomLeft$1, undefined, /* () */0);
+                        }), container);
+          }
+        } else if (bottomRight !== undefined) {
+          var bottomRight$2 = bottomRight;
+          return VBase$ReVerv.map((function (__x) {
+                        return fn(__x, topLeft$1, topRight$1, undefined, bottomRight$2, /* () */0);
+                      }), container);
+        } else {
+          return VBase$ReVerv.map((function (__x) {
+                        return fn(__x, topLeft$1, topRight$1, undefined, undefined, /* () */0);
+                      }), container);
+        }
+      } else if (bottomLeft !== undefined) {
+        var bottomLeft$2 = bottomLeft;
+        if (bottomRight !== undefined) {
+          var bottomRight$3 = bottomRight;
+          return VBase$ReVerv.map((function (__x) {
+                        return fn(__x, topLeft$1, undefined, bottomLeft$2, bottomRight$3, /* () */0);
+                      }), container);
+        } else {
+          return VBase$ReVerv.map((function (__x) {
+                        return fn(__x, topLeft$1, undefined, bottomLeft$2, undefined, /* () */0);
+                      }), container);
+        }
+      } else if (bottomRight !== undefined) {
+        var bottomRight$4 = bottomRight;
+        return VBase$ReVerv.map((function (__x) {
+                      return fn(__x, topLeft$1, undefined, undefined, bottomRight$4, /* () */0);
+                    }), container);
+      } else {
+        return VBase$ReVerv.map((function (__x) {
+                      return fn(__x, topLeft$1, undefined, undefined, undefined, /* () */0);
+                    }), container);
+      }
+    } else if (topRight !== undefined) {
+      var topRight$2 = topRight;
+      if (bottomLeft !== undefined) {
+        var bottomLeft$3 = bottomLeft;
+        if (bottomRight !== undefined) {
+          var bottomRight$5 = bottomRight;
+          return VBase$ReVerv.map((function (__x) {
+                        return fn(__x, undefined, topRight$2, bottomLeft$3, bottomRight$5, /* () */0);
+                      }), container);
+        } else {
+          return VBase$ReVerv.map((function (__x) {
+                        return fn(__x, undefined, topRight$2, bottomLeft$3, undefined, /* () */0);
+                      }), container);
+        }
+      } else if (bottomRight !== undefined) {
+        var bottomRight$6 = bottomRight;
+        return VBase$ReVerv.map((function (__x) {
+                      return fn(__x, undefined, topRight$2, undefined, bottomRight$6, /* () */0);
+                    }), container);
+      } else {
+        return VBase$ReVerv.map((function (__x) {
+                      return fn(__x, undefined, topRight$2, undefined, undefined, /* () */0);
+                    }), container);
+      }
+    } else if (bottomLeft !== undefined) {
+      var bottomLeft$4 = bottomLeft;
+      if (bottomRight !== undefined) {
+        var bottomRight$7 = bottomRight;
+        return VBase$ReVerv.map((function (__x) {
+                      return fn(__x, undefined, undefined, bottomLeft$4, bottomRight$7, /* () */0);
+                    }), container);
+      } else {
+        return VBase$ReVerv.map((function (__x) {
+                      return fn(__x, undefined, undefined, bottomLeft$4, undefined, /* () */0);
+                    }), container);
+      }
+    } else if (bottomRight !== undefined) {
+      var bottomRight$8 = bottomRight;
+      return VBase$ReVerv.map((function (__x) {
+                    return fn(__x, undefined, undefined, undefined, bottomRight$8, /* () */0);
+                  }), container);
+    } else {
+      return VBase$ReVerv.map((function (__x) {
+                    return fn(__x, undefined, undefined, undefined, undefined, /* () */0);
+                  }), container);
+    }
+  };
+  return /* module */[
+          /* PAlpha */PAlpha,
+          /* alpha */alpha,
+          /* alphaF */alphaF,
+          /* alphaTopLeft */alphaTopLeft,
+          /* alphaTopLeftF */alphaTopLeftF,
+          /* alphaTopRight */alphaTopRight,
+          /* alphaTopRightF */alphaTopRightF,
+          /* alphaBottomLeft */alphaBottomLeft,
+          /* alphaBottomLeftF */alphaBottomLeftF,
+          /* alphaBottomRight */alphaBottomRight,
+          /* alphaBottomRightF */alphaBottomRightF,
+          /* clearAlpha */clearAlpha,
+          /* setAlpha */setAlpha
+        ];
+}
+
 function BlendMode(B) {
   var B$1 = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* BlendMode */1], /* module */[]);
   var blendMode = function (container) {
@@ -272,6 +445,31 @@ function Visible(V) {
         ];
 }
 
+function Depth(D) {
+  var PDepth = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* Depth */7], /* module */[]);
+  var depth = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.depth;
+                }), container);
+  };
+  var depthF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.depth;
+                }), container);
+  };
+  var setDepth = function (depth, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.setDepth(depth);
+                }), container);
+  };
+  return /* module */[
+          /* PDepth */PDepth,
+          /* depth */depth,
+          /* depthF */depthF,
+          /* setDepth */setDepth
+        ];
+}
+
 function Origin(O) {
   var O$1 = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* Origin */8], /* module */[]);
   var displayOriginX = function (container) {
@@ -340,6 +538,85 @@ function Origin(O) {
           /* setOrigin */setOrigin,
           /* setOriginFromFrame */setOriginFromFrame,
           /* updateDisplayOrigin */updateDisplayOrigin
+        ];
+}
+
+function ComputedSize(CS) {
+  var CS$1 = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* ComputedSize */10], /* module */[]);
+  var displayHeight = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.displayHeight;
+                }), container);
+  };
+  var displayHeightF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.displayHeight;
+                }), container);
+  };
+  var displayWidth = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.displayWidth;
+                }), container);
+  };
+  var displayWidthF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.displayWidth;
+                }), container);
+  };
+  var height = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.height;
+                }), container);
+  };
+  var heightF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.height;
+                }), container);
+  };
+  var width = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.width;
+                }), container);
+  };
+  var widthF = function (container) {
+    return VBase$ReVerv.flatMap((function (prim) {
+                  return prim.width;
+                }), container);
+  };
+  var setSize = function (width, height, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.setSize(width, height);
+                }), container);
+  };
+  var setSizeF = function (width, height, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.setSize(width, height);
+                }), container);
+  };
+  var setDisplaySize = function (width, height, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.setDisplaySize(width, height);
+                }), container);
+  };
+  var setDisplaySizeF = function (width, height, container) {
+    return VBase$ReVerv.map((function (__x) {
+                  return __x.setDisplaySize(width, height);
+                }), container);
+  };
+  return /* module */[
+          /* CS */CS$1,
+          /* displayHeight */displayHeight,
+          /* displayHeightF */displayHeightF,
+          /* displayWidth */displayWidth,
+          /* displayWidthF */displayWidthF,
+          /* height */height,
+          /* heightF */heightF,
+          /* width */width,
+          /* widthF */widthF,
+          /* setSize */setSize,
+          /* setSizeF */setSizeF,
+          /* setDisplaySize */setDisplaySize,
+          /* setDisplaySizeF */setDisplaySizeF
         ];
 }
 
@@ -785,13 +1062,22 @@ function Pipeline(P) {
         ];
 }
 
+function GetBounds(G) {
+  var PGB = Curry._1(PhaserAPI$ReVerv.GameObjects[/* Components */1][/* GetBounds */4], /* module */[]);
+  return /* module */[/* PGB */PGB];
+}
+
+exports.Alpha = Alpha;
 exports.BlendMode = BlendMode;
 exports.ScrollFactor = ScrollFactor;
 exports.Transform = Transform;
 exports.Visible = Visible;
+exports.Depth = Depth;
 exports.Origin = Origin;
+exports.ComputedSize = ComputedSize;
 exports.Size = Size;
 exports.Tint = Tint;
 exports.Flip = Flip;
 exports.Pipeline = Pipeline;
+exports.GetBounds = GetBounds;
 /* No side effect */

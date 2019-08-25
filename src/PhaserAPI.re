@@ -969,13 +969,15 @@ module GameObjects = {
       [@bs.set] external setAlphaBottomLeftf: (A.t, float) => unit = "alphaBottomRight";
       [@bs.set] external setAlphaBottomRight: (A.t, int) => unit = "alphaBottomRight";
       [@bs.get] external alphaTopLeft: A.t => int = "alphaTopLeft";
-      [@bs.get] external alphaTopLeftf: A.t => float = "alphaTopLeft";
+      [@bs.get] external alphaTopLeftF: A.t => float = "alphaTopLeft";
       [@bs.set] external setAlphaTopleft: (A.t, int) => unit = "alphaTopLeft";
-      [@bs.set] external setAlphaTopLeftf: (A.t, float) => unit = "alphaTopLeft";
+      [@bs.set] external setAlphaTopLeftF: (A.t, float) => unit = "alphaTopLeft";
       [@bs.get] external alphaTopRight: A.t => int = "alphaTopRight";
-      [@bs.get] external alphaTopRightf: A.t => float = "alphaTopRight";
+      [@bs.get] external alphaTopRightF: A.t => float = "alphaTopRight";
       [@bs.set] external setAlphaTopRight: (A.t, int) => unit = "alphaTopRight";
-      [@bs.set] external setAlphaTopRightf: (A.t, float) => unit = "alphaTopRight";
+      [@bs.set] external setAlphaTopRightF: (A.t, float) => unit = "alphaTopRight";
+      [@bs.get] external alphaBottomRight: A.t => float = "alphaBottomRight";
+      [@bs.get] external alphaBottomRightF: A.t => float = "alphaBottomRight";
     };
 
     module BlendMode = (B:{type t;}) => {

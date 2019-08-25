@@ -4,7 +4,14 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Tablecloth = require("tablecloth-bucklescript/src/tablecloth.bs.js");
 var VBase$ReVerv = require("./VBase.bs.js");
+var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
 var Components$ReVerv = require("./Components.bs.js");
+
+PhaserAPI$ReVerv.GameObjects[/* BaseGameObject */0](/* module */[]);
+
+var include = Components$ReVerv.Alpha(/* module */[]);
+
+var include$1 = Components$ReVerv.Depth(/* module */[]);
 
 function $bang$great(image) {
   return /* Container */[image];
@@ -28,115 +35,166 @@ function phaserImage(vervImage) {
   return VBase$ReVerv.flatMap(Tablecloth.identity, vervImage);
 }
 
-var include = Components$ReVerv.Origin(/* module */[]);
+var include$2 = Components$ReVerv.Origin(/* module */[]);
 
-var include$1 = Components$ReVerv.Flip(/* module */[]);
+var include$3 = Components$ReVerv.Flip(/* module */[]);
 
-var include$2 = Components$ReVerv.ScrollFactor(/* module */[]);
+var include$4 = Components$ReVerv.ScrollFactor(/* module */[]);
 
-var include$3 = Components$ReVerv.Transform(/* module */[]);
+var include$5 = Components$ReVerv.Transform(/* module */[]);
 
 var PImg = 0;
 
-var O = include[0];
+var PAlpha = include[0];
 
-var displayOriginX = include[1];
+var alpha = include[1];
 
-var displayOriginY = include[2];
+var alphaF = include[2];
 
-var originX = include[3];
+var alphaTopLeft = include[3];
 
-var originY = include[4];
+var alphaTopLeftF = include[4];
 
-var setDisplayOrigin = include[5];
+var alphaTopRight = include[5];
 
-var setOrigin = include[6];
+var alphaTopRightF = include[6];
 
-var setOriginFromFrame = include[7];
+var alphaBottomLeft = include[7];
 
-var updateDisplayOrigin = include[8];
+var alphaBottomLeftF = include[8];
 
-var F = include$1[0];
+var alphaBottomRight = include[9];
 
-var flipX = include$1[1];
+var alphaBottomRightF = include[10];
 
-var flipY = include$1[2];
+var clearAlpha = include[11];
 
-var resetFlip = include$1[3];
+var setAlpha = include[12];
 
-var setFlip = include$1[4];
+var PDepth = include$1[0];
 
-var setFlipX = include$1[5];
+var depth = include$1[1];
 
-var setFlipY = include$1[6];
+var depthF = include$1[2];
 
-var toggleFlipX = include$1[7];
+var setDepth = include$1[3];
 
-var toggleFlipY = include$1[8];
+var O = include$2[0];
 
-var ScF = include$2[0];
+var displayOriginX = include$2[1];
 
-var setScrollFactor = include$2[1];
+var displayOriginY = include$2[2];
 
-var scrollFactorX = include$2[2];
+var originX = include$2[3];
 
-var scrollFactorXF = include$2[3];
+var originY = include$2[4];
 
-var scrollFactorY = include$2[4];
+var setDisplayOrigin = include$2[5];
 
-var scrollFactorYF = include$2[5];
+var setOrigin = include$2[6];
 
-var T = include$3[0];
+var setOriginFromFrame = include$2[7];
 
-var angle = include$3[1];
+var updateDisplayOrigin = include$2[8];
 
-var angleF = include$3[2];
+var F = include$3[0];
 
-var rotation = include$3[3];
+var flipX = include$3[1];
 
-var rotationF = include$3[4];
+var flipY = include$3[2];
 
-var scale = include$3[5];
+var resetFlip = include$3[3];
 
-var scaleF = include$3[6];
+var setFlip = include$3[4];
 
-var scaleX = include$3[7];
+var setFlipX = include$3[5];
 
-var scaleXF = include$3[8];
+var setFlipY = include$3[6];
 
-var scaleY = include$3[9];
+var toggleFlipX = include$3[7];
 
-var scaleYF = include$3[10];
+var toggleFlipY = include$3[8];
 
-var w = include$3[11];
+var ScF = include$4[0];
 
-var x = include$3[12];
+var setScrollFactor = include$4[1];
 
-var y = include$3[13];
+var scrollFactorX = include$4[2];
 
-var z = include$3[14];
+var scrollFactorXF = include$4[3];
 
-var setX = include$3[15];
+var scrollFactorY = include$4[4];
 
-var setY = include$3[16];
+var scrollFactorYF = include$4[5];
 
-var setW = include$3[17];
+var T = include$5[0];
 
-var setZ = include$3[18];
+var angle = include$5[1];
 
-var setScale = include$3[19];
+var angleF = include$5[2];
 
-var setPosition = include$3[20];
+var rotation = include$5[3];
 
-var setRotation = include$3[21];
+var rotationF = include$5[4];
 
-var setRotationF = include$3[22];
+var scale = include$5[5];
 
-var getParentRotation = include$3[23];
+var scaleF = include$5[6];
 
-var getParentRotationF = include$3[24];
+var scaleX = include$5[7];
+
+var scaleXF = include$5[8];
+
+var scaleY = include$5[9];
+
+var scaleYF = include$5[10];
+
+var w = include$5[11];
+
+var x = include$5[12];
+
+var y = include$5[13];
+
+var z = include$5[14];
+
+var setX = include$5[15];
+
+var setY = include$5[16];
+
+var setW = include$5[17];
+
+var setZ = include$5[18];
+
+var setScale = include$5[19];
+
+var setPosition = include$5[20];
+
+var setRotation = include$5[21];
+
+var setRotationF = include$5[22];
+
+var getParentRotation = include$5[23];
+
+var getParentRotationF = include$5[24];
 
 exports.PImg = PImg;
+exports.PAlpha = PAlpha;
+exports.alpha = alpha;
+exports.alphaF = alphaF;
+exports.alphaTopLeft = alphaTopLeft;
+exports.alphaTopLeftF = alphaTopLeftF;
+exports.alphaTopRight = alphaTopRight;
+exports.alphaTopRightF = alphaTopRightF;
+exports.alphaBottomLeft = alphaBottomLeft;
+exports.alphaBottomLeftF = alphaBottomLeftF;
+exports.alphaBottomRight = alphaBottomRight;
+exports.alphaBottomRightF = alphaBottomRightF;
+exports.clearAlpha = clearAlpha;
+exports.setAlpha = setAlpha;
+exports.PDepth = PDepth;
+exports.depth = depth;
+exports.depthF = depthF;
+exports.setDepth = setDepth;
 exports.$bang$great = $bang$great;
 exports.lift = lift;
 exports.$less$less$eq = $less$less$eq;
@@ -191,4 +249,4 @@ exports.setRotation = setRotation;
 exports.setRotationF = setRotationF;
 exports.getParentRotation = getParentRotation;
 exports.getParentRotationF = getParentRotationF;
-/* include Not a pure module */
+/*  Not a pure module */

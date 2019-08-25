@@ -1,6 +1,46 @@
 open PhaserAPI;
 open VBase;
 
+
+module Alpha = (A:{type t;}) => {
+  module PAlpha = GameObjects.Components.Alpha({type nonrec t = A.t});
+
+  let alpha = container => container |> flatMap(PAlpha.alpha);
+  let alphaF = container => container |> flatMap(PAlpha.alphaF);
+  let alphaTopLeft = container => container |> flatMap(PAlpha.alphaTopLeft);
+  let alphaTopLeftF = container => container |> flatMap(PAlpha.alphaTopLeftF);
+  let alphaTopRight = container => container |> flatMap(PAlpha.alphaTopRight);
+  let alphaTopRightF = container => container |> flatMap(PAlpha.alphaTopRightF);
+  let alphaBottomLeft = container => container |> flatMap(PAlpha.alphaBottomLeft);
+  let alphaBottomLeftF = container => container |> flatMap(PAlpha.alphaBottomLeftF);
+  let alphaBottomRight = container => container |> flatMap(PAlpha.alphaBottomRight);
+  let alphaBottomRightF = container => container |> flatMap(PAlpha.alphaBottomRightF)
+  let clearAlpha = container => container |> map(PAlpha.clearAlpha);
+
+  let setAlpha = (~topLeft=?, ~topRight=?, ~bottomLeft=?, ~bottomRight=?, container) => {
+    let alphas = (topLeft, topRight, bottomLeft, bottomRight);
+    let fn = PAlpha.setAllAlpha;
+    switch(alphas) {
+        | (Some(topLeft), Some(topRight),Some(bottomLeft), Some(bottomRight)) => container |> map(fn(_, ~topLeft, ~topRight, ~bottomLeft, ~bottomRight, ()));
+        | (None, Some(topRight), Some(bottomLeft), Some(bottomRight)) => container |> map(fn(_, ~topRight, ~bottomLeft,~bottomRight, ()));
+        | (None, None, Some(bottomLeft), Some(bottomRight)) => container |> map(fn(_, ~bottomLeft,~bottomRight, ()));
+        | (None, None, None, Some(bottomRight)) => container |> map(fn(_, ~bottomRight, ()));
+        | (None, Some(topRight), None, Some(bottomRight)) => container |> map(fn(_, ~topRight, ~bottomRight, ()));
+        | (None, Some(topRight), None, None) => container |> map(fn(_, ~topRight, ()));
+        | (None, Some(topRight), Some(bottomLeft), None) => container |> map(fn(_,~topRight, ~bottomLeft, ()));
+        | (None, None, Some(bottomLeft), None) => container |> map(fn(_, ~bottomLeft, ()));
+        | (Some(topLeft), None, None, None) => container |> map(fn(_, ~topLeft, ()));
+        | (Some(topLeft), None, Some(bottomLeft), None) => container |> map(fn(_,~topLeft, ~bottomLeft, ()));
+        | (Some(topLeft), Some(topRight), None, None) => container |> map(fn(_, ~topLeft, ~topRight, ()));
+        | (Some(topLeft), Some(topRight), None, Some(bottomRight)) => container |> map(fn(_, ~topLeft, ~topRight, ~bottomRight, ()));
+        | (Some(topLeft), Some(topRight), Some(bottomLeft), None) => container |> map(fn(_, ~topLeft, ~topRight, ~bottomLeft, ()));
+        | (Some(topLeft), None, Some(bottomLeft), Some(bottomRight)) => container |> map(fn(_, ~topLeft, ~bottomLeft, ~bottomRight, ()));
+        | (Some(topLeft), None, None, Some(bottomRight)) => container |> map(fn(_, ~topLeft, ~bottomRight, ()));
+        | (None, None, None, None) => container |> map(fn(_, ()));
+      };
+  };
+}
+
 module BlendMode = (B:{type t;}) => {
     module B = GameObjects.Components.BlendMode({type nonrec t = B.t});
     
@@ -68,6 +108,15 @@ module BlendMode = (B:{type t;}) => {
     let setVisible = container => container |> map(V.setVisible);
   };
 
+  module Depth = (D:{type t;}) => {
+     module PDepth = GameObjects.Components.Depth({type nonrec t = D.t});
+
+     let depth = container => container |> flatMap(PDepth.depth);
+     let depthF = container => container |> flatMap(PDepth.depthF);
+
+     let setDepth = (depth, container) => container |> map(PDepth.setDepth(_, depth));
+  };
+
   module Origin = (O:{type t;}) => {
     module O = GameObjects.Components.Origin({type nonrec t = O.t});
 
@@ -87,6 +136,23 @@ module BlendMode = (B:{type t;}) => {
 
     let setOriginFromFrame = container => container |> map(O.setOriginFromFrame);
     let updateDisplayOrigin = container => container |> map(O.updateDisplayOrigin);
+  };
+  module ComputedSize = (CS:{type t;}) => {
+    module CS = GameObjects.Components.ComputedSize({type nonrec t = CS.t});
+    let displayHeight = container => container |> flatMap(CS.displayHeight);
+    let displayHeightF = container => container |> flatMap(CS.displayHeightF);
+    let displayWidth = container => container |> flatMap(CS.displayWidth);
+    let displayWidthF = container => container |> flatMap(CS.displayWidthF);
+    let height = container => container |> flatMap(CS.height);
+    let heightF = container => container |> flatMap(CS.heightF);
+    let width = container => container |> flatMap(CS.width);
+    let widthF = container => container |> flatMap(CS.widthF);
+
+
+    let setSize = (~width, ~height, container) => container |> map(CS.setSize(_, ~width, ~height));
+    let setSizeF = (~width, ~height, container) => container |> map(CS.setSizeF(_, ~width, ~height));
+    let setDisplaySize = (~width, ~height, container) => container |> map(CS.setDisplaySize(_, ~width, ~height));
+    let setDisplaySizeF = (~width, ~height, container) => container |> map(CS.setDisplaySizeF(_, ~width, ~height));    
   };
 
   module Size = (S:{type t;}) => {
@@ -196,3 +262,8 @@ module BlendMode = (B:{type t;}) => {
       | None => container |> map(PPipeline.setPipeline(_, ()));
     }
   };
+
+  module GetBounds = (G:{type t;}) => {
+    module PGB = GameObjects.Components.GetBounds({type nonrec t = G.t});
+
+  }
