@@ -9,29 +9,31 @@ function make(scene, x, y, text, style) {
   return /* Container */[new (Phaser.GameObjects.Text)(scene, x, y, text, style)];
 }
 
-function dirty(component) {
+function dirty(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.dirty;
-              }), component);
+              }), param);
 }
 
-function setColor(color, container) {
-  return VBase$ReVerv.map((function (__x) {
-                return __x.setColor(color);
-              }), container);
+function setColor(color) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setColor(color);
+                  }), param);
+    });
 }
 
-function initRTL(component) {
+function initRTL(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 prim.initiRTL();
                 return /* () */0;
-              }), component);
+              }), param);
 }
 
-function lineSpacing(component) {
+function lineSpacing(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.lineSpacing;
-              }), component);
+              }), param);
 }
 
 function setLineSpacing(lineSpacing, component) {
@@ -106,10 +108,12 @@ function setFixedSize(width, height, component) {
               }), component);
 }
 
-function setFill(color, component) {
-  return VBase$ReVerv.map((function (__x) {
-                return __x.setFill(color);
-              }), component);
+function setFill(color) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setFill(color);
+                  }), param);
+    });
 }
 
 var include = Components$ReVerv.BaseGameObject(/* module */[]);

@@ -61,6 +61,10 @@ build src/VBase.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/VBas
 build src/VBase.d : build_deps src/VBase.mlast
 build src/VBase-ReVerv.cmj |  $src_root_dir/src/VBase.bs.js src/VBase-ReVerv.cmi : re_cmj_cmi src/VBase.mlast ||  src/VBase.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Arcade.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Arcade.re
+build src/Arcade.d : build_deps src/Arcade.mlast
+build src/Arcade-ReVerv.cmj |  $src_root_dir/src/Arcade.bs.js src/Arcade-ReVerv.cmi : re_cmj_cmi src/Arcade.mlast ||  src/Arcade.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build src/Vector2.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Vector2.re
 build src/Vector2.d : build_deps src/Vector2.mlast
 build src/Vector2-ReVerv.cmj |  $src_root_dir/src/Vector2.bs.js src/Vector2-ReVerv.cmi : re_cmj_cmi src/Vector2.mlast ||  src/Vector2.d

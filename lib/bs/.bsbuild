@@ -1,6 +1,6 @@
 5.0.6
 1
-14
+15
 Text
 Verv
 Image
@@ -10,6 +10,7 @@ Shape
 Tween
 Utils
 VBase
+Arcade
 Vector2
 PhaserAPI
 Rectangle
@@ -24,6 +25,7 @@ src/Shape,04
 src/Tween,04
 src/Utils,04
 src/VBase,04
+src/Arcade,04
 src/Vector2,04
 src/PhaserAPI,04
 src/Rectangle,04

@@ -173,6 +173,7 @@ type vector2Like = {
 
 
 type arcadeBodyT;
+type arcadeStaticBodyT;
 [@bs.deriving abstract]
 type arcadeWorldConfig = {
   [@bs.optional] fps: int,
@@ -1604,6 +1605,10 @@ module Physics = {
       [@bs.send] external updateBounds: t => unit = "updateBounds";
       [@bs.send] external updateCenter: t => unit = "updateCenter";
       [@bs.send] external willDrawDebug: t => unit = "willDrawDebug";
+     };
+
+     module StaticBody = {
+
      };
   };
 

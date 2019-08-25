@@ -213,7 +213,12 @@ var GameObjects = /* module */[
 
 var Body = /* module */[];
 
-var Arcade = /* module */[/* Body */Body];
+var StaticBody = /* module */[];
+
+var Arcade = /* module */[
+  /* Body */Body,
+  /* StaticBody */StaticBody
+];
 
 var Body$1 = /* module */[];
 

@@ -5,10 +5,10 @@ module PText = GameObjects.Text;
 
 
 let make = (scene, ~x, ~y, ~text, ~style) => Container(PText.make(scene, ~x, ~y, ~text, ~style));
-let dirty = component => component |> flatMap(PText.dirty);
-let setColor = (color, container) => container |> map(PText.setColor(_, color));
-let initRTL = component => component |> flatMap(PText.initRTL);
-let lineSpacing = component => component |> flatMap(PText.lineSpacing);
+let dirty = PText.dirty -> flatMap;
+let setColor = (color) =>  map(PText.setColor(_, color));
+let initRTL = PText.initRTL -> flatMap;
+let lineSpacing = flatMap(PText.lineSpacing);
 let setLineSpacing = (lineSpacing, component) => component |> map(PText.setLineSpacing(_, lineSpacing));
 let setStroke = (color, thickness, component) => component |> map(PText.setStroke(_, color, thickness));
 let updateText = component => component |> map(PText.updateText);
@@ -21,7 +21,7 @@ let setBackgroundColor = (color, component) => component |> map(PText.setBackgro
 let setShadowColor = (color, component) => component |> map(PText.setShadowColor(_, color));
 let setShadowBlur = (blur, component) => component |> map(PText.setShadowBlur(_, blur));
 let setFixedSize = (width, height, component) => component |> map(PText.setFixedSize(_, width, height));
-let setFill = (color, component) => component |> map(PText.setFill(_, color));
+let setFill = (color) =>  map(PText.setFill(_, color));
 
 include Components.BaseGameObject({type nonrec t = t;});
 include Components.BlendMode({type nonrec t = t;});

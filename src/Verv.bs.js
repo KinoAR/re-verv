@@ -121,7 +121,7 @@ function MakeGameObjFactory(A) {
   };
   var addText = function (x, y, text, color) {
     var text$1 = factory.text(x, y, text);
-    return Text$ReVerv.setColor(color, /* Container */[text$1]);
+    return Text$ReVerv.setColor(color)(/* Container */[text$1]);
   };
   var addBitmapText = function (x, y, font, text) {
     var bitmapText = factory.bitmapText(x, y, font, text, undefined, undefined);
