@@ -1945,7 +1945,7 @@ module GameObjectFactory = {
   [@bs.send] external graphics: (t, GameObjects.graphicsOptions) => GameObjects.graphics = "graphics";
   [@bs.send] external bitmapText: (t, ~x:int, ~y:int, font, ~text:text=?, ~size:int=?, ~align:int=?, unit) => GameObjects.bitmapTextT = "bitmapText";
   [@bs.send] external text:  (t, int, int, text) => GameObjects.textT = "text";
-  [@bs.send] external blitter: (t, int, int, string) => GameObjects.blitter = "blitter";
+  [@bs.send] external blitter: (t, int, int, string, ~frame:string=?, unit) => GameObjects.blitter = "blitter";
   [@bs.send] external blitterWithStrFrames: (t, int, int, string, string) => GameObjects.blitter = "blitter";
   [@bs.send] external blitterWithIntFrames: (t, int, int, string, int) => GameObjects.blitter = "blitter";
   [@bs.send] external circle: (t, int, int, int, int, int) => GameObjects.arc = "circle";

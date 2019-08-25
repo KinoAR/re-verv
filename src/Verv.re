@@ -128,7 +128,23 @@ module MakeGameObjFactory = (A:{let scene:PhaserAPI.sceneT;}) => {
       | None => factory -> GameObjectFactory.sprite(x, y, texture, ());
     };
     Container(sprite);
+  };
+
+  let addBlitter = (x, y, key, ~frame=?, ()) => {
+    let blitter = switch(frame) {
+      | Some (frame) => factory -> GameObjectFactory.blitter(x, y, key, ~frame, ());
+      | None => factory -> GameObjectFactory.blitter(x, y, key, ());
+    };
+    Container(blitter);
   }
+
+  let addPathInt = (x, y) => {
+    Container(factory -> GameObjectFactory.pathInt(x, y));
+  };
+
+  let addPathF = (x, y) => {
+    Container(factory -> GameObjectFactory.pathFloat(x, y));
+  };
 
   let addText = (x, y, text, color) => {
     let text = factory -> GameObjectFactory.text(x, y, text);

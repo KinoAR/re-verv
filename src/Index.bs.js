@@ -14,7 +14,7 @@ var sceneCreate = Verv$ReVerv.dataCallback((function (scene, param) {
         var test = Curry._2(Image$ReVerv.setY, 30, Curry._2(Image$ReVerv.setX, 30, image));
         console.log(Curry._1(Image$ReVerv.name, test));
         console.log(Curry._1(Image$ReVerv.state, test));
-        Curry._4(SceneFactory[/* addText */4], 64, 64, "Hello from ReasonML", "white");
+        Curry._4(SceneFactory[/* addText */7], 64, 64, "Hello from ReasonML", "white");
         return /* () */0;
       }));
 

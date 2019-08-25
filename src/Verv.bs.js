@@ -111,6 +111,16 @@ function MakeGameObjFactory(A) {
     var sprite = frame !== undefined ? factory.sprite(x, y, texture, frame) : factory.sprite(x, y, texture, undefined);
     return /* Container */[sprite];
   };
+  var addBlitter = function (x, y, key, frame, param) {
+    var blitter = frame !== undefined ? factory.blitter(x, y, key, frame) : factory.blitter(x, y, key, undefined);
+    return /* Container */[blitter];
+  };
+  var addPathInt = function (x, y) {
+    return /* Container */[factory.path(x, y)];
+  };
+  var addPathF = function (x, y) {
+    return /* Container */[factory.path(x, y)];
+  };
   var addText = function (x, y, text, color) {
     var text$1 = factory.text(x, y, text);
     return Text$ReVerv.setColor(color, /* Container */[text$1]);
@@ -128,6 +138,9 @@ function MakeGameObjFactory(A) {
           /* factory */factory,
           /* addImage */addImage,
           /* addSprite */addSprite,
+          /* addBlitter */addBlitter,
+          /* addPathInt */addPathInt,
+          /* addPathF */addPathF,
           /* addText */addText,
           /* addBitmapText */addBitmapText,
           /* addZone */addZone
