@@ -4,6 +4,7 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Phaser = require("phaser");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var Text$ReVerv = require("./Text.bs.js");
 
 var phaser = Phaser;
 
@@ -69,22 +70,25 @@ function MakeLoader(S) {
     return scene.load.keyExists(keyName);
   };
   var loadImage = function (imageName, url) {
-    return scene.load.image({
-                key: imageName,
-                url: url
-              });
+    scene.load.image({
+          key: imageName,
+          url: url
+        });
+    return /* () */0;
   };
   var loadAudio = function (audioName, urls) {
-    return scene.load.audio({
-                key: audioName,
-                url: urls
-              });
+    scene.load.audio({
+          key: audioName,
+          url: urls
+        });
+    return /* () */0;
   };
   var loadCSS = function (cssName, url) {
-    return scene.load.css({
-                key: cssName,
-                url: url
-              });
+    scene.load.css({
+          key: cssName,
+          url: url
+        });
+    return /* () */0;
   };
   return /* module */[
           /* scene */scene,
@@ -98,18 +102,35 @@ function MakeLoader(S) {
 
 function MakeGameObjFactory(A) {
   var scene = A[/* scene */0];
+  var factory = scene.add;
   var addImage = function (x, y, texture, frame, param) {
-    var factory = scene.add;
-    if (frame !== undefined) {
-      return factory.image(x, y, texture, frame);
-    } else {
-      return factory.image(x, y, texture, undefined);
-    }
+    var image = frame !== undefined ? factory.image(x, y, texture, frame) : factory.image(x, y, texture, undefined);
+    return /* Container */[image];
+  };
+  var addSprite = function (x, y, texture, frame, param) {
+    var sprite = frame !== undefined ? factory.sprite(x, y, texture, frame) : factory.sprite(x, y, texture, undefined);
+    return /* Container */[sprite];
+  };
+  var addText = function (x, y, text, color) {
+    var text$1 = factory.text(x, y, text);
+    return Text$ReVerv.setColor(color, /* Container */[text$1]);
+  };
+  var addBitmapText = function (x, y, font, text) {
+    var bitmapText = factory.bitmapText(x, y, font, text, undefined, undefined);
+    return /* Container */[bitmapText];
+  };
+  var addZone = function (x, y, width, height) {
+    var zone = factory.zone(x, y, width, height);
+    return /* Container */[zone];
   };
   return /* module */[
           /* scene */scene,
+          /* factory */factory,
           /* addImage */addImage,
-          /* addBitmapText : () */0
+          /* addSprite */addSprite,
+          /* addText */addText,
+          /* addBitmapText */addBitmapText,
+          /* addZone */addZone
         ];
 }
 

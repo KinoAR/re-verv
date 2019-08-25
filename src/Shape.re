@@ -1,7 +1,7 @@
 open PhaserAPI;
 type t = GameObjects.Shape.t;
 
-include GameObjects.BaseGameObject({type nonrec t = t;});
+include Components.BaseGameObject({type nonrec t = t;});
 include Components.BlendMode({type nonrec t = t;});
 include Components.Origin({
   type nonrec t = t;

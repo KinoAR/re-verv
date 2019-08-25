@@ -1,10 +1,9 @@
+open VBase;
 open PhaserAPI;
 type t = GameObjects.Text.t;
+module PText = GameObjects.Text;
 
-let addText = (scene, x, y, text, color) => {
-    let text = scene -> Scene.add -> GameObjectFactory.text(x, y, text);
-    text-> GameObjects.Text.setColor(color);
-};
+let setColor = (color, container) => container |> map(PText.setColor(_, color));
 
 include Components.BaseGameObject({type nonrec t = t;});
 include Components.BlendMode({type nonrec t = t;});

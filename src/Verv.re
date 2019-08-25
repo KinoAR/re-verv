@@ -1,4 +1,4 @@
-
+open VBase;
 let phaser = PhaserAPI.phaser;
 let auto = phaser->PhaserAPI.rendererAuto;
 let canvas = phaser->PhaserAPI.rendererCanvas;
@@ -84,7 +84,7 @@ module MakeLoader = (S:{let scene:PhaserAPI.sceneT;}) => {
   let loadImage = (imageName, url) => {
     scene -> Scene.load -> LoaderPlugin.loadImage(
       LoaderPlugin.imageT(~key=imageName, ~url, ())
-    );
+    ) |> ignore;
   };
 
   let loadAudio = (audioName, urls) => {
@@ -94,7 +94,7 @@ module MakeLoader = (S:{let scene:PhaserAPI.sceneT;}) => {
         ~url=urls,
         ()
       )
-    )
+    ) |> ignore;
   };
 
   let loadCSS = (cssName, url) => {
@@ -104,21 +104,44 @@ module MakeLoader = (S:{let scene:PhaserAPI.sceneT;}) => {
         ~url, 
         ()
       )
-    );
+    ) |> ignore;
   };
 };
 
 module MakeGameObjFactory = (A:{let scene:PhaserAPI.sceneT;}) => {
   open PhaserAPI;
   let scene = A.scene;
+  let factory = scene -> Scene.add;
 
   let addImage = (x, y, texture, ~frame=?, ()) => {
-    let factory = scene -> Scene.add;
-    switch(frame) {
+    
+    let image = switch(frame) {
       | Some(frame) => factory -> GameObjectFactory.imageIntStr(x, y, texture, ~frame, ());
       | None => factory -> GameObjectFactory.imageIntStr(x, y, texture, ());
-    }
+    };
+    Container(image);
   };
 
-  let addBitmapText = ()
+  let addSprite = (x, y, texture, ~frame=?, ()) => {
+    let sprite = switch(frame) {
+      | Some (frame) => factory -> GameObjectFactory.sprite(x, y, texture, ~frame, ());
+      | None => factory -> GameObjectFactory.sprite(x, y, texture, ());
+    };
+    Container(sprite);
+  }
+
+  let addText = (x, y, text, color) => {
+    let text = factory -> GameObjectFactory.text(x, y, text);
+    Container(text) |> Text.setColor(color);
+  };
+
+  let addBitmapText = (x, y, font, text) => {
+    let bitmapText = factory -> GameObjectFactory.bitmapText(~x, ~y, font, ~text, ());
+    Container(bitmapText);
+  };
+
+  let addZone = (x, y, width, height) => {
+    let zone = factory -> GameObjectFactory.zone(x, y, width, height);
+    Container(zone);
+  };
 };

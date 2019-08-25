@@ -1954,6 +1954,7 @@ module GameObjectFactory = {
   [@bs.send] external polygonInt: (t, int, int, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external polygonFloat: (t, float, float, array(point), int, int) => GameObjects.polygon = "polygon";
   [@bs.send] external extern: t => GameObjects.extern = "extern";
+  [@bs.send] external sprite: (t, int, int, string, ~frame:string=?, unit) => GameObjects.Sprite.t = "sprite";
   [@bs.send] external imageIntStr: (t, int, int, string, ~frame:string=?, unit) => GameObjects.imageT = "image";
   [@bs.send] external imageIntInt: (t, int, int, string, int) => GameObjects.imageT = "image";
   [@bs.send] external imageFloatStr: (t, float, float, string, string) => GameObjects.imageT ="image";

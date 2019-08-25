@@ -4,7 +4,7 @@ open PhaserAPI;
 module PImg = GameObjects.Image;
 
 
-include GameObjects.BaseGameObject({type nonrec t = PImg.t;});
+include Components.BaseGameObject({type nonrec t = PImg.t;});
 include Components.Alpha({type nonrec t = PImg.t});
 include Components.Depth({type nonrec t = PImg.t});
 let (!>) = (image:PImg.t) => Container(image);

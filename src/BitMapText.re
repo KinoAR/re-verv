@@ -1,7 +1,8 @@
 open VBase;
 open PhaserAPI;
+type t = GameObjects.BitmapText.t;
 
-  type t = GameObjects.BitmapText.t;
+include Components.BaseGameObject({type nonrec t = t;})
   
 include Components.Origin({
   type nonrec t = t;
