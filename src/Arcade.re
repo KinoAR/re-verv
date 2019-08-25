@@ -71,6 +71,8 @@ module Dynamic = {
   let xF = PABody.xF -> flatMap;
   let y = PABody.y -> flatMap;
   let yF = PABody.yF -> flatMap;
+  let top = PABody.top -> flatMap;
+  let topF = PABody.topF -> flatMap;
 
   let deltaAbsX = PABody.deltaAbsX -> flatMap;
   let deltaAbsY = PABody.deltaAbsY -> flatMap;

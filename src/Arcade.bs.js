@@ -383,6 +383,18 @@ function yF(param) {
               }), param);
 }
 
+function top(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.top;
+              }), param);
+}
+
+function topF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.top;
+              }), param);
+}
+
 function deltaAbsX(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.deltaAbsX();
@@ -946,6 +958,8 @@ var Dynamic = /* module */[
   /* xF */xF,
   /* y */y,
   /* yF */yF,
+  /* top */top,
+  /* topF */topF,
   /* deltaAbsX */deltaAbsX,
   /* deltaAbsY */deltaAbsY,
   /* deltaX */deltaX,

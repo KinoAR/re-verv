@@ -1522,6 +1522,8 @@ module Physics = {
       [@bs.get] external isCircle: t => bool = "isCircle";
       [@bs.get] external bounce: t => Math.vector2T = "bounce";
       [@bs.get] external center: t => Math.vector2T = "center";
+      [@bs.get] external top: t => int = "top";
+      [@bs.get] external topF: t => float = "top";
 
 
       /** Methods */

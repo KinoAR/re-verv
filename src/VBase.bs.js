@@ -11,6 +11,28 @@ function flatMap(f, vervComponent) {
   return Curry._1(f, vervComponent[0]);
 }
 
+function useState(fn) {
+  var initial = /* record */[/* contents */Curry._1(fn, /* () */0)];
+  return /* tuple */[
+          initial,
+          (function (param) {
+              var wrappedValue = initial;
+              var fn = param;
+              initial[0] = Curry._1(fn, wrappedValue[0]);
+              return initial[0];
+            })
+        ];
+}
+
+function useReducer(fn, state) {
+  return /* tuple */[
+          state,
+          Curry._1(fn, state)
+        ];
+}
+
 exports.map = map;
 exports.flatMap = flatMap;
+exports.useState = useState;
+exports.useReducer = useReducer;
 /* No side effect */
