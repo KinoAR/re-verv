@@ -1519,6 +1519,9 @@ module Physics = {
       [@bs.get] external xF: t => float = "x";
       [@bs.get] external y: t => int = "y";
       [@bs.get] external yF: t => float = "y";
+      [@bs.get] external isCircle: t => bool = "isCircle";
+      [@bs.get] external bounce: t => Math.vector2T = "bounce";
+      [@bs.get] external center: t => Math.vector2T = "center";
 
 
       /** Methods */
@@ -1562,8 +1565,8 @@ module Physics = {
       [@bs.send] external setBounceXF: (t, float) => t = "setBounceX";
       [@bs.send] external setBounceY: (t, int) => t = "setBounceY";
       [@bs.send] external setBounceYF: (t, float) => t = "setBounceYF";
-      [@bs.send] external setCircle: (t, int, int, int) => t = "setCircle";
-      [@bs.send] external setCircleF: (t, float, int, int) => t = "setCircle";
+      [@bs.send] external setCircle: (t, int, ~offsetX:int=?, ~offsetY:int=?, unit) => t = "setCircle";
+      [@bs.send] external setCircleF: (t, float, ~offsetX:int=?, ~offsetY:int=?, unit) => t = "setCircle";
       [@bs.send] external setCollideWorldBounds: (t, bool, float, float) => t = "setCollideWorldBounds";
       [@bs.send] external setDrag: (t, int, int) => t = "setDrag";
       [@bs.send] external setDragF: (t, float, float) => t = "setDrag";
