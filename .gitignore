@@ -5,9 +5,11 @@ Thumbs.db
 *.suo
 *.sublime-project
 *.sublime-workspace
-*.cm
+*.cmi
+*.cmj
+*.cmt
 *.mlast
-.d
+*.d
 # Vendors
 node_modules/
 
