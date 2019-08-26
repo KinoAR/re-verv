@@ -610,7 +610,13 @@ module Input = {
   module Keyboard = {
     type keyboardPluginT;
     type keyComboT;
-    type keyComboConfigT;
+    [@bs.deriving abstract]
+    type keyComboConfigT = {
+      [@bs.optional] resetOnWrongKey: bool,
+      [@bs.optional] maxKeyDelay: int,
+      [@bs.optional] resetOnMatch: bool,
+      [@bs.optional] deleteOnMatch: bool
+    };
     module Key =  {
       type keyT;
       type t = keyT;
