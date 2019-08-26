@@ -36,7 +36,15 @@ var $$Gamepad = /* module */[];
 
 var Key = /* module */[];
 
-var Keyboard = /* module */[/* Key */Key];
+var KeyCombo = /* module */[];
+
+var KeyboardPlugin = /* module */[];
+
+var Keyboard = /* module */[
+  /* Key */Key,
+  /* KeyCombo */KeyCombo,
+  /* KeyboardPlugin */KeyboardPlugin
+];
 
 var Mouse = /* module */[];
 
@@ -197,6 +205,8 @@ var Sprite = /* module */[];
 
 var Shape = /* module */[];
 
+var Shader = /* module */[];
+
 var GameObjects = /* module */[
   /* BaseGameObject */BaseGameObject,
   /* Components */Components,
@@ -208,7 +218,8 @@ var GameObjects = /* module */[
   /* Zone */Zone,
   /* Graphics */Graphics,
   /* Sprite */Sprite,
-  /* Shape */Shape
+  /* Shape */Shape,
+  /* Shader */Shader
 ];
 
 var Body = /* module */[];

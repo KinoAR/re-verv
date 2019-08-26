@@ -2,7 +2,66 @@ open VBase;
 open PhaserAPI;
 
 module Static = {
-  module PAStatic = Physics.Arcade.StaticBody;
+  module PABody = Physics.Arcade.StaticBody;
+
+  let allowGravity = PABody.allowGravity -> flatMap;
+  let bottom = PABody.bottom -> flatMap;
+  let collideWorldBounds = PABody.collideWorldBounds -> flatMap;
+  let customSeparateX = PABody.customSeperateX -> flatMap;
+  let customSeparateY = PABody.customSeparateY -> flatMap;
+  let debugBodyColor = PABody.debugBodyColor -> flatMap;
+  let debugShowBody = PABody.debugShowBody -> flatMap;
+  let embedded = PABody.embedded -> flatMap;
+  let enabled = PABody.enable -> flatMap;
+  let gameObject = PABody.gameObject -> flatMap;
+  let halfHeight = PABody.halfHeight -> flatMap;
+  let halfHeightF = PABody.halfHeightF -> flatMap;
+  let halfWidth = PABody.halfWidth -> flatMap;
+  let halfWidthF = PABody.halfWidthF -> flatMap;
+  let height = PABody.height -> flatMap;
+  let heightF = PABody.heightF -> flatMap;
+  let immovable = PABody.immovable -> flatMap;
+  let mass = PABody.mass -> flatMap;
+  let massF = PABody.massF -> flatMap;
+  let width = PABody.width -> flatMap;
+  let widthF = PABody.widthF -> flatMap;
+  let isCircle = PABody.isCircle -> flatMap;
+  let bounce = PABody.bounce -> flatMap;
+  let center = PABody.center -> flatMap;
+  let x = PABody.x -> flatMap;
+  let xF = PABody.xF -> flatMap;
+  let y = PABody.y -> flatMap;
+  let yF = PABody.yF -> flatMap;
+  let top = PABody.top -> flatMap;
+  let topF = PABody.topF -> flatMap;
+
+
+  let deltaAbsX = PABody.deltaAbsX -> flatMap;
+  let deltaAbsY = PABody.deltaAbsY -> flatMap;
+  let deltaX = PABody.deltaX -> flatMap;
+  let deltaY = PABody.deltaY -> flatMap;
+  let deltaZ = PABody.deltaZ -> flatMap;
+  let reset = (x, y) => map(PABody.reset(_, x, y));
+  let resetF = (x, y) => map(PABody.resetF(_, x, y));
+  let setMass = (mass) => map(PABody.setMass(_, mass));
+  let setMassF = (mass) => map(PABody.setMassF(_, mass));
+  let setOffset = (x, y) => map(PABody.setOffset(_, x, y));
+  let setOffsetF = (x, y) => map(PABody.setOffsetF(_, x, y));
+  let setSize = (x, y) => map(PABody.setSize(_, x, y));
+  let setSizeF = (x, y) => map(PABody.setSizeF(_,x, y));
+  let hitTest = (x, y) => map(PABody.hitTest(_, x, y));
+  let setCircle = (radius, ~offsetX=?, ~offsetY=?) => switch((offsetX, offsetY)) {
+    | (Some(offsetX), Some(offsetY)) => map(PABody.setCircle(_, radius, ~offsetX, ~offsetY, ()));
+    | (None, Some(offsetY)) => map(PABody.setCircle(_,  radius, ~offsetY, ()));
+    | (None, None) =>  map(PABody.setCircle(_, radius, ()));
+    | (Some(offsetX), None) => map(PABody.setCircle(_, radius, ~offsetX, ()));
+  };
+  let setCircleF = (radius, ~offsetX=?, ~offsetY=?) => switch((offsetX, offsetY)) {
+    | (Some(offsetX), Some(offsetY)) => map(PABody.setCircleF(_, radius, ~offsetX, ~offsetY, ()));
+    | (None, Some(offsetY)) => map(PABody.setCircleF(_,  radius, ~offsetY, ()));
+    | (None, None) =>  map(PABody.setCircleF(_, radius, ()));
+    | (Some(offsetX), None) => map(PABody.setCircleF(_, radius, ~offsetX, ()));
+  }; 
   
 };
 

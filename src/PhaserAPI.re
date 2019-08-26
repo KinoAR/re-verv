@@ -28,6 +28,7 @@ type tweenBuilderConfig;
 type inputPluginT;
 type loaderPluginT;
 type gameObjectCreatorT;
+type baseShaderT;
 
 
 /* Web GL Code */
@@ -332,7 +333,7 @@ type sceneConfig = {
 };
 
 [@bs.deriving abstract]
-type sceneSettings = {
+type sceneSettingsT = {
   status: int,
   key:string,
   active:bool,
@@ -608,7 +609,8 @@ module Input = {
 
   module Keyboard = {
     type keyboardPluginT;
-    
+    type keyComboT;
+    type keyComboConfigT;
     module Key =  {
       type keyT;
       type t = keyT;
@@ -629,7 +631,11 @@ module Input = {
       include Events.EventEmitter({
         type nonrec t = t;
       });  
-    }
+    };
+
+    module KeyCombo = {
+      type t = keyComboT;
+    };
 
     type inputKeyboardT;
     type t = inputKeyboardT;
@@ -637,6 +643,52 @@ module Input = {
     [@bs.send] external justDown: (t, Key.t) => bool = "JustDown";
     [@bs.send] external justUp: (t, Key.t) => bool = "JustUp";
     [@bs.send] external upDuration: (t, Key.t, int) => bool = "UpDuration";
+
+    module KeyboardPlugin = {
+      type t = keyboardPluginT;
+      [@bs.deriving abstract]
+      type cursorKeysT = {
+        [@bs.optional] up: Key.t,
+        [@bs.optional] down: Key.t,
+        [@bs.optional] left: Key.t,
+        [@bs.optional] right: Key.t,
+        [@bs.optional] space: Key.t,
+        [@bs.optional] shift: Key.t
+      };
+
+      [@bs.get] external enabled: t => bool = "enabled";
+      [@bs.get] external game: t => gameT = "game";
+      [@bs.get] external keys: t => array(Key.t) = "keys";
+      [@bs.get] external manager: t => inputPluginT = "manager";
+      [@bs.get] external scene: t => sceneT = "scene";
+      [@bs.get] external sceneInputPlugin: t => inputPluginT = "sceneInputPlugin";
+      [@bs.get] external settings: t => sceneSettingsT  = "settings";
+
+      
+      [@bs.send] external addCapture: (t, int) => t = "addCapture";
+      [@bs.send] external addCaptureStr: (t, string) => t = "addCapture";
+      [@bs.send] external addCaptureIntArr: (t, array(int)) => t = "addCapture";
+      [@bs.send] external checkDownKey: (t, Key.t, int) => bool = "checkDownKey";
+      [@bs.send] external createCursorKeys: t => cursorKeysT = "createCursorKeys";
+      [@bs.send] external clearCaptures: t => t = "clearCaptures";
+      [@bs.send] external isActive: t => bool = "isActive";
+      [@bs.send] external enableGlobalCapture: t => t = "enableGlobalCapture";
+      [@bs.send] external disableGlobalCapture: t => t = "disableGlobalCapture";
+      [@bs.send] external resetKeys: t => t = "resetKeys";
+      [@bs.send] external removeCapture: (t, int) => t = "removeCapture";
+      [@bs.send] external removeCaptureStr: (t, string) => t = "removeCapture";
+      [@bs.send] external removeCaptureIntArr: (t, array(int)) => t = "removeCapture";
+      [@bs.send] external removeKey: (t, Key.t, ~destroy:bool=?, unit) => t = "removeKey";
+      [@bs.send] external removeKeyStr: (t, string, ~destroy:bool=?, unit) => t = "removeKey";
+      [@bs.send] external removeKeyInt: (t, int, ~destroy:bool=?, unit) => t = "removeKey";
+      [@bs.send] external getCaptures: t => array(int) = "getCaptures";
+      [@bs.send] external addKey: (t, Key.t, ~enableCapture:bool=?, ~emitOnRepeat:bool=?, unit) => Key.t = "addKey";
+      [@bs.send] external addKeysStr: (t, string, ~enableCapture:bool=?, ~emitOnRepeat:bool=?, unit) => 'a = "addKeys";
+      [@bs.send] external createCombo: (t, string, ~config:keyComboConfigT=?, unit) => KeyCombo.t = "createCombo";
+      include Events.EventEmitter({
+        type nonrec t = t;
+      });
+    }
   };
 
   module Mouse = {
@@ -812,6 +864,8 @@ module GameObjects = {
   type extern;
   type graphics;
   type shapeT;
+  type shaderT;
+
   [@bs.deriving abstract] 
   type textShadowT = {
     [@bs.optional] offsetX: int,
@@ -1422,7 +1476,32 @@ module GameObjects = {
 
   module Shape = {
     type t = shapeT;
-  }
+  };
+
+  module Shader = {
+    type t = shaderT;
+    [@bs.get] external shader: t => baseShaderT = "shader";
+    [@bs.get] external uniforms: t => Utils.any = "uniforms";
+    [@bs.get] external viewBuffer: t => array(float) = "viewBuffer";
+    [@bs.get] external vertexViewF32: t => array(float) = "vertexViewF32";
+    [@bs.get] external uniform: t =>  Utils.any = "uniform";
+    [@bs.send] external getUniform: (t, string) => t = "getUniform";
+    [@bs.send] external toJSON : t => jsonGameObjectT = "toJSON";
+    [@bs.send] external setShaderKey: (t, string, ~textures:array(string)=?, unit) => t = "setShaderKey";
+    [@bs.send] external setUniform: (t, string, Utils.any) =>  t = "setUniform";
+    [@bs.send] external setChannel0: (t, string, ~textureData:Utils.any=?, unit) => t = "setChannel0";
+    [@bs.send] external setChannel1: (t, string, ~textureData:Utils.any=?, unit) => t = "setChannel1";
+    [@bs.send] external setChannel2: (t, string, ~textureData:Utils.any=?, unit) => t = "setChannel2";
+    [@bs.send] external setChannel3: (t, string, ~textureData:Utils.any=?, unit) => t = "setChannel3";
+    include BaseGameObject({type nonrec t = t;});
+    include Components.ComputedSize({type nonrec t = t;});
+    include Components.Depth({type nonrec t = t;});
+    include Components.ScrollFactor({type nonrec t = t;});
+    include Components.Transform({type nonrec t = t;});
+    include Components.Visible({type nonrec t = t;});
+    include Components.Origin({type nonrec t= t;});
+    include Components.GetBounds({type nonrec t = t;});
+  };
 };
 
 module Physics = {
@@ -1655,6 +1734,10 @@ module Physics = {
         [@bs.get] external topF: t => float = "top";
         [@bs.get] external touching: t => arcadeBodyCollisionT = "touching";
         [@bs.get] external wasTouching: t => arcadeBodyCollisionT = "wasTouching";
+        [@bs.get] external bounce: t => Math.vector2T = "bounce";
+        [@bs.get] external center: t => Math.vector2T = "center";
+        [@bs.get] external collideWorldBounds: t => bool = "collideWorldBounds";
+        [@bs.get] external bottom: t => int = "bottom";
 
         [@bs.send] external willDrawDebug: t => unit = "willDrawDebug";
         [@bs.send] external stop: t => t = "stop";
@@ -1677,6 +1760,8 @@ module Physics = {
         [@bs.send] external setOffsetF: (t, float, float) => t = "setOffset";
         [@bs.send] external setSize: (t, int, int, bool) => t = "setSize";
         [@bs.send] external setSizeF: (t, float, float, bool) => t = "setSize";
+        [@bs.send] external reset: (t, int, int) => unit = "reset";
+        [@bs.send] external resetF: (t, float, float) => unit = "reset";
      };
   };
 

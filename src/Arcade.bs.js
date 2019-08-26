@@ -3,65 +3,9 @@
 
 var VBase$ReVerv = require("./VBase.bs.js");
 
-var Static = /* module */[/* PAStatic */0];
-
-function allowDrag(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.allowDrag;
-              }), param);
-}
-
 function allowGravity(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.allowGravity;
-              }), param);
-}
-
-function angle(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angle;
-              }), param);
-}
-
-function angleF(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angle;
-              }), param);
-}
-
-function angularAcceleration(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angularAcceleration;
-              }), param);
-}
-
-function angularAccelerationF(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angularAcceleration;
-              }), param);
-}
-
-function angularDrag(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angularDrag;
-              }), param);
-}
-
-function angularDragF(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angularDrag;
-              }), param);
-}
-
-function angularVelocity(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angularVelocity;
-              }), param);
-}
-
-function angularVelocityF(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.angularVelocity;
               }), param);
 }
 
@@ -110,12 +54,6 @@ function embedded(param) {
 function enabled(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.enable;
-              }), param);
-}
-
-function facing(param) {
-  return VBase$ReVerv.flatMap((function (prim) {
-                return prim.facing;
               }), param);
 }
 
@@ -174,6 +112,470 @@ function mass(param) {
 }
 
 function massF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.mass;
+              }), param);
+}
+
+function width(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.width;
+              }), param);
+}
+
+function widthF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.width;
+              }), param);
+}
+
+function isCircle(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.isCircle;
+              }), param);
+}
+
+function bounce(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.bounce;
+              }), param);
+}
+
+function center(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.center;
+              }), param);
+}
+
+function x(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.x;
+              }), param);
+}
+
+function xF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.x;
+              }), param);
+}
+
+function y(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.y;
+              }), param);
+}
+
+function yF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.y;
+              }), param);
+}
+
+function top(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.top;
+              }), param);
+}
+
+function topF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.top;
+              }), param);
+}
+
+function deltaAbsX(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.deltaAbsX();
+              }), param);
+}
+
+function deltaAbsY(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.deltaAbsY();
+              }), param);
+}
+
+function deltaX(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.deltaX();
+              }), param);
+}
+
+function deltaY(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.deltaY();
+              }), param);
+}
+
+function deltaZ(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.deltaZ();
+              }), param);
+}
+
+function reset(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    __x.reset(x, y);
+                    return /* () */0;
+                  }), param);
+    });
+}
+
+function resetF(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    __x.reset(x, y);
+                    return /* () */0;
+                  }), param);
+    });
+}
+
+function setMass(mass) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setMass(mass);
+                  }), param);
+    });
+}
+
+function setMassF(mass) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setMass(mass);
+                  }), param);
+    });
+}
+
+function setOffset(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setOffset(x, y);
+                  }), param);
+    });
+}
+
+function setOffsetF(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setOffset(x, y);
+                  }), param);
+    });
+}
+
+function setSize(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return (function (param) {
+                        return __x.setSize(x, y, param);
+                      });
+                  }), param);
+    });
+}
+
+function setSizeF(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return (function (param) {
+                        return __x.setSize(x, y, param);
+                      });
+                  }), param);
+    });
+}
+
+function hitTest(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.hitTest(x, y);
+                  }), param);
+    });
+}
+
+function setCircle(radius, offsetX, offsetY) {
+  if (offsetX !== undefined) {
+    var offsetX$1 = offsetX;
+    if (offsetY !== undefined) {
+      var offsetY$1 = offsetY;
+      return (function (param) {
+          return VBase$ReVerv.map((function (__x) {
+                        return __x.setCircle(radius, offsetX$1, offsetY$1);
+                      }), param);
+        });
+    } else {
+      return (function (param) {
+          return VBase$ReVerv.map((function (__x) {
+                        return __x.setCircle(radius, offsetX$1, undefined);
+                      }), param);
+        });
+    }
+  } else if (offsetY !== undefined) {
+    var offsetY$2 = offsetY;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setCircle(radius, undefined, offsetY$2);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setCircle(radius, undefined, undefined);
+                    }), param);
+      });
+  }
+}
+
+function setCircleF(radius, offsetX, offsetY) {
+  if (offsetX !== undefined) {
+    var offsetX$1 = offsetX;
+    if (offsetY !== undefined) {
+      var offsetY$1 = offsetY;
+      return (function (param) {
+          return VBase$ReVerv.map((function (__x) {
+                        return __x.setCircle(radius, offsetX$1, offsetY$1);
+                      }), param);
+        });
+    } else {
+      return (function (param) {
+          return VBase$ReVerv.map((function (__x) {
+                        return __x.setCircle(radius, offsetX$1, undefined);
+                      }), param);
+        });
+    }
+  } else if (offsetY !== undefined) {
+    var offsetY$2 = offsetY;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setCircle(radius, undefined, offsetY$2);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setCircle(radius, undefined, undefined);
+                    }), param);
+      });
+  }
+}
+
+var Static = /* module */[
+  /* PABody */0,
+  /* allowGravity */allowGravity,
+  /* bottom */bottom,
+  /* collideWorldBounds */collideWorldBounds,
+  /* customSeparateX */customSeparateX,
+  /* customSeparateY */customSeparateY,
+  /* debugBodyColor */debugBodyColor,
+  /* debugShowBody */debugShowBody,
+  /* embedded */embedded,
+  /* enabled */enabled,
+  /* gameObject */gameObject,
+  /* halfHeight */halfHeight,
+  /* halfHeightF */halfHeightF,
+  /* halfWidth */halfWidth,
+  /* halfWidthF */halfWidthF,
+  /* height */height,
+  /* heightF */heightF,
+  /* immovable */immovable,
+  /* mass */mass,
+  /* massF */massF,
+  /* width */width,
+  /* widthF */widthF,
+  /* isCircle */isCircle,
+  /* bounce */bounce,
+  /* center */center,
+  /* x */x,
+  /* xF */xF,
+  /* y */y,
+  /* yF */yF,
+  /* top */top,
+  /* topF */topF,
+  /* deltaAbsX */deltaAbsX,
+  /* deltaAbsY */deltaAbsY,
+  /* deltaX */deltaX,
+  /* deltaY */deltaY,
+  /* deltaZ */deltaZ,
+  /* reset */reset,
+  /* resetF */resetF,
+  /* setMass */setMass,
+  /* setMassF */setMassF,
+  /* setOffset */setOffset,
+  /* setOffsetF */setOffsetF,
+  /* setSize */setSize,
+  /* setSizeF */setSizeF,
+  /* hitTest */hitTest,
+  /* setCircle */setCircle,
+  /* setCircleF */setCircleF
+];
+
+function allowDrag(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.allowDrag;
+              }), param);
+}
+
+function allowGravity$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.allowGravity;
+              }), param);
+}
+
+function angle(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angle;
+              }), param);
+}
+
+function angleF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angle;
+              }), param);
+}
+
+function angularAcceleration(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angularAcceleration;
+              }), param);
+}
+
+function angularAccelerationF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angularAcceleration;
+              }), param);
+}
+
+function angularDrag(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angularDrag;
+              }), param);
+}
+
+function angularDragF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angularDrag;
+              }), param);
+}
+
+function angularVelocity(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angularVelocity;
+              }), param);
+}
+
+function angularVelocityF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.angularVelocity;
+              }), param);
+}
+
+function bottom$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.bottom;
+              }), param);
+}
+
+function collideWorldBounds$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.collideWorldBounds;
+              }), param);
+}
+
+function customSeparateX$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.customSeparateX;
+              }), param);
+}
+
+function customSeparateY$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.customSeparateY;
+              }), param);
+}
+
+function debugBodyColor$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.debugBodyColor;
+              }), param);
+}
+
+function debugShowBody$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.debugShowBody;
+              }), param);
+}
+
+function embedded$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.embedded;
+              }), param);
+}
+
+function enabled$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.enable;
+              }), param);
+}
+
+function facing(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.facing;
+              }), param);
+}
+
+function gameObject$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.gameObject;
+              }), param);
+}
+
+function halfHeight$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.halfHeight;
+              }), param);
+}
+
+function halfHeightF$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.halfHeight;
+              }), param);
+}
+
+function halfWidth$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.halfWidth;
+              }), param);
+}
+
+function halfWidthF$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.halfWidth;
+              }), param);
+}
+
+function height$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.height;
+              }), param);
+}
+
+function heightF$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.height;
+              }), param);
+}
+
+function immovable$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.immovable;
+              }), param);
+}
+
+function mass$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.mass;
+              }), param);
+}
+
+function massF$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.mass;
               }), param);
@@ -323,31 +725,31 @@ function sourceWidthF(param) {
               }), param);
 }
 
-function width(param) {
+function width$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.width;
               }), param);
 }
 
-function widthF(param) {
+function widthF$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.width;
               }), param);
 }
 
-function isCircle(param) {
+function isCircle$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.isCircle;
               }), param);
 }
 
-function bounce(param) {
+function bounce$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.bounce;
               }), param);
 }
 
-function center(param) {
+function center$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.center;
               }), param);
@@ -359,67 +761,67 @@ function useDamping(param) {
               }), param);
 }
 
-function x(param) {
+function x$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.x;
               }), param);
 }
 
-function xF(param) {
+function xF$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.x;
               }), param);
 }
 
-function y(param) {
+function y$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.y;
               }), param);
 }
 
-function yF(param) {
+function yF$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.y;
               }), param);
 }
 
-function top(param) {
+function top$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.top;
               }), param);
 }
 
-function topF(param) {
+function topF$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.top;
               }), param);
 }
 
-function deltaAbsX(param) {
+function deltaAbsX$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.deltaAbsX();
               }), param);
 }
 
-function deltaAbsY(param) {
+function deltaAbsY$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.deltaAbsY();
               }), param);
 }
 
-function deltaX(param) {
+function deltaX$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.deltaX();
               }), param);
 }
 
-function deltaY(param) {
+function deltaY$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.deltaY();
               }), param);
 }
 
-function deltaZ(param) {
+function deltaZ$1(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.deltaZ();
               }), param);
@@ -443,7 +845,7 @@ function onWall(param) {
               }), param);
 }
 
-function reset(x, y) {
+function reset$1(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     __x.reset(x, y);
@@ -452,7 +854,7 @@ function reset(x, y) {
     });
 }
 
-function resetF(x, y) {
+function resetF$1(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     __x.reset(x, y);
@@ -565,7 +967,7 @@ function setBounceYF(y) {
     });
 }
 
-function setOffset(x, y) {
+function setOffset$1(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     return __x.setOffset(x, y);
@@ -573,7 +975,7 @@ function setOffset(x, y) {
     });
 }
 
-function setOffsetF(x, y) {
+function setOffsetF$1(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     return __x.setOffset(x, y);
@@ -581,7 +983,7 @@ function setOffsetF(x, y) {
     });
 }
 
-function setSize(x, y) {
+function setSize$1(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     return (function (param) {
@@ -591,7 +993,7 @@ function setSize(x, y) {
     });
 }
 
-function setSizeF(x, y) {
+function setSizeF$1(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     return (function (param) {
@@ -649,7 +1051,7 @@ function setVelocityYF(y) {
     });
 }
 
-function setMass(mass) {
+function setMass$1(mass) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     return __x.setMass(mass);
@@ -657,7 +1059,7 @@ function setMass(mass) {
     });
 }
 
-function setMassF(mass) {
+function setMassF$1(mass) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     return __x.setMass(mass);
@@ -819,7 +1221,7 @@ function willDrawDebug(param) {
               }), param);
 }
 
-function setCircle(radius, offsetX, offsetY) {
+function setCircle$1(radius, offsetX, offsetY) {
   if (offsetX !== undefined) {
     var offsetX$1 = offsetX;
     if (offsetY !== undefined) {
@@ -852,7 +1254,7 @@ function setCircle(radius, offsetX, offsetY) {
   }
 }
 
-function setCircleF(radius, offsetX, offsetY) {
+function setCircleF$1(radius, offsetX, offsetY) {
   if (offsetX !== undefined) {
     var offsetX$1 = offsetX;
     if (offsetY !== undefined) {
@@ -885,7 +1287,7 @@ function setCircleF(radius, offsetX, offsetY) {
   }
 }
 
-function hitTest(x, y) {
+function hitTest$1(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
                     return __x.hitTest(x, y);
@@ -896,7 +1298,7 @@ function hitTest(x, y) {
 var Dynamic = /* module */[
   /* PABody */0,
   /* allowDrag */allowDrag,
-  /* allowGravity */allowGravity,
+  /* allowGravity */allowGravity$1,
   /* angle */angle,
   /* angleF */angleF,
   /* angularAcceleration */angularAcceleration,
@@ -905,25 +1307,25 @@ var Dynamic = /* module */[
   /* angularDragF */angularDragF,
   /* angularVelocity */angularVelocity,
   /* angularVelocityF */angularVelocityF,
-  /* bottom */bottom,
-  /* collideWorldBounds */collideWorldBounds,
-  /* customSeparateX */customSeparateX,
-  /* customSeparateY */customSeparateY,
-  /* debugBodyColor */debugBodyColor,
-  /* debugShowBody */debugShowBody,
-  /* embedded */embedded,
-  /* enabled */enabled,
+  /* bottom */bottom$1,
+  /* collideWorldBounds */collideWorldBounds$1,
+  /* customSeparateX */customSeparateX$1,
+  /* customSeparateY */customSeparateY$1,
+  /* debugBodyColor */debugBodyColor$1,
+  /* debugShowBody */debugShowBody$1,
+  /* embedded */embedded$1,
+  /* enabled */enabled$1,
   /* facing */facing,
-  /* gameObject */gameObject,
-  /* halfHeight */halfHeight,
-  /* halfHeightF */halfHeightF,
-  /* halfWidth */halfWidth,
-  /* halfWidthF */halfWidthF,
-  /* height */height,
-  /* heightF */heightF,
-  /* immovable */immovable,
-  /* mass */mass,
-  /* massF */massF,
+  /* gameObject */gameObject$1,
+  /* halfHeight */halfHeight$1,
+  /* halfHeightF */halfHeightF$1,
+  /* halfWidth */halfWidth$1,
+  /* halfWidthF */halfWidthF$1,
+  /* height */height$1,
+  /* heightF */heightF$1,
+  /* immovable */immovable$1,
+  /* mass */mass$1,
+  /* massF */massF$1,
   /* moves */moves,
   /* touching */touching,
   /* onCollide */onCollide,
@@ -948,28 +1350,28 @@ var Dynamic = /* module */[
   /* sourceHeightF */sourceHeightF,
   /* sourceWidth */sourceWidth,
   /* sourceWidthF */sourceWidthF,
-  /* width */width,
-  /* widthF */widthF,
-  /* isCircle */isCircle,
-  /* bounce */bounce,
-  /* center */center,
+  /* width */width$1,
+  /* widthF */widthF$1,
+  /* isCircle */isCircle$1,
+  /* bounce */bounce$1,
+  /* center */center$1,
   /* useDamping */useDamping,
-  /* x */x,
-  /* xF */xF,
-  /* y */y,
-  /* yF */yF,
-  /* top */top,
-  /* topF */topF,
-  /* deltaAbsX */deltaAbsX,
-  /* deltaAbsY */deltaAbsY,
-  /* deltaX */deltaX,
-  /* deltaY */deltaY,
-  /* deltaZ */deltaZ,
+  /* x */x$1,
+  /* xF */xF$1,
+  /* y */y$1,
+  /* yF */yF$1,
+  /* top */top$1,
+  /* topF */topF$1,
+  /* deltaAbsX */deltaAbsX$1,
+  /* deltaAbsY */deltaAbsY$1,
+  /* deltaX */deltaX$1,
+  /* deltaY */deltaY$1,
+  /* deltaZ */deltaZ$1,
   /* onCeiling */onCeiling,
   /* onFloor */onFloor,
   /* onWall */onWall,
-  /* reset */reset,
-  /* resetF */resetF,
+  /* reset */reset$1,
+  /* resetF */resetF$1,
   /* setAllowDrag */setAllowDrag,
   /* setAllowGravity */setAllowGravity,
   /* setAllowRotation */setAllowRotation,
@@ -983,18 +1385,18 @@ var Dynamic = /* module */[
   /* setBounceXF */setBounceXF,
   /* setBounceY */setBounceY,
   /* setBounceYF */setBounceYF,
-  /* setOffset */setOffset,
-  /* setOffsetF */setOffsetF,
-  /* setSize */setSize,
-  /* setSizeF */setSizeF,
+  /* setOffset */setOffset$1,
+  /* setOffsetF */setOffsetF$1,
+  /* setSize */setSize$1,
+  /* setSizeF */setSizeF$1,
   /* setVelocity */setVelocity,
   /* setVelocityF */setVelocityF,
   /* setVelocityX */setVelocityX,
   /* setVelocityXF */setVelocityXF,
   /* setVelocityY */setVelocityY,
   /* setVelocityYF */setVelocityYF,
-  /* setMass */setMass,
-  /* setMassF */setMassF,
+  /* setMass */setMass$1,
+  /* setMassF */setMassF$1,
   /* setMaxSpeed */setMaxSpeed,
   /* setMaxSpeedF */setMaxSpeedF,
   /* setGravity */setGravity,
@@ -1015,9 +1417,9 @@ var Dynamic = /* module */[
   /* updateBounds */updateBounds,
   /* updateCenter */updateCenter,
   /* willDrawDebug */willDrawDebug,
-  /* setCircle */setCircle,
-  /* setCircleF */setCircleF,
-  /* hitTest */hitTest
+  /* setCircle */setCircle$1,
+  /* setCircleF */setCircleF$1,
+  /* hitTest */hitTest$1
 ];
 
 var World = /* module */[];
