@@ -262,6 +262,48 @@ function velocity(param) {
               }), param);
 }
 
+function wasTouch(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.wasTouch;
+              }), param);
+}
+
+function wasCancelled(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.wasCancelled;
+              }), param);
+}
+
+function time(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.time;
+              }), param);
+}
+
+function timeF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.time;
+              }), param);
+}
+
+function moveTime(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.moveTime;
+              }), param);
+}
+
+function moveTimeF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.moveTime;
+              }), param);
+}
+
+function pointerId(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.pointerId;
+              }), param);
+}
+
 function getDistance(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.getDistance();
@@ -413,6 +455,13 @@ var Pointer = /* module */[
   /* worldY */worldY,
   /* worldYF */worldYF,
   /* velocity */velocity,
+  /* wasTouch */wasTouch,
+  /* wasCancelled */wasCancelled,
+  /* time */time,
+  /* timeF */timeF,
+  /* moveTime */moveTime,
+  /* moveTimeF */moveTimeF,
+  /* pointerId */pointerId,
   /* getDistance */getDistance,
   /* getDistanceF */getDistanceF,
   /* getDistanceX */getDistanceX,

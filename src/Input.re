@@ -51,6 +51,14 @@ module Pointer = {
  let worldY = PPointer.worldY -> flatMap;
  let worldYF = PPointer.worldYF -> flatMap;
  let velocity = PPointer.velocity -> flatMap;
+ let wasTouch = PPointer.wasTouch -> flatMap;
+ let wasCancelled = PPointer.wasCancelled -> flatMap;
+ let time = PPointer.time -> flatMap;
+ let timeF = PPointer.timeF -> flatMap;
+ let moveTime = PPointer.moveTime -> flatMap;
+ let moveTimeF = PPointer.moveTimeF -> flatMap;
+ let pointerId = PPointer.pointerId -> flatMap;
+ 
 
  let getDistance = PPointer.getDistance -> flatMap;
  let getDistanceF = PPointer.getDistanceF -> flatMap;

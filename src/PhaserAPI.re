@@ -729,6 +729,13 @@ module Input = {
     [@bs.get] external upElement: t => 'a = "upElement";
     [@bs.get] external wasTouch: t => bool = "wasTouch";
     [@bs.get] external wasCancelled: t => bool = "wasCancelled";
+    [@bs.get] external smoothFactor: t => int = "smoothFactor";
+    [@bs.get] external smoothFactorF: t => float = "smoothFactor";
+    [@bs.get] external time: t => int = "time";
+    [@bs.get] external timeF: t => float = "time";
+    [@bs.get] external pointerId: t => int = "pointerId";
+    [@bs.get] external moveTime: t => int = "moveTime";
+    [@bs.get] external moveTimeF: t => float = "moveTime";
     [@bs.get] external x: t => int = "x";
     [@bs.get] external xF: t => float = "x";
     [@bs.get] external y: t => int = "y";
