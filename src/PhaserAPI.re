@@ -705,6 +705,61 @@ module Input = {
 
   };
 
+  module Pointer = {
+    type t = pointerT;
+    [@bs.get] external active: t => bool = "active";
+    [@bs.get] external angle: t => int = "angle";
+    [@bs.get] external angleF: t => float = "angle";
+    [@bs.get] external button: t => int = "button";
+    [@bs.get] external buttons: t => int = "buttons";
+    [@bs.get] external camera: t => camera2DT = "camera";
+    [@bs.get] external deltaX: t => int = "deltaX";
+    [@bs.get] external deltaXF: t => float = "deltaX";
+    [@bs.get] external deltaY: t => int = "deltaY";
+    [@bs.get] external deltaYF: t => float = "deltaY"; 
+    [@bs.get] external deltaZ: t =>  int = "deltaZ"
+    [@bs.get] external deltaZF: t => float = "deltaZ";
+    [@bs.get] external distance: t => int = "distance";
+    [@bs.get] external distanceF: t => float = "distance";
+    [@bs.get] external downElement: t => 'a = "downElement";
+    [@bs.get] external id: t => int = "id";
+    [@bs.get] external isDown: t => bool = "isDown";
+    [@bs.get] external locked: t => bool = "locked";
+    [@bs.get] external primaryDown: t => bool = "primaryDown";
+    [@bs.get] external upElement: t => 'a = "upElement";
+    [@bs.get] external wasTouch: t => bool = "wasTouch";
+    [@bs.get] external wasCancelled: t => bool = "wasCancelled";
+    [@bs.get] external x: t => int = "x";
+    [@bs.get] external xF: t => float = "x";
+    [@bs.get] external y: t => int = "y";
+    [@bs.get] external yF: t => float = "y";
+    [@bs.get] external worldX: t => int = "worldX";
+    [@bs.get] external worldXF: t => float = "worldX";
+    [@bs.get] external worldY: t => int = "worldY";
+    [@bs.get] external worldYF: t => float = "worldY";
+    [@bs.get] external velocity: t => Math.vector2T = "velocity";
+    [@bs.send] external getDistance: t => int = "getDistance";
+    [@bs.send] external getDistanceF: t => float = "getDistance";
+    [@bs.send] external getDistanceX: t => int = "getDistanceX";
+    [@bs.send] external getDistanceXF: t => float = "getDistanceX";
+    [@bs.send] external getDistanceY: t => int = "getDistanceY";
+    [@bs.send] external getDistanceYF: t => float = "getDistanceY";
+    [@bs.send] external backButtonReleased: t => bool = "backbuttonReleased";
+    [@bs.send] external backButtonDown: t => bool = "backButtonDown";
+    [@bs.send] external forwardButtonDown: t => bool = "forwardButtonDown";
+    [@bs.send] external forwardButtonReleased: t => bool = "forwardButtonReleased";
+    [@bs.send] external destroy: t => unit = "destroy";
+    [@bs.send] external middleButtonDown: t => bool ="middleButtonDown";
+    [@bs.send] external middleButtonReleased: t => bool = "middleButtonReleased";
+    [@bs.send] external rightButtonDown: t => bool = "rightButtonDown";
+    [@bs.send] external rightButtonReleased: t => bool = "rightButtonReleased";
+    [@bs.send] external noButtonDown: t => bool = "noButtonDown"
+    [@bs.send] external getDuration: t => int = "getDuration";
+    [@bs.send] external getDurationF: t => float = "getDuration";
+    [@bs.send] external getAngle: t => int = "getAngle";
+    [@bs.send] external getAngleF: t => float = "getAngle";
+  };
+
 
   module InputPlugin = {
     type t = inputPluginT;

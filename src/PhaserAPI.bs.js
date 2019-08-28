@@ -50,6 +50,8 @@ var Mouse = /* module */[];
 
 var $$Touch = /* module */[];
 
+var Pointer = /* module */[];
+
 var InputPlugin = /* module */[];
 
 var Input = /* module */[
@@ -58,6 +60,7 @@ var Input = /* module */[
   /* Keyboard */Keyboard,
   /* Mouse */Mouse,
   /* Touch */$$Touch,
+  /* Pointer */Pointer,
   /* InputPlugin */InputPlugin
 ];
 
