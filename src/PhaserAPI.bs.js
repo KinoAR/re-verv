@@ -38,11 +38,14 @@ var Key = /* module */[];
 
 var KeyCombo = /* module */[];
 
+var KeyCodes = /* module */[];
+
 var KeyboardPlugin = /* module */[];
 
 var Keyboard = /* module */[
   /* Key */Key,
   /* KeyCombo */KeyCombo,
+  /* KeyCodes */KeyCodes,
   /* KeyboardPlugin */KeyboardPlugin
 ];
 

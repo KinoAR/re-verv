@@ -554,7 +554,10 @@ var Pointer = /* module */[
 
 var Mouse = /* module */[];
 
+var KeyCodes = /* module */[];
+
 exports.Keys = Keys;
 exports.Pointer = Pointer;
 exports.Mouse = Mouse;
+exports.KeyCodes = KeyCodes;
 /* include Not a pure module */

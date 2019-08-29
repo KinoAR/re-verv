@@ -612,6 +612,7 @@ module Input = {
   module Keyboard = {
     type keyboardPluginT;
     type keyComboT;
+    type keyCodesT;
     [@bs.deriving abstract]
     type keyComboConfigT = {
       [@bs.optional] resetOnWrongKey: bool,
@@ -645,6 +646,49 @@ module Input = {
       type t = keyComboT;
     };
 
+    module KeyCodes = {
+	type t = keyCodesT;
+
+      [@bs.get] external a: t => int = "A";
+      [@bs.get] external alt: t => int = "ALT";
+      [@bs.get] external b: t => int = "B";
+      [@bs.get] external backSlash: t => int = "BACK_SLASH";
+      [@bs.get] external backSpace: t => int = "BACKSPACE";
+      [@bs.get] external backTick: t => int = "BACKTICK";
+      [@bs.get] external bracketLeftFFox: t => int = "BRACKET_LEFT_FIREFOX";
+      [@bs.get] external bracketRightFFox: t => int = "BRACKET_RIGHT_FIREFOX";
+      [@bs.get] external c: t => int = "C";
+      [@bs.get] external capsLock: t => int = "CAPS_LOCK";
+      [@bs.get] external closedBracket: t => int = "CLOSED_BRACKET";
+      [@bs.get] external colon: t => int = "COLON";
+      [@bs.get] external comma: t => int = "COMMA";
+      [@bs.get] external commaFFox: t => int =  "COMMA_FIREFOX";
+      [@bs.get] external commaFFoxWindows: t => int = "COMMA_FIREFOX_WINDOWS";
+      [@bs.get] external ctrl: t => int = "CTRL";
+      [@bs.get] external d: t => int = "D";
+      [@bs.get] external delete: t => int = "DELETE";
+      [@bs.get] external down: t => int = "DOWN";
+      [@bs.get] external e: t => int = "E";
+      [@bs.get] external eight: t => int = "EIGHT";
+      [@bs.get] external end_: t => int = "END";
+      [@bs.get] external enter: t => int = "ENTER";
+      [@bs.get] external esc: t => int = "ESC";
+      [@bs.get] external f: t => int = "F";
+      [@bs.get] external f1: t => int = "F1";
+      [@bs.get] external f2: t => int = "F2";
+      [@bs.get] external f3: t => int = "F3";
+      [@bs.get] external f4: t => int = "F4";
+      [@bs.get] external f5: t => int = "F5";
+      [@bs.get] external f6: t => int = "F6";
+      [@bs.get] external f7: t => int = "F7";
+      [@bs.get] external f8: t => int = "F8";
+      [@bs.get] external f9: t => int = "F9";
+      [@bs.get] external f10: t => int = "F10";
+      [@bs.get] external f11: t => int = "F11";
+      [@bs.get] external f12: t => int = "F12";
+      [@bs.get] external five: t => int = "FIVE";
+
+    };
     type inputKeyboardT;
     type t = inputKeyboardT;
     [@bs.send] external downDuration: (t, Key.t, int) => bool = "DownDuration";

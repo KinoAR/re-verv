@@ -85,3 +85,5 @@ module Pointer = {
 };
 
 module Mouse = {};
+
+module KeyCodes = {};
