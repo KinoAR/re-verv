@@ -2,7 +2,7 @@
 'use strict';
 
 var VBase$ReVerv = require("./VBase.bs.js");
-var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
+var Events$ReVerv = require("./Events.bs.js");
 
 function isUp(param) {
   return VBase$ReVerv.flatMap((function (prim) {
@@ -76,7 +76,37 @@ function repeats(param) {
               }), param);
 }
 
-PhaserAPI$ReVerv.Events[/* EventEmitter */0](/* module */[]);
+var include = Events$ReVerv.EventEmitter(/* module */[]);
+
+var Keys_013 = /* PEEmitter */include[0];
+
+var Keys_014 = /* emit0 */include[1];
+
+var Keys_015 = /* emit1 */include[2];
+
+var Keys_016 = /* emit2 */include[3];
+
+var Keys_017 = /* destroy */include[4];
+
+var Keys_018 = /* shutdown */include[5];
+
+var Keys_019 = /* eventNames */include[6];
+
+var Keys_020 = /* offStr */include[7];
+
+var Keys_021 = /* addEventListener */include[8];
+
+var Keys_022 = /* on */include[9];
+
+var Keys_023 = /* off */include[10];
+
+var Keys_024 = /* listeners */include[11];
+
+var Keys_025 = /* removeAllListeners */include[12];
+
+var Keys_026 = /* removeAllListenersStr */include[13];
+
+var Keys_027 = /* removeListenerStr */include[14];
 
 var Keys = /* module */[
   /* PKey */0,
@@ -91,7 +121,22 @@ var Keys = /* module */[
   /* altKey */altKey,
   /* ctrlKey */ctrlKey,
   /* enabled */enabled,
-  /* repeats */repeats
+  /* repeats */repeats,
+  Keys_013,
+  Keys_014,
+  Keys_015,
+  Keys_016,
+  Keys_017,
+  Keys_018,
+  Keys_019,
+  Keys_020,
+  Keys_021,
+  Keys_022,
+  Keys_023,
+  Keys_024,
+  Keys_025,
+  Keys_026,
+  Keys_027
 ];
 
 function active(param) {
@@ -489,4 +534,4 @@ var Mouse = /* module */[];
 exports.Keys = Keys;
 exports.Pointer = Pointer;
 exports.Mouse = Mouse;
-/*  Not a pure module */
+/* include Not a pure module */

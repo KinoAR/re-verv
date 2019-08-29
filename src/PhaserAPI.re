@@ -570,6 +570,8 @@ module Input = {
   type touchManagerT;
   type keyboardManagerT;
   type interactiveObjectT;
+  type mouseEventT;
+  type touchEventT;
 
   type t = inputT;
   module InputManager = {
@@ -745,6 +747,8 @@ module Input = {
     [@bs.get] external worldY: t => int = "worldY";
     [@bs.get] external worldYF: t => float = "worldY";
     [@bs.get] external velocity: t => Math.vector2T = "velocity";
+    [@bs.get] external touchEvent: t => touchEventT  = "event";
+    [@bs.get] external mouseEvent: t => mouseEventT = "event";
     [@bs.send] external getDistance: t => int = "getDistance";
     [@bs.send] external getDistanceF: t => float = "getDistance";
     [@bs.send] external getDistanceX: t => int = "getDistanceX";
@@ -765,7 +769,9 @@ module Input = {
     [@bs.send] external getDurationF: t => float = "getDuration";
     [@bs.send] external getAngle: t => int = "getAngle";
     [@bs.send] external getAngleF: t => float = "getAngle";
+    [@bs.send] external updateWorldPoint: (t, camera2DT) => t = "updateWorldPoint";
   };
+
 
 
   module InputPlugin = {

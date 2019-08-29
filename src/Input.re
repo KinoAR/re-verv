@@ -1,9 +1,9 @@
 open VBase;
-open PhaserAPI;
+
 
 
 module Keys = {
-  module PKey = Input.Keyboard.Key;
+  module PKey = PhaserAPI.Input.Keyboard.Key;
   let isUp = PKey.isUp -> flatMap;
   let isDown = PKey.isDown -> flatMap;
   let keyCode = PKey.keyCode -> flatMap;
@@ -21,7 +21,7 @@ module Keys = {
 };
 
 module Pointer = {
- module PPointer = Input.Pointer;
+ module PPointer = PhaserAPI.Input.Pointer;
 
  let active = PPointer.active -> flatMap;
  let angle = PPointer.angle -> flatMap;
