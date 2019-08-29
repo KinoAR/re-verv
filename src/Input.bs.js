@@ -349,6 +349,18 @@ function pointerId(param) {
               }), param);
 }
 
+function mouseEvent(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.event;
+              }), param);
+}
+
+function touchEvent(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.event;
+              }), param);
+}
+
 function getDistance(param) {
   return VBase$ReVerv.flatMap((function (prim) {
                 return prim.getDistance();
@@ -470,6 +482,14 @@ function getAngleF(param) {
               }), param);
 }
 
+function updateWorldPoint(camera) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.updateWorldPoint(camera);
+                  }), param);
+    });
+}
+
 var Pointer = /* module */[
   /* PPointer */0,
   /* active */active,
@@ -507,6 +527,8 @@ var Pointer = /* module */[
   /* moveTime */moveTime,
   /* moveTimeF */moveTimeF,
   /* pointerId */pointerId,
+  /* mouseEvent */mouseEvent,
+  /* touchEvent */touchEvent,
   /* getDistance */getDistance,
   /* getDistanceF */getDistanceF,
   /* getDistanceX */getDistanceX,
@@ -526,7 +548,8 @@ var Pointer = /* module */[
   /* getDuration */getDuration,
   /* getDurationF */getDurationF,
   /* getAngle */getAngle,
-  /* getAngleF */getAngleF
+  /* getAngleF */getAngleF,
+  /* updateWorldPoint */updateWorldPoint
 ];
 
 var Mouse = /* module */[];
