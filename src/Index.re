@@ -6,12 +6,12 @@ let sceneCreate = Verv.dataCallback((scene, _) => {
   SceneLoader.loadImage("abc", [|"./abcFile"|]);
 
   let image = SceneFactory.addImage(0, 0, "abc", ~frame="abc", ());
-  
+  let sprite = SceneFactory.addSprite(30, 30, "abc", ~frame="abc", ());
   let test = Verv.Image.(image |> setX(30) |> setY(30));
-
+  
   Js.log(test |> Verv.Image.name);
   Js.log(test |> Verv.Image.state);
-
+  Js.log(sprite);
   let text = SceneFactory.addText(64, 64, "Hello from ReasonML", "white");
 })
 

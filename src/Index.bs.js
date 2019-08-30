@@ -11,9 +11,11 @@ var sceneCreate = Verv$ReVerv.dataCallback((function (scene, param) {
         var SceneFactory = Verv$ReVerv.MakeGameObjFactory(/* module */[/* scene */scene]);
         Curry._2(SceneLoader[/* loadImage */3], "abc", /* array */["./abcFile"]);
         var image = Curry._5(SceneFactory[/* addImage */2], 0, 0, "abc", "abc", /* () */0);
+        var sprite = Curry._5(SceneFactory[/* addSprite */3], 30, 30, "abc", "abc", /* () */0);
         var test = Curry._2(Image$ReVerv.setY, 30, Curry._2(Image$ReVerv.setX, 30, image));
         console.log(Curry._1(Image$ReVerv.name, test));
         console.log(Curry._1(Image$ReVerv.state, test));
+        console.log(sprite);
         Curry._4(SceneFactory[/* addText */7], 64, 64, "Hello from ReasonML", "white");
         return /* () */0;
       }));
