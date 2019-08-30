@@ -86,4 +86,191 @@ module Pointer = {
 
 module Mouse = {};
 
-module KeyCodes = {};
+module KeyCodes = {
+  module PKeyCodes = PhaserAPI.Input.Keyboard.KeyCodes;
+  type keycodes =
+    | A
+    | B
+    | C
+    | D
+    | E
+    | BackSlash
+    | Alt
+    | Backspace
+    | Backtick
+    | LeftBracket
+    | RightBracket
+    | LeftBracketFireFox
+    | RightBracketFireFox
+    | ClosedBracket
+    | Colon
+    | Comma
+    | Ctrl
+    | Delete
+    | Down
+    | Eight
+    | End
+    | Enter
+    | Esc
+    | F
+    | F1
+    | F2
+    | F3
+    | F4
+    | F5
+    | F6
+    | F7
+    | F8
+    | F9
+    | F10
+    | F11
+    | F12
+    | Five
+    | ForwardSlash
+    | Four
+    | G
+    | H
+    | Home
+    | I
+    | Insert
+    | J
+    | K
+    | L
+    | Left
+    | M
+    | Minus
+    | N
+    | Nine
+    | NumpadEight
+    | NumpadFive
+    | NumpadFour
+    | NumpadNine
+    | NumpadOne
+    | NumpadSeven
+    | NumpadSix
+    | NumpadThree
+    | NumpadTwo
+    | NumpadZero
+    | O
+    | One
+    | OpenBracket
+    | P
+    | PageDown
+    | PageUp
+    | Pause
+    | Period
+    | Plus
+    | PrintScreen
+    | Q
+    | Quotes
+    | R
+    | Right
+    | S
+    | Semicolon
+    | SemicolonFireFox
+    | Seven
+    | Shift
+    | Six
+    | Space
+    | T
+    | Tab
+    | Three
+    | Two
+    | U
+    | Up
+    | V
+    | W
+    | X
+    | Y
+    | Z
+    | Zero;
+
+  let a = PKeyCodes.a->flatMap;
+  let b = PKeyCodes.b->flatMap;
+  let c = PKeyCodes.c->flatMap;
+  let backSlash = PKeyCodes.backSlash->flatMap;
+  let alt = PKeyCodes.alt->flatMap;
+  let backSpace = PKeyCodes.backSpace->flatMap;
+  let colon = PKeyCodes.colon->flatMap;
+  let backTick = PKeyCodes.backTick->flatMap;
+  let comma = PKeyCodes.comma->flatMap;
+  let commaFireFox = PKeyCodes.commaFFox->flatMap;
+  let commaFireFoxWindows = PKeyCodes.commaFFoxWindows->flatMap;
+  let ctrl = PKeyCodes.ctrl->flatMap;
+  let d = PKeyCodes.d->flatMap;
+  let delete = PKeyCodes.delete->flatMap;
+  let down = PKeyCodes.down->flatMap;
+  let e = PKeyCodes.e->flatMap;
+  let eight = PKeyCodes.eight;
+  let end_ = PKeyCodes.end_->flatMap;
+  let enter = PKeyCodes.enter->flatMap;
+  let esc = PKeyCodes.esc->flatMap;
+  let f = PKeyCodes.f->flatMap;
+  let f1 = PKeyCodes.f1->flatMap;
+  let f2 = PKeyCodes.f2->flatMap;
+  let f3 = PKeyCodes.f3->flatMap;
+  let f4 = PKeyCodes.f4->flatMap;
+  let f5 = PKeyCodes.f5->flatMap;
+  let f6 = PKeyCodes.f6->flatMap;
+  let f7 = PKeyCodes.f7->flatMap;
+  let f8 = PKeyCodes.f8->flatMap;
+  let f9 = PKeyCodes.f9->flatMap;
+  let f10 = PKeyCodes.f10->flatMap;
+  let f11 = PKeyCodes.f11->flatMap;
+  let f12 = PKeyCodes.f12->flatMap;
+  let five = PKeyCodes.five->flatMap;
+  let forwardSlash = PKeyCodes.forwardSlash->flatMap;
+  let four = PKeyCodes.four->flatMap;
+  let g = PKeyCodes.g->flatMap;
+  let h = PKeyCodes.h->flatMap;
+  let home = PKeyCodes.home->flatMap;
+  let i = PKeyCodes.i->flatMap;
+  let insert = PKeyCodes.insert->flatMap;
+  let j = PKeyCodes.j->flatMap;
+  let k = PKeyCodes.k->flatMap;
+  let l = PKeyCodes.l->flatMap;
+  let left = PKeyCodes.left->flatMap;
+  let m = PKeyCodes.m->flatMap;
+  let minus = PKeyCodes.minus->flatMap;
+  let n = PKeyCodes.n->flatMap;
+  let nine = PKeyCodes.nine->flatMap;
+  let numPadEight = PKeyCodes.numpadEight->flatMap;
+  let numpadFive = PKeyCodes.numpadFive->flatMap;
+  let numpadFour = PKeyCodes.numpadFour->flatMap;
+  let numpadNine = PKeyCodes.numpadNine->flatMap;
+  let numpadOne = PKeyCodes.numpadOne->flatMap;
+  let numpadSeven = PKeyCodes.numpadSeven->flatMap;
+  let numpadSix = PKeyCodes.numpadSix->flatMap;
+  let numpadThree = PKeyCodes.numpadThree->flatMap;
+  let numpadTwo = PKeyCodes.numpadTwo->flatMap;
+  let numpadZero = PKeyCodes.numpadZero->flatMap;
+  let p = PKeyCodes.p->flatMap;
+  let pageDown = PKeyCodes.pageDown->flatMap;
+  let pageUp = PKeyCodes.pageUp->flatMap;
+  let pause = PKeyCodes.pause->flatMap;
+  let period = PKeyCodes.period->flatMap;
+  let plus = PKeyCodes.plus->flatMap;
+  let printScreen = PKeyCodes.printScreen->flatMap;
+  let q = PKeyCodes.q->flatMap;
+  let quotes = PKeyCodes.quotes->flatMap;
+  let r = PKeyCodes.r->flatMap;
+  let right = PKeyCodes.right->flatMap;
+  let s = PKeyCodes.s->flatMap;
+  let semicolon = PKeyCodes.semicolon->flatMap;
+  let semicolonFFox = PKeyCodes.semicolonFFox->flatMap;
+  let seven = PKeyCodes.seven->flatMap;
+  let shift = PKeyCodes.shift->flatMap;
+  let six = PKeyCodes.six->flatMap;
+  let space = PKeyCodes.space->flatMap;
+  let t = PKeyCodes.t->flatMap;
+  let tab = PKeyCodes.tab->flatMap;
+  let three = PKeyCodes.three->flatMap;
+  let two = PKeyCodes.two->flatMap;
+  let u = PKeyCodes.u->flatMap;
+  let up = PKeyCodes.up->flatMap;
+  let v = PKeyCodes.v->flatMap;
+  let w = PKeyCodes.w->flatMap;
+  let x = PKeyCodes.x->flatMap;
+  let y = PKeyCodes.y->flatMap;
+  let zero = PKeyCodes.zero->flatMap;
+};

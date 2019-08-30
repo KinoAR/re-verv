@@ -213,6 +213,8 @@ var Shape = /* module */[];
 
 var Shader = /* module */[];
 
+var Bob = /* module */[];
+
 var GameObjects = /* module */[
   /* BaseGameObject */BaseGameObject,
   /* Components */Components,
@@ -225,7 +227,8 @@ var GameObjects = /* module */[
   /* Graphics */Graphics,
   /* Sprite */Sprite,
   /* Shape */Shape,
-  /* Shader */Shader
+  /* Shader */Shader,
+  /* Bob */Bob
 ];
 
 var Body = /* module */[];

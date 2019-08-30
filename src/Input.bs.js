@@ -554,7 +554,623 @@ var Pointer = /* module */[
 
 var Mouse = /* module */[];
 
-var KeyCodes = /* module */[];
+function a(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.A;
+              }), param);
+}
+
+function b(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.B;
+              }), param);
+}
+
+function c(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.C;
+              }), param);
+}
+
+function backSlash(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.BACK_SLASH;
+              }), param);
+}
+
+function alt(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.ALT;
+              }), param);
+}
+
+function backSpace(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.BACKSPACE;
+              }), param);
+}
+
+function colon(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.COLON;
+              }), param);
+}
+
+function backTick(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.BACKTICK;
+              }), param);
+}
+
+function comma(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.COMMA;
+              }), param);
+}
+
+function commaFireFox(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.COMMA_FIREFOX;
+              }), param);
+}
+
+function commaFireFoxWindows(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.COMMA_FIREFOX_WINDOWS;
+              }), param);
+}
+
+function ctrl(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.CTRL;
+              }), param);
+}
+
+function d(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.D;
+              }), param);
+}
+
+function $$delete(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.DELETE;
+              }), param);
+}
+
+function down(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.DOWN;
+              }), param);
+}
+
+function e(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.E;
+              }), param);
+}
+
+function eight(prim) {
+  return prim.EIGHT;
+}
+
+function end_(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.END;
+              }), param);
+}
+
+function enter(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.ENTER;
+              }), param);
+}
+
+function esc(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.ESC;
+              }), param);
+}
+
+function f(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F;
+              }), param);
+}
+
+function f1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F1;
+              }), param);
+}
+
+function f2(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F2;
+              }), param);
+}
+
+function f3(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F3;
+              }), param);
+}
+
+function f4(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F4;
+              }), param);
+}
+
+function f5(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F5;
+              }), param);
+}
+
+function f6(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F6;
+              }), param);
+}
+
+function f7(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F7;
+              }), param);
+}
+
+function f8(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F8;
+              }), param);
+}
+
+function f9(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F9;
+              }), param);
+}
+
+function f10(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F10;
+              }), param);
+}
+
+function f11(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F11;
+              }), param);
+}
+
+function f12(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.F12;
+              }), param);
+}
+
+function five(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.FIVE;
+              }), param);
+}
+
+function forwardSlash(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.FORWARD_SLASH;
+              }), param);
+}
+
+function four(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.FOUR;
+              }), param);
+}
+
+function g(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.G;
+              }), param);
+}
+
+function h(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.H;
+              }), param);
+}
+
+function home(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.HOME;
+              }), param);
+}
+
+function i(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.I;
+              }), param);
+}
+
+function insert(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.INSERT;
+              }), param);
+}
+
+function j(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.J;
+              }), param);
+}
+
+function k(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.K;
+              }), param);
+}
+
+function l(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.L;
+              }), param);
+}
+
+function left(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.LEFT;
+              }), param);
+}
+
+function m(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.M;
+              }), param);
+}
+
+function minus(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.MINUS;
+              }), param);
+}
+
+function n(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.N;
+              }), param);
+}
+
+function nine(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NINE;
+              }), param);
+}
+
+function numPadEight(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_EIGHT;
+              }), param);
+}
+
+function numpadFive(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_FIVE;
+              }), param);
+}
+
+function numpadFour(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_FOUR;
+              }), param);
+}
+
+function numpadNine(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_NINE;
+              }), param);
+}
+
+function numpadOne(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_ONE;
+              }), param);
+}
+
+function numpadSeven(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_SEVEN;
+              }), param);
+}
+
+function numpadSix(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_SIX;
+              }), param);
+}
+
+function numpadThree(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_THREE;
+              }), param);
+}
+
+function numpadTwo(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_TWO;
+              }), param);
+}
+
+function numpadZero(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.NUMPAD_ZERO;
+              }), param);
+}
+
+function p(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.P;
+              }), param);
+}
+
+function pageDown(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.PAGE_DOWN;
+              }), param);
+}
+
+function pageUp(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.PAGE_UP;
+              }), param);
+}
+
+function pause(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.PAUSE;
+              }), param);
+}
+
+function period(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.PERIOD;
+              }), param);
+}
+
+function plus(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.PLUS;
+              }), param);
+}
+
+function printScreen(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.PRINT_SCREEN;
+              }), param);
+}
+
+function q(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.Q;
+              }), param);
+}
+
+function quotes(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.QUOTES;
+              }), param);
+}
+
+function r(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.R;
+              }), param);
+}
+
+function right(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.RIGHT;
+              }), param);
+}
+
+function s(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.S;
+              }), param);
+}
+
+function semicolon(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.SEMICOLON;
+              }), param);
+}
+
+function semicolonFFox(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.SEMICLON_FIREFOX;
+              }), param);
+}
+
+function seven(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.SEVEN;
+              }), param);
+}
+
+function shift(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.SHIFT;
+              }), param);
+}
+
+function six(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.SIX;
+              }), param);
+}
+
+function space(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.SPACE;
+              }), param);
+}
+
+function t(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.T;
+              }), param);
+}
+
+function tab(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.TAB;
+              }), param);
+}
+
+function three(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.THREE;
+              }), param);
+}
+
+function two(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.TWO;
+              }), param);
+}
+
+function u(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.U;
+              }), param);
+}
+
+function up(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.UP;
+              }), param);
+}
+
+function v(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.V;
+              }), param);
+}
+
+function w(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.W;
+              }), param);
+}
+
+function x$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.X;
+              }), param);
+}
+
+function y$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.Y;
+              }), param);
+}
+
+function zero(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.ZERO;
+              }), param);
+}
+
+var KeyCodes = /* module */[
+  /* PKeyCodes */0,
+  /* a */a,
+  /* b */b,
+  /* c */c,
+  /* backSlash */backSlash,
+  /* alt */alt,
+  /* backSpace */backSpace,
+  /* colon */colon,
+  /* backTick */backTick,
+  /* comma */comma,
+  /* commaFireFox */commaFireFox,
+  /* commaFireFoxWindows */commaFireFoxWindows,
+  /* ctrl */ctrl,
+  /* d */d,
+  /* delete */$$delete,
+  /* down */down,
+  /* e */e,
+  /* eight */eight,
+  /* end_ */end_,
+  /* enter */enter,
+  /* esc */esc,
+  /* f */f,
+  /* f1 */f1,
+  /* f2 */f2,
+  /* f3 */f3,
+  /* f4 */f4,
+  /* f5 */f5,
+  /* f6 */f6,
+  /* f7 */f7,
+  /* f8 */f8,
+  /* f9 */f9,
+  /* f10 */f10,
+  /* f11 */f11,
+  /* f12 */f12,
+  /* five */five,
+  /* forwardSlash */forwardSlash,
+  /* four */four,
+  /* g */g,
+  /* h */h,
+  /* home */home,
+  /* i */i,
+  /* insert */insert,
+  /* j */j,
+  /* k */k,
+  /* l */l,
+  /* left */left,
+  /* m */m,
+  /* minus */minus,
+  /* n */n,
+  /* nine */nine,
+  /* numPadEight */numPadEight,
+  /* numpadFive */numpadFive,
+  /* numpadFour */numpadFour,
+  /* numpadNine */numpadNine,
+  /* numpadOne */numpadOne,
+  /* numpadSeven */numpadSeven,
+  /* numpadSix */numpadSix,
+  /* numpadThree */numpadThree,
+  /* numpadTwo */numpadTwo,
+  /* numpadZero */numpadZero,
+  /* p */p,
+  /* pageDown */pageDown,
+  /* pageUp */pageUp,
+  /* pause */pause,
+  /* period */period,
+  /* plus */plus,
+  /* printScreen */printScreen,
+  /* q */q,
+  /* quotes */quotes,
+  /* r */r,
+  /* right */right,
+  /* s */s,
+  /* semicolon */semicolon,
+  /* semicolonFFox */semicolonFFox,
+  /* seven */seven,
+  /* shift */shift,
+  /* six */six,
+  /* space */space,
+  /* t */t,
+  /* tab */tab,
+  /* three */three,
+  /* two */two,
+  /* u */u,
+  /* up */up,
+  /* v */v,
+  /* w */w,
+  /* x */x$1,
+  /* y */y$1,
+  /* zero */zero
+];
 
 exports.Keys = Keys;
 exports.Pointer = Pointer;
