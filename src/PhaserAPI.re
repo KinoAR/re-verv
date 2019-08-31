@@ -22,12 +22,15 @@ type htmlCanvasElementT;
 type configT;
 type camera2DT;
 type tweenBuilderConfig;
-
+type colorT;
 type inputPluginT;
 type loaderPluginT;
 type gameObjectCreatorT;
 type baseShaderT;
-
+type cameraManagerT;
+type bitmapMaskT;
+type geometryMaskT;
+type vector2T;
 /* Web GL Code */
 type webGLPipelineT;
 
@@ -565,7 +568,6 @@ module Events = {
 };
 
 module Math = {
-  type vector2T;
   module Vector2 = {
     type t = vector2T;
     [@bs.module "phaser"] [@bs.scope "Math"] [@bs.new]
@@ -841,7 +843,7 @@ module Input = {
       type t = keyComboT;
       [@bs.get] external manager: t => keyboardPluginT = "manager";
       [@bs.get] external current: t => int = "current";
-      [@bs.get] external deleteOnmatch: t => int = "deleteOnMatch";
+      [@bs.get] external deleteOnMatch: t => int = "deleteOnMatch";
       [@bs.get] external enabled: t => bool = "enabled";
       [@bs.get] external index: t => int = "index";
       [@bs.get] external keyCodes: t => array(int) = "keyCodes";
@@ -856,7 +858,7 @@ module Input = {
       [@bs.get] external timeMatched: t => int = "timeMatched";
       [@bs.get] external timeMatchedF: t => float = "timeMatched";
       [@bs.get] external progress: t => float = "progress";
-      [@bs.get] external destroy: t => unit = "destroy";
+      [@bs.send] external destroy: t => unit = "destroy";
     };
 
     module KeyCodes = {
@@ -1078,7 +1080,7 @@ module Input = {
     [@bs.get] external worldXF: t => float = "worldX";
     [@bs.get] external worldY: t => int = "worldY";
     [@bs.get] external worldYF: t => float = "worldY";
-    [@bs.get] external velocity: t => Math.vector2T = "velocity";
+    [@bs.get] external velocity: t => Math.Vector2.t = "velocity";
     [@bs.get] external touchEvent: t => touchEventT = "event";
     [@bs.get] external mouseEvent: t => mouseEventT = "event";
     [@bs.send] external getDistance: t => int = "getDistance";
@@ -1220,27 +1222,27 @@ module Curves = {
 
     [@bs.send] external getLength: t => t = "getLength";
     [@bs.send]
-    external getEndPoint: (t, ~out: Math.vector2T=?, unit) => Math.vector2T =
+    external getEndPoint: (t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getEndPoint";
     [@bs.send]
-    external getRandomPoint: (t, ~out: Math.vector2T=?, unit) => Math.vector2T =
+    external getRandomPoint: (t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getRandomPoint";
     [@bs.send]
-    external getPoints: (t, ~divisions: int=?, unit) => array(Math.vector2T) =
+    external getPoints: (t, ~divisions: int=?, unit) => array(Math.Vector2.t) =
       "getPoints";
     [@bs.send]
     external getLengths: (t, ~divisions: int=?, unit) => array(int) =
       "getLengths";
     [@bs.send]
     external getSpacedPoints:
-      (t, ~divisions: int=?, unit) => array(Math.vector2T) =
+      (t, ~divisions: int=?, unit) => array(Math.Vector2.t) =
       "getSpacedPoints";
     [@bs.send]
     external getDistancePoints: (t, ~distance: int) => array(Geom.pointT) =
       "getDistancePoints";
     [@bs.send] external updateArcLengths: t => unit = "updateArcLengths";
     [@bs.send]
-    external getStartPoint: (t, ~out: Math.vector2T=?, unit) => Math.vector2T =
+    external getStartPoint: (t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getStartPoint";
   };
 
@@ -1254,28 +1256,30 @@ module Curves = {
 
     [@bs.send] external getLength: C.t => C.t = "getLength";
     [@bs.send]
-    external getEndPoint: (C.t, ~out: Math.vector2T=?, unit) => Math.vector2T =
+    external getEndPoint: (C.t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getEndPoint";
     [@bs.send]
     external getRandomPoint:
-      (C.t, ~out: Math.vector2T=?, unit) => Math.vector2T =
+      (C.t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getRandomPoint";
     [@bs.send]
-    external getPoints: (C.t, ~divisions: int=?, unit) => array(Math.vector2T) =
+    external getPoints:
+      (C.t, ~divisions: int=?, unit) => array(Math.Vector2.t) =
       "getPoints";
     [@bs.send]
     external getLengths: (C.t, ~divisions: int=?, unit) => array(int) =
       "getLengths";
     [@bs.send]
     external getSpacedPoints:
-      (C.t, ~divisions: int=?, unit) => array(Math.vector2T) =
+      (C.t, ~divisions: int=?, unit) => array(Math.Vector2.t) =
       "getSpacedPoints";
     [@bs.send]
     external getDistancePoints: (C.t, ~distance: int) => array(Geom.pointT) =
       "getDistancePoints";
     [@bs.send] external updateArcLengths: C.t => unit = "updateArcLengths";
     [@bs.send]
-    external getStartPoint: (C.t, ~out: Math.vector2T=?, unit) => Math.vector2T =
+    external getStartPoint:
+      (C.t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getStartPoint";
   };
 };
@@ -1610,41 +1614,41 @@ module GameObjects = {
     module GetBounds = (G: {type t;}) => {
       [@bs.send]
       external getBottomCenter:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getBottomCenter";
       [@bs.send]
       external getBottomLeft:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getBottomLeft";
       [@bs.send]
       external getBottomRight:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getBottomRight";
       [@bs.send]
-      external getBounds: (G.t, ~output: Math.vector2T=?) => Math.vector2T =
+      external getBounds: (G.t, ~output: Math.Vector2.t=?) => Math.Vector2.t =
         "getBounds";
       [@bs.send]
-      external getCenter: (G.t, ~output: Math.vector2T=?) => Math.vector2T =
+      external getCenter: (G.t, ~output: Math.Vector2.t=?) => Math.Vector2.t =
         "getCenter";
       [@bs.send]
       external getLeftCenter:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getLeftCenter";
       [@bs.send]
       external getRightCenter:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getRightCenter";
       [@bs.send]
       external getTopCenter:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getTopCenter";
       [@bs.send]
       external getTopLeft:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getTopLeft";
       [@bs.send]
       external getTopRight:
-        (G.t, ~output: Math.vector2T=?, ~includeParent: bool=?, unit) => 'a =
+        (G.t, ~output: Math.Vector2.t=?, ~includeParent: bool=?, unit) => 'a =
         "getTopRight";
     };
     /** Add path follower and need to be more */
@@ -2302,8 +2306,8 @@ module Physics = {
       [@bs.get] external y: t => int = "y";
       [@bs.get] external yF: t => float = "y";
       [@bs.get] external isCircle: t => bool = "isCircle";
-      [@bs.get] external bounce: t => Math.vector2T = "bounce";
-      [@bs.get] external center: t => Math.vector2T = "center";
+      [@bs.get] external bounce: t => Math.Vector2.t = "bounce";
+      [@bs.get] external center: t => Math.Vector2.t = "center";
       [@bs.get] external top: t => int = "top";
       [@bs.get] external topF: t => float = "top";
 
@@ -2461,8 +2465,8 @@ module Physics = {
       [@bs.get] external touching: t => arcadeBodyCollisionT = "touching";
       [@bs.get]
       external wasTouching: t => arcadeBodyCollisionT = "wasTouching";
-      [@bs.get] external bounce: t => Math.vector2T = "bounce";
-      [@bs.get] external center: t => Math.vector2T = "center";
+      [@bs.get] external bounce: t => Math.Vector2.t = "bounce";
+      [@bs.get] external center: t => Math.Vector2.t = "center";
       [@bs.get] external collideWorldBounds: t => bool = "collideWorldBounds";
       [@bs.get] external bottom: t => int = "bottom";
 
@@ -3041,6 +3045,59 @@ module GameObjectFactory = {
   external zone: (t, int, int, int, int) => GameObjects.zone = "zone";
 };
 
+module Cameras = {
+  module BaseCamera2D = (BC: {type t;}) => {
+    include GameObjects.Components.Alpha({
+      type nonrec t = BC.t;
+    });
+    include GameObjects.Components.Visible({
+      type nonrec t = BC.t;
+    });
+    include Events.EventEmitter({
+      type nonrec t = BC.t;
+    });
+
+    [@bs.get] external backgroundColor: BC.t => colorT = "backgroundColor";
+    [@bs.get] external cameraManager: BC.t => cameraManagerT = "cameraManager";
+    [@bs.get] external centerX: BC.t => int = "centerX";
+    [@bs.get] external disableCull: BC.t => bool = "disableCull";
+    [@bs.get] external id: BC.t => int = "id";
+    [@bs.get] external mask: BC.t => bitmapMaskT = "mask";
+    [@bs.get] external geometryMask: BC.t => geometryMaskT = "mask";
+    [@bs.get] external midPoint: BC.t => vector2T = "midPoint";
+    [@bs.get] external originX: BC.t => float = "originX";
+    [@bs.get] external originY: BC.t => float = "originY";
+    [@bs.get] external useBounds: BC.t => float = "useBounds";
+    [@bs.get] external transparent: BC.t => bool = "transparent";
+    [@bs.get] external visible: BC.t => bool = "visible";
+    [@bs.get] external width: BC.t => int = "width";
+    [@bs.get] external widthF: BC.t => float = "width";
+    [@bs.get] external height: BC.t => int = "height";
+    [@bs.get] external heightF: BC.t => float = "height";
+    [@bs.get] external zoom: BC.t => float = "zoom";
+    [@bs.get] external scrollX: BC.t => int = "scrollX";
+    [@bs.get] external scrollXF: BC.t => float = "scrollX";
+    [@bs.get] external scrollY: BC.t => int = "scrollY";
+    [@bs.get] external scrollYF: BC.t => float = "scrollY";
+    [@bs.get] external roundPixels: BC.t => bool = "roundPixels";
+    [@bs.get] external name: BC.t => string = "name";
+  };
+  module CameraScene2D = {
+    type t = camera2DT;
+
+    include BaseCamera2D({
+      type nonrec t = t;
+    });
+    include GameObjects.Components.Flip({
+      type nonrec t = t;
+    });
+    include GameObjects.Components.Tint({
+      type nonrec t = t;
+    });
+
+    [@bs.get] external backgroundColor: t => int = "backgroundColor";
+  };
+};
 module LoaderPlugin = {
   type t = loaderPluginT;
   type file;

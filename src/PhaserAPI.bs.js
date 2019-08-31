@@ -363,6 +363,17 @@ var DOM = /* module */[];
 
 var GameObjectFactory = /* module */[];
 
+function BaseCamera2D(BC) {
+  return /* module */[];
+}
+
+var CameraScene2D = /* module */[];
+
+var Cameras = /* module */[
+  /* BaseCamera2D */BaseCamera2D,
+  /* CameraScene2D */CameraScene2D
+];
+
 var LoaderPlugin = /* module */[];
 
 exports.Events = Events;
@@ -383,5 +394,6 @@ exports.BlendModes = BlendModes;
 exports.TweenManager = TweenManager;
 exports.DOM = DOM;
 exports.GameObjectFactory = GameObjectFactory;
+exports.Cameras = Cameras;
 exports.LoaderPlugin = LoaderPlugin;
 /* No side effect */

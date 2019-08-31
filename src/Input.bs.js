@@ -1172,8 +1172,133 @@ var KeyCodes = /* module */[
   /* zero */zero
 ];
 
+function current(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.current;
+              }), param);
+}
+
+function deleteOnMatch(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.deleteOnMatch;
+              }), param);
+}
+
+function enabled$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.enabled;
+              }), param);
+}
+
+function index(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.index;
+              }), param);
+}
+
+function keyCodes(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.keyCodes;
+              }), param);
+}
+
+function matched(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.matched;
+              }), param);
+}
+
+function maxKeyDelay(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.maxKeyDelay;
+              }), param);
+}
+
+function resetOnMatch(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.resetOnMatch;
+              }), param);
+}
+
+function resetOnWrongKey(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.resetOnWrongKey;
+              }), param);
+}
+
+function size(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.size;
+              }), param);
+}
+
+function sizeF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.size;
+              }), param);
+}
+
+function timeLastMatched(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.timeLastMatched;
+              }), param);
+}
+
+function timeLastMatchedF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.timeLastMatched;
+              }), param);
+}
+
+function timeMatched(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.timeMatched;
+              }), param);
+}
+
+function timeMatchedF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.timeMatched;
+              }), param);
+}
+
+function progress(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.progress;
+              }), param);
+}
+
+function destroy$1(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                prim.destroy();
+                return /* () */0;
+              }), param);
+}
+
+var KeyCombo = /* module */[
+  /* PKeyCombo */0,
+  /* current */current,
+  /* deleteOnMatch */deleteOnMatch,
+  /* enabled */enabled$1,
+  /* index */index,
+  /* keyCodes */keyCodes,
+  /* matched */matched,
+  /* maxKeyDelay */maxKeyDelay,
+  /* resetOnMatch */resetOnMatch,
+  /* resetOnWrongKey */resetOnWrongKey,
+  /* size */size,
+  /* sizeF */sizeF,
+  /* timeLastMatched */timeLastMatched,
+  /* timeLastMatchedF */timeLastMatchedF,
+  /* timeMatched */timeMatched,
+  /* timeMatchedF */timeMatchedF,
+  /* progress */progress,
+  /* destroy */destroy$1
+];
+
 exports.Keys = Keys;
 exports.Pointer = Pointer;
 exports.Mouse = Mouse;
 exports.KeyCodes = KeyCodes;
+exports.KeyCombo = KeyCombo;
 /* include Not a pure module */

@@ -8,6 +8,7 @@ Tween
 Utils
 VBase
 Arcade
+Camera
 Events
 Vector2
 PhaserAPI

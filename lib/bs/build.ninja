@@ -65,6 +65,10 @@ build src/Arcade.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Arc
 build src/Arcade.d : build_deps src/Arcade.mlast
 build src/Arcade-ReVerv.cmj |  $src_root_dir/src/Arcade.bs.js src/Arcade-ReVerv.cmi : re_cmj_cmi src/Arcade.mlast ||  src/Arcade.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Camera.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Camera.re
+build src/Camera.d : build_deps src/Camera.mlast
+build src/Camera-ReVerv.cmj |  $src_root_dir/src/Camera.bs.js src/Camera-ReVerv.cmi : re_cmj_cmi src/Camera.mlast ||  src/Camera.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build src/Events.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Events.re
 build src/Events.d : build_deps src/Events.mlast
 build src/Events-ReVerv.cmj |  $src_root_dir/src/Events.bs.js src/Events-ReVerv.cmi : re_cmj_cmi src/Events.mlast ||  src/Events.d

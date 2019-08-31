@@ -274,3 +274,24 @@ module KeyCodes = {
   let y = PKeyCodes.y->flatMap;
   let zero = PKeyCodes.zero->flatMap;
 };
+
+module KeyCombo = {
+  module PKeyCombo = PhaserAPI.Input.Keyboard.KeyCombo;
+  let current = PKeyCombo.current->flatMap;
+  let deleteOnMatch = PKeyCombo.deleteOnMatch->flatMap;
+  let enabled = PKeyCombo.enabled->flatMap;
+  let index = PKeyCombo.index->flatMap;
+  let keyCodes = PKeyCombo.keyCodes->flatMap;
+  let matched = PKeyCombo.matched->flatMap;
+  let maxKeyDelay = PKeyCombo.maxKeyDelay->flatMap;
+  let resetOnMatch = PKeyCombo.resetOnMatch->flatMap;
+  let resetOnWrongKey = PKeyCombo.resetOnWrongKey->flatMap;
+  let size = PKeyCombo.size->flatMap;
+  let sizeF = PKeyCombo.sizeF->flatMap;
+  let timeLastMatched = PKeyCombo.timeLastMatched->flatMap;
+  let timeLastMatchedF = PKeyCombo.timeLastMatchedF->flatMap;
+  let timeMatched = PKeyCombo.timeMatched->flatMap;
+  let timeMatchedF = PKeyCombo.timeMatchedF->flatMap;
+  let progress = PKeyCombo.progress->flatMap;
+  let destroy = PKeyCombo.destroy->flatMap;
+};

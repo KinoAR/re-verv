@@ -1,6 +1,6 @@
 5.0.6
 1
-16
+17
 Text
 Verv
 Image
@@ -11,6 +11,7 @@ Tween
 Utils
 VBase
 Arcade
+Camera
 Events
 Vector2
 PhaserAPI
@@ -27,6 +28,7 @@ src/Tween,04
 src/Utils,04
 src/VBase,04
 src/Arcade,04
+src/Camera,04
 src/Events,04
 src/Vector2,04
 src/PhaserAPI,04
