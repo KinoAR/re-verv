@@ -33,7 +33,8 @@ type geometryMaskT;
 type vector2T;
 /* Web GL Code */
 type webGLPipelineT;
-
+type jsonCameraT;
+type sceneManagerT;
 [@bs.obj]
 external anyData: (~name: string, ~data: Js.t({..}), unit) => _ = "";
 
@@ -3060,7 +3061,6 @@ module Cameras = {
 
     [@bs.get] external backgroundColor: BC.t => colorT = "backgroundColor";
     [@bs.get] external cameraManager: BC.t => cameraManagerT = "cameraManager";
-    [@bs.get] external centerX: BC.t => int = "centerX";
     [@bs.get] external disableCull: BC.t => bool = "disableCull";
     [@bs.get] external id: BC.t => int = "id";
     [@bs.get] external mask: BC.t => bitmapMaskT = "mask";
@@ -3082,6 +3082,19 @@ module Cameras = {
     [@bs.get] external scrollYF: BC.t => float = "scrollY";
     [@bs.get] external roundPixels: BC.t => bool = "roundPixels";
     [@bs.get] external name: BC.t => string = "name";
+    [@bs.get] external centerX: BC.t => int = "centerX";
+    [@bs.get] external centerXF: BC.t => float = "centerX";
+    [@bs.get] external cetnerY: BC.t => int = "centerY";
+    [@bs.get] external cetnerYF: BC.t => float = "centerY";
+    [@bs.get] external displayHeight: BC.t => int = "displayHeight";
+    [@bs.get] external displayWidth: BC.t => int = "displayWidth";
+    [@bs.get] external displayHeightF: BC.t => float = "displayHeight";
+    [@bs.get] external displayWidthF: BC.t => float = "displayWidth";
+    [@bs.get] external resolution: BC.t => int = "resolution";
+    [@bs.get] external resolutionF: BC.t => float = "resolution";
+    [@bs.get] external scene: BC.t => sceneT = "scene";
+    [@bs.get] external sceneManager: BC.t => sceneManagerT = "sceneManager";
+    [@bs.get] external scaleManager: BC.t => scaleManagerT = "scaleManager";
     /*Methods */
 
     [@bs.send] external centerOn: (BC.t, int, int) => BC.t = "centerOn";
@@ -3109,19 +3122,55 @@ module Cameras = {
     [@bs.send]
     external setBackgroundColor: (BC.t, ~color: string=?, unit) => BC.t =
       "setBackgroundColor";
+
+    [@bs.send] external setAngle: (BC.t, int) => BC.t = "setAngle";
+    [@bs.send] external setAngleF: (BC.t, float) => BC.t = "setAngle";
+
     [@bs.send]
     external setBounds:
       (
         BC.t,
-        ~x: int,
-        ~y: int,
-        ~width: int,
-        ~height: int,
+        ~x: float,
+        ~y: float,
+        ~width: float,
+        ~height: float,
         ~centerOn: bool=?,
         unit
       ) =>
       BC.t =
       "setBounds";
+    [@bs.send]
+    external setName: (BC.t, ~name: string=?, unit) => BC.t = "setName";
+    [@bs.send]
+    external setOrigin: (BC.t, ~x: float=?, ~y: float=?, unit) => BC.t =
+      "setOrigin";
+    [@bs.send]
+    external setPosition: (BC.t, ~x: int, ~y: int=?, unit) => BC.t =
+      "setPosition";
+    [@bs.send]
+    external setPositionF: (BC.t, ~x: float, ~y: float=?, unit) => BC.t =
+      "setPosition";
+    [@bs.send] external setRotation: (BC.t, int) => BC.t = "setRotation";
+    [@bs.send] external setRotationF: (BC.t, float) => BC.t = "setRotation";
+    [@bs.send]
+    external setRoundsPixels: (BC.t, bool) => BC.t = "setRoundsPixels";
+    [@bs.send] external setScene: (BC.t, ~scene: sceneT) => BC.t = "setScene";
+    [@bs.send]
+    external setScroll: (BC.t, ~x: int, ~y: int=?, unit) => BC.t = "setScroll";
+    [@bs.send]
+    external setSize: (BC.t, ~width: int, ~height: int=?, unit) => BC.t =
+      "setSize";
+    [@bs.send]
+    external setViewport:
+      (BC.t, ~x: int, ~y: int, ~width: int, ~height: int=?, unit) => BC.t =
+      "setViewport";
+    external setViewportF:
+      (BC.t, ~x: float, ~y: float, ~width: int, ~height: int=?, unit) => BC.t =
+      "setViewport";
+    [@bs.send] external setVisible: (BC.t, bool) => BC.t = "setVisible";
+    [@bs.send]
+    external setZoom: (BC.t, ~value: float=?, unit) => BC.t = "setZoom";
+    [@bs.send] external toJSON: BC.t => jsonCameraT = "toJSON";
   };
   module CameraScene2D = {
     type t = camera2DT;
