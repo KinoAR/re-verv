@@ -42,4 +42,14 @@ module Camera2D = {
 
   let centerToBounds = map(PCamera2D.centerToBounds);
   let centerToSize = map(PCamera2D.centerToSize);
+  let removeBounds = map(PCamera2D.removeBounds);
+  let setBackgroundColor = color =>
+    switch (color) {
+    | Some(color) => map(PCamera2D.setBackgroundColor(_, ~color, ()))
+    | None => map(PCamera2D.setBackgroundColor(_, ()))
+    };
+  let cull = renderables =>
+    map(PCamera2D.cull(_, ~renderableObjects=renderables));
+  let ignore = renderables =>
+    map(PCamera2D.ignore(_, ~renderableObjects=renderables));
 };

@@ -200,6 +200,45 @@ function centerToSize(param) {
               }), param);
 }
 
+function removeBounds(param) {
+  return VBase$ReVerv.map((function (prim) {
+                return prim.removeBounds();
+              }), param);
+}
+
+function setBackgroundColor(color) {
+  if (color !== undefined) {
+    var color$1 = color;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setBackgroundColor(color$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setBackgroundColor(undefined);
+                    }), param);
+      });
+  }
+}
+
+function cull(renderables) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.cull(renderables);
+                  }), param);
+    });
+}
+
+function ignore(renderables) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.ignore(renderables);
+                  }), param);
+    });
+}
+
 var Camera2D_001 = /* F */include[0];
 
 var Camera2D_002 = /* flipX */include[1];
@@ -291,7 +330,11 @@ var Camera2D = /* module */[
   /* centerOnY */centerOnY,
   /* centerOnYF */centerOnYF,
   /* centerToBounds */centerToBounds,
-  /* centerToSize */centerToSize
+  /* centerToSize */centerToSize,
+  /* removeBounds */removeBounds,
+  /* setBackgroundColor */setBackgroundColor,
+  /* cull */cull,
+  /* ignore */ignore
 ];
 
 exports.Camera2D = Camera2D;
