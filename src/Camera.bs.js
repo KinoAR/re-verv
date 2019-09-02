@@ -38,6 +38,168 @@ function originY(param) {
               }), param);
 }
 
+function useBounds(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.useBounds;
+              }), param);
+}
+
+function width(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.width;
+              }), param);
+}
+
+function widthF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.width;
+              }), param);
+}
+
+function height(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.height;
+              }), param);
+}
+
+function heightF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.height;
+              }), param);
+}
+
+function zoom(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.zoom;
+              }), param);
+}
+
+function scrollX(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.scrollX;
+              }), param);
+}
+
+function scrollXF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.scrollX;
+              }), param);
+}
+
+function scrollY(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.scrollY;
+              }), param);
+}
+
+function scrollYF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.scrollY;
+              }), param);
+}
+
+function name(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.name;
+              }), param);
+}
+
+function roundPixels(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.roundPixels;
+              }), param);
+}
+
+function centerX(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.centerX;
+              }), param);
+}
+
+function transparent(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.transparent;
+              }), param);
+}
+
+function mask(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.mask;
+              }), param);
+}
+
+function geometryMask(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.mask;
+              }), param);
+}
+
+function midPoint(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.midPoint;
+              }), param);
+}
+
+function centerOn(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.centerOn(x, y);
+                  }), param);
+    });
+}
+
+function centerOnF(x, y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.centerOn(x, y);
+                  }), param);
+    });
+}
+
+function centeronX(x) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.centerOnX(x);
+                  }), param);
+    });
+}
+
+function centerOnXF(x) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.centerOnX(x);
+                  }), param);
+    });
+}
+
+function centerOnY(y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.centerOnY(y);
+                  }), param);
+    });
+}
+
+function centerOnYF(y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.centerOnY(y);
+                  }), param);
+    });
+}
+
+function centerToBounds(param) {
+  return VBase$ReVerv.map((function (prim) {
+                return prim.centerToBounds();
+              }), param);
+}
+
+function centerToSize(param) {
+  return VBase$ReVerv.map((function (prim) {
+                return prim.centerToSize();
+              }), param);
+}
+
 var Camera2D_001 = /* F */include[0];
 
 var Camera2D_002 = /* flipX */include[1];
@@ -104,7 +266,32 @@ var Camera2D = /* module */[
   /* cameraManager */cameraManager,
   /* id */id,
   /* originX */originX,
-  /* originY */originY
+  /* originY */originY,
+  /* useBounds */useBounds,
+  /* width */width,
+  /* widthF */widthF,
+  /* height */height,
+  /* heightF */heightF,
+  /* zoom */zoom,
+  /* scrollX */scrollX,
+  /* scrollXF */scrollXF,
+  /* scrollY */scrollY,
+  /* scrollYF */scrollYF,
+  /* name */name,
+  /* roundPixels */roundPixels,
+  /* centerX */centerX,
+  /* transparent */transparent,
+  /* mask */mask,
+  /* geometryMask */geometryMask,
+  /* midPoint */midPoint,
+  /* centerOn */centerOn,
+  /* centerOnF */centerOnF,
+  /* centeronX */centeronX,
+  /* centerOnXF */centerOnXF,
+  /* centerOnY */centerOnY,
+  /* centerOnYF */centerOnYF,
+  /* centerToBounds */centerToBounds,
+  /* centerToSize */centerToSize
 ];
 
 exports.Camera2D = Camera2D;

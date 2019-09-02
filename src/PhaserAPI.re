@@ -1225,7 +1225,8 @@ module Curves = {
     external getEndPoint: (t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getEndPoint";
     [@bs.send]
-    external getRandomPoint: (t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
+    external getRandomPoint:
+      (t, ~out: Math.Vector2.t=?, unit) => Math.Vector2.t =
       "getRandomPoint";
     [@bs.send]
     external getPoints: (t, ~divisions: int=?, unit) => array(Math.Vector2.t) =
@@ -3081,6 +3082,46 @@ module Cameras = {
     [@bs.get] external scrollYF: BC.t => float = "scrollY";
     [@bs.get] external roundPixels: BC.t => bool = "roundPixels";
     [@bs.get] external name: BC.t => string = "name";
+    /*Methods */
+
+    [@bs.send] external centerOn: (BC.t, int, int) => BC.t = "centerOn";
+    [@bs.send] external centerOnF: (BC.t, float, float) => BC.t = "centerOn";
+    [@bs.send] external centerOnX: (BC.t, int) => BC.t = "centerOnX";
+    [@bs.send] external centerOnXF: (BC.t, float) => BC.t = "centerOnX";
+    [@bs.send] external centerOnY: (BC.t, int) => BC.t = "centerOnY";
+    [@bs.send] external centerOnYF: (BC.t, float) => BC.t = "centerOnY";
+    [@bs.send] external centerToBounds: BC.t => BC.t = "centerToBounds";
+    [@bs.send] external centerToSize: BC.t => BC.t = "centerToSize";
+    [@bs.send] external clampX: (BC.t, int) => BC.t = "clampX";
+    [@bs.send] external clampY: (BC.t, int) => BC.t = "clampY";
+    [@bs.send] external clampXF: (BC.t, float) => BC.t = "clampX";
+    [@bs.send] external clampYF: (BC.t, float) => BC.t = "clampY";
+    [@bs.send]
+    external clearMask: (BC.t, ~destroyMask: bool=?, unit) => BC.t =
+      "clearMask";
+    [@bs.send]
+    external cull: (BC.t, ~renderableObjects: array(gameObjectT)) => BC.t =
+      "cull";
+    [@bs.send]
+    external ignore: (BC.t, ~renderableObjects: array(gameObjectT)) => BC.t =
+      "ignore";
+    [@bs.send] external removeBounds: BC.t => BC.t = "removeBounds";
+    [@bs.send]
+    external setBackgroundColor: (BC.t, ~color: string=?, unit) => BC.t =
+      "setBackgroundColor";
+    [@bs.send]
+    external setBounds:
+      (
+        BC.t,
+        ~x: int,
+        ~y: int,
+        ~width: int,
+        ~height: int,
+        ~centerOn: bool=?,
+        unit
+      ) =>
+      BC.t =
+      "setBounds";
   };
   module CameraScene2D = {
     type t = camera2DT;

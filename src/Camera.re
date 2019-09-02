@@ -15,4 +15,31 @@ module Camera2D = {
   let id = PCamera2D.id->flatMap;
   let originX = PCamera2D.originX->flatMap;
   let originY = PCamera2D.originY->flatMap;
+  let useBounds = PCamera2D.useBounds->flatMap;
+  let width = PCamera2D.width->flatMap;
+  let widthF = PCamera2D.widthF->flatMap;
+  let height = PCamera2D.height->flatMap;
+  let heightF = PCamera2D.heightF->flatMap;
+  let zoom = PCamera2D.zoom->flatMap;
+  let scrollX = PCamera2D.scrollX->flatMap;
+  let scrollXF = PCamera2D.scrollXF->flatMap;
+  let scrollY = PCamera2D.scrollYF->flatMap;
+  let scrollYF = PCamera2D.scrollYF->flatMap;
+  let name = PCamera2D.name->flatMap;
+  let roundPixels = PCamera2D.roundPixels->flatMap;
+  let centerX = PCamera2D.centerX->flatMap;
+  let transparent = PCamera2D.transparent->flatMap;
+  let mask = PCamera2D.mask->flatMap;
+  let geometryMask = PCamera2D.geometryMask->flatMap;
+  let midPoint = PCamera2D.midPoint->flatMap;
+
+  let centerOn = (x, y) => map(PCamera2D.centerOn(_, x, y));
+  let centerOnF = (x, y) => map(PCamera2D.centerOnF(_, x, y));
+  let centeronX = x => map(PCamera2D.centerOnX(_, x));
+  let centerOnXF = x => map(PCamera2D.centerOnXF(_, x));
+  let centerOnY = y => map(PCamera2D.centerOnY(_, y));
+  let centerOnYF = y => map(PCamera2D.centerOnYF(_, y));
+
+  let centerToBounds = map(PCamera2D.centerToBounds);
+  let centerToSize = map(PCamera2D.centerToSize);
 };
