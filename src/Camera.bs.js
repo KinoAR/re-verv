@@ -140,6 +140,78 @@ function midPoint(param) {
               }), param);
 }
 
+function scaleManager(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.scaleManager;
+              }), param);
+}
+
+function sceneManager(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.sceneManager;
+              }), param);
+}
+
+function scene(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.scene;
+              }), param);
+}
+
+function displayHeight(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.displayHeight;
+              }), param);
+}
+
+function displayHeightF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.displayHeight;
+              }), param);
+}
+
+function displayWidth(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.displayWidth;
+              }), param);
+}
+
+function displayWidthF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.displayWidth;
+              }), param);
+}
+
+function resolution(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.resolution;
+              }), param);
+}
+
+function resolutionF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.resolution;
+              }), param);
+}
+
+function centerY(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.centerY;
+              }), param);
+}
+
+function centerYF(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.centerY;
+              }), param);
+}
+
+function centerXY(param) {
+  return VBase$ReVerv.flatMap((function (prim) {
+                return prim.centerX;
+              }), param);
+}
+
 function centerOn(x, y) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
@@ -188,6 +260,38 @@ function centerOnYF(y) {
     });
 }
 
+function clampX(x) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.clampX(x);
+                  }), param);
+    });
+}
+
+function clampY(y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.clampY(y);
+                  }), param);
+    });
+}
+
+function clampXF(x) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.clampX(x);
+                  }), param);
+    });
+}
+
+function clampYF(y) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.clampY(y);
+                  }), param);
+    });
+}
+
 function centerToBounds(param) {
   return VBase$ReVerv.map((function (prim) {
                 return prim.centerToBounds();
@@ -223,6 +327,23 @@ function setBackgroundColor(color) {
   }
 }
 
+function clearMask(destroyMask, param) {
+  if (destroyMask !== undefined) {
+    var destroy = destroyMask;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.clearMask(destroy);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.clearMask(undefined);
+                    }), param);
+      });
+  }
+}
+
 function cull(renderables) {
   return (function (param) {
       return VBase$ReVerv.map((function (__x) {
@@ -237,6 +358,189 @@ function ignore(renderables) {
                     return __x.ignore(renderables);
                   }), param);
     });
+}
+
+function setAngle(angle) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setAngle(angle);
+                  }), param);
+    });
+}
+
+function setAngleF(angle) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setAngle(angle);
+                  }), param);
+    });
+}
+
+function setBounds(x, y, width, height, centerOn, param) {
+  if (centerOn !== undefined) {
+    var centerOn$1 = centerOn;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setBounds(x, y, width, height, centerOn$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setBounds(x, y, width, height, undefined);
+                    }), param);
+      });
+  }
+}
+
+function setName(name) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setName(undefined);
+                  }), param);
+    });
+}
+
+function setPosition(x, y, param) {
+  if (y !== undefined) {
+    var y$1 = y;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setPosition(x, y$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setPosition(x, undefined);
+                    }), param);
+      });
+  }
+}
+
+function setPositionF(x, y, param) {
+  if (y !== undefined) {
+    var y$1 = y;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setPosition(x, y$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setPosition(x, undefined);
+                    }), param);
+      });
+  }
+}
+
+function setRotation(rotation) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setRotation(rotation);
+                  }), param);
+    });
+}
+
+function setRotationF(rotation) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setRotation(rotation);
+                  }), param);
+    });
+}
+
+function setRoundsPixels(round) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setRoundsPixels(round);
+                  }), param);
+    });
+}
+
+function setScene(scene) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setScene(scene);
+                  }), param);
+    });
+}
+
+function setVisible(visible) {
+  return (function (param) {
+      return VBase$ReVerv.map((function (__x) {
+                    return __x.setVisible(visible);
+                  }), param);
+    });
+}
+
+function setViewport(x, y, width, height, param) {
+  if (height !== undefined) {
+    var height$1 = height;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setViewport(x, y, width, height$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setViewport(x, y, width, undefined);
+                    }), param);
+      });
+  }
+}
+
+function setViewportF(x, y, width, height, param) {
+  if (height !== undefined) {
+    var height$1 = height;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setViewport(x, y, width, height$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setViewport(x, y, width, undefined);
+                    }), param);
+      });
+  }
+}
+
+function setZoom(value, param) {
+  if (value !== undefined) {
+    var value$1 = value;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setZoom(value$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setZoom(undefined);
+                    }), param);
+      });
+  }
+}
+
+function setScroll(x, y, param) {
+  if (y !== undefined) {
+    var y$1 = y;
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setScroll(x, y$1);
+                    }), param);
+      });
+  } else {
+    return (function (param) {
+        return VBase$ReVerv.map((function (__x) {
+                      return __x.setScroll(x, undefined);
+                    }), param);
+      });
+  }
 }
 
 var Camera2D_001 = /* F */include[0];
@@ -323,18 +627,50 @@ var Camera2D = /* module */[
   /* mask */mask,
   /* geometryMask */geometryMask,
   /* midPoint */midPoint,
+  /* scaleManager */scaleManager,
+  /* sceneManager */sceneManager,
+  /* scene */scene,
+  /* displayHeight */displayHeight,
+  /* displayHeightF */displayHeightF,
+  /* displayWidth */displayWidth,
+  /* displayWidthF */displayWidthF,
+  /* resolution */resolution,
+  /* resolutionF */resolutionF,
+  /* centerY */centerY,
+  /* centerYF */centerYF,
+  /* centerXY */centerXY,
   /* centerOn */centerOn,
   /* centerOnF */centerOnF,
   /* centeronX */centeronX,
   /* centerOnXF */centerOnXF,
   /* centerOnY */centerOnY,
   /* centerOnYF */centerOnYF,
+  /* clampX */clampX,
+  /* clampY */clampY,
+  /* clampXF */clampXF,
+  /* clampYF */clampYF,
   /* centerToBounds */centerToBounds,
   /* centerToSize */centerToSize,
   /* removeBounds */removeBounds,
   /* setBackgroundColor */setBackgroundColor,
+  /* clearMask */clearMask,
   /* cull */cull,
-  /* ignore */ignore
+  /* ignore */ignore,
+  /* setAngle */setAngle,
+  /* setAngleF */setAngleF,
+  /* setBounds */setBounds,
+  /* setName */setName,
+  /* setPosition */setPosition,
+  /* setPositionF */setPositionF,
+  /* setRotation */setRotation,
+  /* setRotationF */setRotationF,
+  /* setRoundsPixels */setRoundsPixels,
+  /* setScene */setScene,
+  /* setVisible */setVisible,
+  /* setViewport */setViewport,
+  /* setViewportF */setViewportF,
+  /* setZoom */setZoom,
+  /* setScroll */setScroll
 ];
 
 exports.Camera2D = Camera2D;

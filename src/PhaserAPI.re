@@ -3084,8 +3084,8 @@ module Cameras = {
     [@bs.get] external name: BC.t => string = "name";
     [@bs.get] external centerX: BC.t => int = "centerX";
     [@bs.get] external centerXF: BC.t => float = "centerX";
-    [@bs.get] external cetnerY: BC.t => int = "centerY";
-    [@bs.get] external cetnerYF: BC.t => float = "centerY";
+    [@bs.get] external centerY: BC.t => int = "centerY";
+    [@bs.get] external centerYF: BC.t => float = "centerY";
     [@bs.get] external displayHeight: BC.t => int = "displayHeight";
     [@bs.get] external displayWidth: BC.t => int = "displayWidth";
     [@bs.get] external displayHeightF: BC.t => float = "displayHeight";
@@ -3164,6 +3164,7 @@ module Cameras = {
     external setViewport:
       (BC.t, ~x: int, ~y: int, ~width: int, ~height: int=?, unit) => BC.t =
       "setViewport";
+    [@bs.send]
     external setViewportF:
       (BC.t, ~x: float, ~y: float, ~width: int, ~height: int=?, unit) => BC.t =
       "setViewport";

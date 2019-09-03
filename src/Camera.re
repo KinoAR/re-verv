@@ -32,6 +32,18 @@ module Camera2D = {
   let mask = PCamera2D.mask->flatMap;
   let geometryMask = PCamera2D.geometryMask->flatMap;
   let midPoint = PCamera2D.midPoint->flatMap;
+  let scaleManager = PCamera2D.scaleManager->flatMap;
+  let sceneManager = PCamera2D.sceneManager->flatMap;
+  let scene = PCamera2D.scene->flatMap;
+  let displayHeight = PCamera2D.displayHeight->flatMap;
+  let displayHeightF = PCamera2D.displayHeightF->flatMap;
+  let displayWidth = PCamera2D.displayWidth->flatMap;
+  let displayWidthF = PCamera2D.displayWidthF->flatMap;
+  let resolution = PCamera2D.resolution->flatMap;
+  let resolutionF = PCamera2D.resolutionF->flatMap;
+  let centerY = PCamera2D.centerY->flatMap;
+  let centerYF = PCamera2D.centerYF->flatMap;
+  let centerXY = PCamera2D.centerXF->flatMap;
 
   let centerOn = (x, y) => map(PCamera2D.centerOn(_, x, y));
   let centerOnF = (x, y) => map(PCamera2D.centerOnF(_, x, y));
@@ -39,6 +51,10 @@ module Camera2D = {
   let centerOnXF = x => map(PCamera2D.centerOnXF(_, x));
   let centerOnY = y => map(PCamera2D.centerOnY(_, y));
   let centerOnYF = y => map(PCamera2D.centerOnYF(_, y));
+  let clampX = x => map(PCamera2D.clampX(_, x));
+  let clampY = y => map(PCamera2D.clampY(_, y));
+  let clampXF = x => map(PCamera2D.clampXF(_, x));
+  let clampYF = y => map(PCamera2D.clampYF(_, y));
 
   let centerToBounds = map(PCamera2D.centerToBounds);
   let centerToSize = map(PCamera2D.centerToSize);
@@ -48,8 +64,62 @@ module Camera2D = {
     | Some(color) => map(PCamera2D.setBackgroundColor(_, ~color, ()))
     | None => map(PCamera2D.setBackgroundColor(_, ()))
     };
+  let clearMask = (~destroyMask=?, ()) =>
+    switch (destroyMask) {
+    | Some(destroy) => map(PCamera2D.clearMask(_, ~destroyMask=destroy, ()))
+    | None => map(PCamera2D.clearMask(_, ()))
+    };
   let cull = renderables =>
     map(PCamera2D.cull(_, ~renderableObjects=renderables));
   let ignore = renderables =>
     map(PCamera2D.ignore(_, ~renderableObjects=renderables));
+
+  let setAngle = angle => map(PCamera2D.setAngle(_, angle));
+  let setAngleF = angle => map(PCamera2D.setAngleF(_, angle));
+  let setBounds = (x, y, width, height, ~centerOn=?, ()) =>
+    switch (centerOn) {
+    | Some(centerOn) =>
+      map(PCamera2D.setBounds(_, ~x, ~y, ~width, ~height, ~centerOn, ()))
+    | None => map(PCamera2D.setBounds(_, ~x, ~y, ~width, ~height, ()))
+    };
+  let setName = name => map(PCamera2D.setName(_, name));
+  let setPosition = (x, ~y=?, ()) =>
+    switch (y) {
+    | Some(y) => map(PCamera2D.setPosition(_, ~x, ~y, ()))
+    | None => map(PCamera2D.setPosition(_, ~x, ()))
+    };
+
+  let setPositionF = (x, ~y=?, ()) =>
+    switch (y) {
+    | Some(y) => map(PCamera2D.setPositionF(_, ~x, ~y, ()))
+    | None => map(PCamera2D.setPositionF(_, ~x, ()))
+    };
+  let setRotation = rotation => map(PCamera2D.setRotation(_, rotation));
+  let setRotationF = rotation => map(PCamera2D.setRotationF(_, rotation));
+  let setRoundsPixels = round => map(PCamera2D.setRoundsPixels(_, round));
+  let setScene = scene => map(PCamera2D.setScene(_, ~scene));
+  let setVisible = visible => map(PCamera2D.setVisible(_, visible));
+  let setViewport = (~x, ~y, ~width, ~height=?, ()) =>
+    switch (height) {
+    | Some(height) =>
+      map(PCamera2D.setViewport(_, ~x, ~y, ~width, ~height, ()))
+    | None => map(PCamera2D.setViewport(_, ~x, ~y, ~width, ()))
+    };
+
+  let setViewportF = (~x, ~y, ~width, ~height=?, ()) =>
+    switch (height) {
+    | Some(height) =>
+      map(PCamera2D.setViewportF(_, ~x, ~y, ~width, ~height, ()))
+    | None => map(PCamera2D.setViewportF(_, ~x, ~y, ~width, ()))
+    };
+  let setZoom = (~value=?, ()) =>
+    switch (value) {
+    | Some(value) => map(PCamera2D.setZoom(_, ~value, ()))
+    | None => map(PCamera2D.setZoom(_, ()))
+    };
+  let setScroll = (~x, ~y=?, ()) =>
+    switch (y) {
+    | Some(y) => map(PCamera2D.setScroll(_, ~x, ~y, ()))
+    | None => map(PCamera2D.setScroll(_, ~x, ()))
+    };
 };
