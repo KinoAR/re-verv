@@ -4,11 +4,23 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 
 function map(f, vervComponent) {
-  return /* Container */[Curry._1(f, vervComponent[0])];
+  return /* VervEffect */[Curry._1(f, vervComponent[0])];
 }
 
 function flatMap(f, vervComponent) {
   return Curry._1(f, vervComponent[0]);
+}
+
+function $bang$great(value) {
+  return /* VervEffect */[value];
+}
+
+function lift(value) {
+  return /* VervEffect */[value];
+}
+
+function $less$less$eq(vervContainer, f) {
+  return /* VervEffect */[Curry._1(f, vervContainer[0])];
 }
 
 function useState(fn) {
@@ -31,8 +43,33 @@ function useReducer(fn, state) {
         ];
 }
 
+function useEffect(fn) {
+  return Curry._1(fn, /* () */0);
+}
+
+function useEffectWithCleanup(fn, cleanupFn) {
+  Curry._1(fn, /* () */0);
+  return Curry._1(cleanupFn, /* () */0);
+}
+
+function useSideEffect(fn) {
+  return Curry._1(fn, /* () */0);
+}
+
+function useSideEffectWithCleanup(fn, cleanupFn) {
+  Curry._1(fn, /* () */0);
+  return Curry._1(cleanupFn, /* () */0);
+}
+
 exports.map = map;
 exports.flatMap = flatMap;
+exports.$bang$great = $bang$great;
+exports.lift = lift;
+exports.$less$less$eq = $less$less$eq;
 exports.useState = useState;
 exports.useReducer = useReducer;
+exports.useEffect = useEffect;
+exports.useEffectWithCleanup = useEffectWithCleanup;
+exports.useSideEffect = useSideEffect;
+exports.useSideEffectWithCleanup = useSideEffectWithCleanup;
 /* No side effect */

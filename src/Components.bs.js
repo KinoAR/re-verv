@@ -10,7 +10,7 @@ var PhaserAPI$ReVerv = require("./PhaserAPI.bs.js");
 function BaseGameObject(G) {
   var PBaseGO = PhaserAPI$ReVerv.GameObjects[/* BaseGameObject */0](/* module */[]);
   var makeBase = function (scene, name) {
-    return /* Container */[new (Phaser.GameObjects.GameObject)(scene, name)];
+    return /* VervEffect */[new (Phaser.GameObjects.GameObject)(scene, name)];
   };
   var active = function (container) {
     return VBase$ReVerv.flatMap((function (prim) {

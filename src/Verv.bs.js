@@ -103,33 +103,33 @@ function MakeGameObjFactory(A) {
   var factory = scene.add;
   var addImage = function (x, y, texture, frame, param) {
     var image = frame !== undefined ? factory.image(x, y, texture, frame) : factory.image(x, y, texture, undefined);
-    return /* Container */[image];
+    return /* VervEffect */[image];
   };
   var addSprite = function (x, y, texture, frame, param) {
     var sprite = frame !== undefined ? factory.sprite(x, y, texture, frame) : factory.sprite(x, y, texture, undefined);
-    return /* Container */[sprite];
+    return /* VervEffect */[sprite];
   };
   var addBlitter = function (x, y, key, frame, param) {
     var blitter = frame !== undefined ? factory.blitter(x, y, key, frame) : factory.blitter(x, y, key, undefined);
-    return /* Container */[blitter];
+    return /* VervEffect */[blitter];
   };
   var addPathInt = function (x, y) {
-    return /* Container */[factory.path(x, y)];
+    return /* VervEffect */[factory.path(x, y)];
   };
   var addPathF = function (x, y) {
-    return /* Container */[factory.path(x, y)];
+    return /* VervEffect */[factory.path(x, y)];
   };
   var addText = function (x, y, text, color) {
     var text$1 = factory.text(x, y, text);
-    return Text$ReVerv.setColor(color)(/* Container */[text$1]);
+    return Text$ReVerv.setColor(color)(/* VervEffect */[text$1]);
   };
   var addBitmapText = function (x, y, font, text) {
     var bitmapText = factory.bitmapText(x, y, font, text, undefined, undefined);
-    return /* Container */[bitmapText];
+    return /* VervEffect */[bitmapText];
   };
   var addZone = function (x, y, width, height) {
     var zone = factory.zone(x, y, width, height);
-    return /* Container */[zone];
+    return /* VervEffect */[zone];
   };
   return /* module */[
           /* scene */scene,

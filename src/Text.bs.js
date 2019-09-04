@@ -6,7 +6,7 @@ var VBase$ReVerv = require("./VBase.bs.js");
 var Components$ReVerv = require("./Components.bs.js");
 
 function make(scene, x, y, text, style) {
-  return /* Container */[new (Phaser.GameObjects.Text)(scene, x, y, text, style)];
+  return /* VervEffect */[new (Phaser.GameObjects.Text)(scene, x, y, text, style)];
 }
 
 function dirty(param) {
