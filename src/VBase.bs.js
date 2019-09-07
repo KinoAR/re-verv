@@ -43,6 +43,10 @@ function useReducer(fn, state) {
         ];
 }
 
+function combineReducers(fn, reducers) {
+  return Curry._1(fn, reducers);
+}
+
 function useEffect(fn) {
   return Curry._1(fn, /* () */0);
 }
@@ -61,6 +65,22 @@ function useSideEffectWithCleanup(fn, cleanupFn) {
   return Curry._1(cleanupFn, /* () */0);
 }
 
+function zeroCallback(fn) {
+  return (function () {
+      var $$this = this ;
+      Curry._1(fn, $$this);
+      return /* () */0;
+    });
+}
+
+function dataCallback(fn) {
+  return (function (data) {
+      var $$this = this ;
+      Curry._2(fn, $$this, data);
+      return /* () */0;
+    });
+}
+
 exports.map = map;
 exports.flatMap = flatMap;
 exports.$bang$great = $bang$great;
@@ -68,8 +88,11 @@ exports.lift = lift;
 exports.$less$less$eq = $less$less$eq;
 exports.useState = useState;
 exports.useReducer = useReducer;
+exports.combineReducers = combineReducers;
 exports.useEffect = useEffect;
 exports.useEffectWithCleanup = useEffectWithCleanup;
 exports.useSideEffect = useSideEffect;
 exports.useSideEffectWithCleanup = useSideEffectWithCleanup;
+exports.zeroCallback = zeroCallback;
+exports.dataCallback = dataCallback;
 /* No side effect */

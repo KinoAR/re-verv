@@ -26,22 +26,6 @@ function createGame(renderer, parent, width, height, scene) {
             });
 }
 
-function zeroCallback(fn) {
-  return (function () {
-      var $$this = this ;
-      Curry._1(fn, $$this);
-      return /* () */0;
-    });
-}
-
-function dataCallback(fn) {
-  return (function (data) {
-      var scene = this ;
-      Curry._2(fn, scene, data);
-      return /* () */0;
-    });
-}
-
 function createScene(key, init, preload, create, update, param) {
   var scene = new Phaser.Scene({
         key: key
@@ -53,7 +37,7 @@ function createScene(key, init, preload, create, update, param) {
     scene.create = Caml_option.valFromOption(create);
   }
   if (preload !== undefined) {
-    scene.preload = preload;
+    scene.preload = Caml_option.valFromOption(preload);
   }
   if (update !== undefined) {
     scene.update(Curry._1(update, scene));
@@ -145,6 +129,11 @@ function MakeGameObjFactory(A) {
         ];
 }
 
+function MakePhysics(P) {
+  var scene = P[/* scene */0];
+  return /* module */[/* scene */scene];
+}
+
 var Vector2 = 0;
 
 var $$Image = 0;
@@ -159,14 +148,14 @@ var BitMapText = 0;
 
 var Shape = 0;
 
+var Scene = 0;
+
 exports.phaser = phaser;
 exports.auto = auto;
 exports.canvas = canvas;
 exports.headless = headless;
 exports.webgl = webgl;
 exports.createGame = createGame;
-exports.zeroCallback = zeroCallback;
-exports.dataCallback = dataCallback;
 exports.createScene = createScene;
 exports.Vector2 = Vector2;
 exports.$$Image = $$Image;
@@ -175,6 +164,8 @@ exports.Tween = Tween;
 exports.$$Text = $$Text;
 exports.BitMapText = BitMapText;
 exports.Shape = Shape;
+exports.Scene = Scene;
 exports.MakeLoader = MakeLoader;
 exports.MakeGameObjFactory = MakeGameObjFactory;
+exports.MakePhysics = MakePhysics;
 /* phaser Not a pure module */

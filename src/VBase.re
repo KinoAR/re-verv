@@ -1,4 +1,7 @@
-type vervEffect('a) =
+type reducerT('state, 'action) = ('state, 'action) => 'state;
+type combineReducers('composedReducers, 'composedState) =
+  'composedReducers => 'composedState;
+type vervEffectT('a) =
   | VervEffect('a);
 
 let map = (f, vervComponent) =>
@@ -28,8 +31,16 @@ let useState = fn => {
   (initial, setValue(initial));
 };
 
-let useReducer = (fn: ('state, 'action) => 'state, state: 'state) => {
+let useReducer = (fn: reducerT('state, 'action'), state: 'state) => {
   (state, fn(state));
+};
+
+let combineReducers =
+    (
+      fn: combineReducers('composedReducers, 'state),
+      reducers: 'composedReducers,
+    ) => {
+  fn(reducers);
 };
 
 let useEffect = (fn: unit => unit) => {
@@ -49,3 +60,19 @@ let useSideEffectWithCleanup = (fn, cleanupFn) => {
   useSideEffect(fn);
   cleanupFn();
 };
+
+let zeroCallback = fn =>
+  [@bs.this]
+  {
+    this => {
+      fn(this: 'any) |> ignore;
+    };
+  };
+
+let dataCallback = fn =>
+  [@bs.this]
+  {
+    (this, data) => {
+      fn(this: 'any, data) |> ignore;
+    };
+  };

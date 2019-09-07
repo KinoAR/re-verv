@@ -369,9 +369,12 @@ function BaseCamera2D(BC) {
 
 var CameraScene2D = /* module */[];
 
+var CameraManager = /* module */[];
+
 var Cameras = /* module */[
   /* BaseCamera2D */BaseCamera2D,
-  /* CameraScene2D */CameraScene2D
+  /* CameraScene2D */CameraScene2D,
+  /* CameraManager */CameraManager
 ];
 
 var LoaderPlugin = /* module */[];

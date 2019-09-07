@@ -45,6 +45,10 @@ build src/Input.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Inpu
 build src/Input.d : build_deps src/Input.mlast
 build src/Input-ReVerv.cmj |  $src_root_dir/src/Input.bs.js src/Input-ReVerv.cmi : re_cmj_cmi src/Input.mlast ||  src/Input.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
+build src/Scene.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Scene.re
+build src/Scene.d : build_deps src/Scene.mlast
+build src/Scene-ReVerv.cmj |  $src_root_dir/src/Scene.bs.js src/Scene-ReVerv.cmi : re_cmj_cmi src/Scene.mlast ||  src/Scene.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src
 build src/Shape.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/Shape.re
 build src/Shape.d : build_deps src/Shape.mlast
 build src/Shape-ReVerv.cmj |  $src_root_dir/src/Shape.bs.js src/Shape-ReVerv.cmi : re_cmj_cmi src/Shape.mlast ||  src/Shape.d

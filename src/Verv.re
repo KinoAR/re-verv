@@ -18,22 +18,6 @@ let createGame = (~renderer, ~parent, ~width, ~height, ~scene) => {
   );
 };
 
-let zeroCallback = fn =>
-  [@bs.this]
-  {
-    this => {
-      fn(this) |> ignore;
-    };
-  };
-
-let dataCallback = fn =>
-  [@bs.this]
-  {
-    (scene, data) => {
-      fn(scene: PhaserAPI.Scene.t, data) |> ignore;
-    };
-  };
-
 let createScene = (~key, ~init=?, ~preload=?, ~create=?, ~update=?, ()) => {
   let scene = PhaserAPI.Scene.make(PhaserAPI.sceneConfig(~key, ()));
 
@@ -67,6 +51,7 @@ module Tween = Tween;
 module Text = Text;
 module BitMapText = BitMapText;
 module Shape = Shape;
+module Scene = Scene;
 
 module MakeLoader = (S: {let scene: PhaserAPI.sceneT;}) => {
   open PhaserAPI;
@@ -158,4 +143,9 @@ module MakeGameObjFactory = (A: {let scene: PhaserAPI.sceneT;}) => {
     let zone = factory->GameObjectFactory.zone(x, y, width, height);
     VervEffect(zone);
   };
+};
+
+module MakePhysics = (P: {let scene: PhaserAPI.sceneT;}) => {
+  open PhaserAPI;
+  let scene = P.scene;
 };

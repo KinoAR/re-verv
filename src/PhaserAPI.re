@@ -28,7 +28,9 @@ type loaderPluginT;
 type gameObjectCreatorT;
 type baseShaderT;
 type cameraManagerT;
+type camera2DConfigT;
 type bitmapMaskT;
+type structSizeT;
 type geometryMaskT;
 type vector2T;
 /* Web GL Code */
@@ -2542,13 +2544,15 @@ module Scene = {
   [@bs.get] external textures: t => textureManager = "textures";
   [@bs.get] external time: t => clockT = "time";
   [@bs.get] external tweens: t => tweenManager = "tweens";
-  [@bs.set] external setUpdate: (t, (time, delta) => unit) => unit = "update";
   [@bs.set]
-  external setInit: (t, [@bs.this] ((t, Utils.any) => unit)) => unit = "init";
+  external setUpdate: (t, [@bs.this] ((t, time, delta) => unit)) => unit =
+    "update";
   [@bs.set]
-  external setCreate: (t, [@bs.this] ((t, Utils.any) => unit)) => unit =
-    "create";
-  [@bs.set] external setPreload: (t, t => unit) => unit = "preload";
+  external setInit: (t, [@bs.this] ((t, 'a) => unit)) => unit = "init";
+  [@bs.set]
+  external setCreate: (t, [@bs.this] ((t, 'a) => unit)) => unit = "create";
+  [@bs.set]
+  external setPreload: (t, [@bs.this] (t => unit)) => unit = "preload";
   [@bs.send] external update: (t, (time, delta) => unit) => unit = "update";
   external makeCreate: ([@bs.this] ((t => unit) => unit), unit) => unit = "";
 };
@@ -3187,6 +3191,63 @@ module Cameras = {
     });
 
     [@bs.get] external backgroundColor: t => int = "backgroundColor";
+  };
+
+  module CameraManager = {
+    type t = cameraManagerT;
+
+    [@bs.module "phaser"] [@bs.scope ("Cameras", "Scene2D")] [@bs.new]
+    external make: sceneT => t = "CameraManager";
+    [@bs.get] external cameras: t => array(camera2DT) = "cameras";
+    [@bs.get] external default: t => camera2DT = "default";
+    [@bs.get] external main: t => camera2DT = "main";
+    [@bs.get] external roundPixels: t => bool = "roundPixels";
+    [@bs.get] external scene: t => sceneT = "scene";
+    [@bs.get] external systems: t => systems = "systems";
+
+    /* Camera Manager Methods */
+    /* Render method not included as it is protected */
+    [@bs.send]
+    external getCamera: (t, string) => Js.Nullable.t(camera2DT) = "getCamera";
+    [@bs.send]
+    external getCameraBelowPointer: (t, Input.pointerT) => array(camera2DT) =
+      "getCameraBelowPointer";
+    [@bs.send]
+    external getTotal: (t, ~isVisible: bool=?, unit) => int = "getTotal";
+    [@bs.send] external resetAll: t => camera2DT = "resetAll";
+    [@bs.send]
+    external resize: (t, ~width: int, ~height: int) => unit = "resize";
+    [@bs.send]
+    external resizeF: (t, ~width: float, ~height: float) => unit = "resize";
+    [@bs.send]
+    external remove: (t, array(camera2DT), ~runDestroy: bool=?, unit) => int =
+      "remove";
+    [@bs.send]
+    external addExisting: (t, camera2DT, ~makeMain: bool=?, unit) => camera2DT =
+      "addExisting";
+    [@bs.send]
+    external fromJSON: (t, array(camera2DConfigT)) => t = "fromJSON";
+    [@bs.send]
+    external add:
+      (
+        t,
+        ~x: int=?,
+        ~y: int=?,
+        ~width: int=?,
+        ~height: int=?,
+        ~makeMain: bool=?,
+        ~name: string=?,
+        unit
+      ) =>
+      camera2DT =
+      "add";
+    /**
+     * Handles the resizing event that is dispatched by the scale manager.
+     */
+    [@bs.send]
+    external onResize:
+      (t, ~gameSize: structSizeT, ~baseSize: structSizeT) => unit =
+      "onResize";
   };
 };
 module LoaderPlugin = {

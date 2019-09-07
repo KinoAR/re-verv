@@ -1,11 +1,12 @@
 5.0.6
 1
-17
+18
 Text
 Verv
 Image
 Index
 Input
+Scene
 Shape
 Tween
 Utils
@@ -23,6 +24,7 @@ src/Verv,04
 src/Image,04
 src/Index,04
 src/Input,04
+src/Scene,04
 src/Shape,04
 src/Tween,04
 src/Utils,04
